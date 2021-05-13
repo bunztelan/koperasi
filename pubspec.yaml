@@ -55,12 +55,12 @@ dependencies:
   image_picker: ^0.7.5
   #Font by google
   google_fonts: ^2.0.0
-  # Flutter plugin for Firebase Cloud Messaging.
-  firebase_messaging: ^9.1.4
   # all good things of kotlin
   supercharged: ^2.0.0
   # Loading indicators
-  flutter_spinkit: "^4.1.2"
+  flutter_spinkit: ^4.1.2
+  # Google Maps
+  google_maps_flutter: ^2.0.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
