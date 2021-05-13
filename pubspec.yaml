@@ -59,6 +59,8 @@ dependencies:
   supercharged: ^2.0.0
   # Loading indicators
   flutter_spinkit: ^4.1.2
+  #intl
+  intl: ^0.17.0
   # Google Maps
   google_maps_flutter: ^2.0.3
   # The following adds the Cupertino Icons font to your application.
