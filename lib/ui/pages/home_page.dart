@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width:16),
+                  SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +138,13 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 16),
               Builder(
                 builder: (_) {
-                  return Text("testing");
+                  print("before column");
+
+                  return Column(
+                    children: Product.mockProducts
+                        .map((e) => ProductListItem(product: e))
+                        .toList(),
+                  );
                 },
               )
             ],
