@@ -22,7 +22,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           SafeArea(
             child: Container(
-              color: Colors.white,
+              color: AppColor.softGrayColor,
             ),
           ),
           SafeArea(

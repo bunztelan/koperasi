@@ -23,7 +23,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
   @override
   Widget build(BuildContext context) {
     return GeneralPage(
-      onBackPressed: () {},
+      onBackPressed: () {
+        Beamer.of(context).popBeamLocation();
+      },
       title: "Alamat",
       subtitle: "Pastikan alamat anda benar",
       child: SingleChildScrollView(
@@ -121,13 +123,15 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 )),
             SizedBox(height: 32),
             TextButton(
-              onPressed:(){},
+              onPressed:(){
+                Beamer.of(context).beamToNamed(RouteName.generalConfirmationMail);
+              },
               child: Text(
                 "Daftar",
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: AppColor.textPrimaryColor,
                 ),
               ),
               style: ButtonStyle(

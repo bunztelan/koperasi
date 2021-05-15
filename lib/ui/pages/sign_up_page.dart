@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return GeneralPage(
       onBackPressed: () {
-        print("back");
+        Beamer.of(context).popBeamLocation();
       },
       title: "Buat Akun",
       subtitle: "Daftar dan Pesan",
@@ -179,7 +179,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             SizedBox(height: 24),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Beamer.of(context).beamToNamed(RouteName.userManageAddress);
+              },
               child: Text(
                 "Lanjutkan",
                 style: GoogleFonts.poppins(
