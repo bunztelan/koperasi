@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 class AppColor {
-  static const primaryColor = Color(0xFF189AB4);
-  static const primaryDarkColor = Color(0xFF05445E);
+  static const secondaryColor = Color(0xFF2A9D8F);
+  static const secondaryDarkColor = Color(0xFF264653);
   static const primaryLightColor = Color(0xFF75E6DA);
   static const primaryLighterColor = Color(0xFFD4F1F4);
-  static const secondaryColor = Color(0xFFFFB74D);
-  static const secondaryDarkColor = Color(0xFFF57C00);
+  static const primaryColor = Color(0xFFE9C46A);
+  static const primaryDarkColor = Color(0xFFF4A261);
   static const secondaryLighterColor = Color(0xFFFFF5E7);
   static const mistyColor = Color(0xFFBDBDBD);
   static const mistyDarkColor = Color(0xFF757575);
@@ -21,7 +21,7 @@ class AppColor {
   static const shadowColor = Color(0x2610134E);
 
 // textColor
-  static const textPrimaryColor = Color(0xB3020202);
+  static const textPrimaryColor = Color(0xFF020202);
   static const textContentColor = Color(0xFF4B4B4B);
   static const textHintColor = Color(0x4D000000);
   static const textDangerColor = Color(0xFFF44336);
