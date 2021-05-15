@@ -4,11 +4,13 @@ class CustomTabbar extends StatelessWidget {
   final int selectedIndex;
   final List<String> titles;
   final Function(int) onTap;
+  final bool spreadEven;
 
   CustomTabbar({
     this.selectedIndex,
     @required this.titles,
     this.onTap,
+    this.spreadEven=true,
   });
 
   @override
@@ -23,7 +25,7 @@ class CustomTabbar extends StatelessWidget {
             color: 'F2f2f2'.toColor(),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: spreadEven?MainAxisAlignment.spaceEvenly:MainAxisAlignment.start,
             children: titles
                 .map((e) => Padding(
                       padding: EdgeInsets.only(left: 16,top:10,),
