@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/confirmation_mail_page.dart';
+import 'package:k2ms_v2/ui/pages/single/order_made_page.dart';
 import 'package:k2ms_v2/ui/pages/single/signup_complete_page.dart';
 
 import 'config/route/route_name.dart';
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
         RouteName.userManageAddress: (context) => AddAddressPage(),
         RouteName.generalConfirmationMail: (context) => ConfirmationMailPage(),
         RouteName.generalSignUpSuccess: (context) => SignUpCompletePage(),
+        RouteName.generalOrderSuccess: (context) => OrderMadePage(),
         RouteName.userDashboard: (context) => DashboardPage(),
+        RouteName.userProductDetail: (context) => ProductDetailPage(),
+        RouteName.userOrderCheckout: (context) => CheckoutPage(),
       },
     ),
   );

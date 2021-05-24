@@ -197,13 +197,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ],
                     ),
                     TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Beamer.of(context).beamToNamed(RouteName.userOrderCheckout);
+                      },
                       child: Text(
                         "Pesan",
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: AppColor.textPrimaryColor,
                         ),
                       ),
                       style: ButtonStyle(

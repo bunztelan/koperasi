@@ -177,13 +177,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   Container(
                     width:double.infinity,
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Beamer.of(context).beamToNamed(RouteName.generalOrderSuccess);
+                      },
                       child: Text(
                         "Pesan Sekarang",
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: AppColor.textPrimaryColor,
                         ),
                       ),
                       style: ButtonStyle(

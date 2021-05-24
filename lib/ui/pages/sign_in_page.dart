@@ -73,7 +73,7 @@ class _SignInPageState extends State<SignInPage> {
                   icon: Icon(
                     // Based on passwordVisible state choose the icon
                     _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                    color: Theme.of(context).primaryColorDark,
+                    color: AppColor.primaryDarkColor,
                   ),
                   onPressed: () {
                     // Update the state i.e. toogle the state of passwordVisible variable
@@ -83,13 +83,6 @@ class _SignInPageState extends State<SignInPage> {
                   },
                 ),
               ),
-              // decoration: InputDecoration(
-              //     border: InputBorder.none,
-              //     hintStyle: GoogleFonts.poppins(
-              //       color: AppColor.softGrayColor,
-              //       fontSize: 14,
-              //     ),
-              //     hintText: "Ketikkan kata sandi anda"),
             ),
           ),
           SizedBox(height: 16),

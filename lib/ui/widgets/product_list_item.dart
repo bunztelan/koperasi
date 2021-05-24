@@ -11,7 +11,7 @@ class ProductListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //todo go to product details
+        Beamer.of(context).beamToNamed(RouteName.userProductDetail);
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -21,7 +21,6 @@ class ProductListItem extends StatelessWidget {
         child: Row(
           children: [
             Container(
-
               height: 50,
               width: 50,
               decoration: BoxDecoration(
