@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width:16),
+                  SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -125,6 +125,7 @@ class _HomePageState extends State<HomePage> {
           width: double.infinity,
           color: Colors.white,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTabbar(
                 titles: ["Makanan", "Minuman", "Lainnya", "Sembako"],
@@ -136,15 +137,84 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(height: 16),
-              Builder(
-                builder: (_) {
-                  return Text("testing");
-                },
+              Column(
+                children: [
+                  ItemCard('Beras ABC', '75000'),
+                  ItemCard('Minyak Goreng Bilomi', '23000'),
+                  ItemCard('Minyak Goreng Uhuy Badai Bombai', '50000'),
+                  ItemCard('Indomie Mie Instant', '1500'),
+                  Container(
+                    height: 50,
+                  ),
+                ],
               )
             ],
           ),
         )
       ],
+    );
+  }
+}
+
+/// Item Card
+class ItemCard extends StatelessWidget {
+  final String title;
+  final String price;
+
+  ItemCard(this.title, this.price);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(
+        bottom: 24,
+        right: 24,
+        left: 24,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: AppColor.softGrayColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'IDR $price',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .copyWith(color: AppColor.black30),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
