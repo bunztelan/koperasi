@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:k2ms_v2/config/color_config.dart';
+import 'package:k2ms_v2/ui/pages/order/order_list_page.dart';
+import 'package:k2ms_v2/ui/pages/order/order_list_page.dart';
+import 'package:k2ms_v2/ui/pages/profile/profile_page.dart';
 import 'package:k2ms_v2/ui/widgets/widgets.dart';
 import 'package:supercharged/supercharged.dart';
 
