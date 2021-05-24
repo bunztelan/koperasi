@@ -33,8 +33,8 @@ class IllustrationPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: width??150,
-            height: height??150,
+            width: width ?? 150,
+            height: height ?? 150,
             margin: EdgeInsets.only(bottom: 50),
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -45,17 +45,17 @@ class IllustrationPage extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-              fontWeight: FontWeight.w300,
-              fontSize: 18,
-              color: '020202'.toColor(),
-            ),
+                  fontWeight: FontWeight.w300,
+                  fontSize: 18,
+                  color: '020202'.toColor(),
+                ),
           ),
           SizedBox(height: 8),
           Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-              color:'8D92A3'.toColor(),
-            ),
+                  color: '8D92A3'.toColor(),
+                ),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 40),
@@ -65,10 +65,10 @@ class IllustrationPage extends StatelessWidget {
               onPressed: buttonAction1,
               child: Text(
                 buttonTitle1,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: Colors.white,fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: AppColor.textPrimaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
               style: ButtonStyle(
                 backgroundColor:
