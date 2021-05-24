@@ -37,10 +37,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     child: HomePage(),
                   ),
                   Center(
-                    child: Text("order area"),
+                    child: OrderListPage(),
                   ),
                   Center(
-                    child: Text("profile area"),
+                    child: ProfilePage(),
                   ),
                 ],
               ),
