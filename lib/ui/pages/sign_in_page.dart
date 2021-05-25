@@ -10,15 +10,8 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // Initially password is obscure
+  bool _passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +60,29 @@ class _SignInPageState extends State<SignInPage> {
             child: TextField(
               //todo add controller
               style: GoogleFonts.poppins(fontSize: 14),
+              obscureText: !_passwordVisible,
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: GoogleFonts.poppins(
-                    color: AppColor.softGrayColor,
-                    fontSize: 14,
+                border: InputBorder.none,
+                hintStyle: GoogleFonts.poppins(
+                  color: AppColor.softGrayColor,
+                  fontSize: 14,
+                ),
+                hintText: "Ketikkan kata sandi anda",
+                // Here is key idea
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Based on passwordVisible state choose the icon
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: AppColor.primaryDarkColor,
                   ),
-                  hintText: "Ketikkan kata sandi anda"),
+                  onPressed: () {
+                    // Update the state i.e. toogle the state of passwordVisible variable
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },
+                ),
+              ),
             ),
           ),
           SizedBox(height: 16),
@@ -85,6 +94,9 @@ class _SignInPageState extends State<SignInPage> {
           ),
           SizedBox(height: 24),
           TextButton(
+            onPressed: () {
+              Beamer.of(context).beamToNamed(RouteName.userDashboard);
+            },
             child: Text(
               "Masuk",
               style: GoogleFonts.poppins(
@@ -97,7 +109,11 @@ class _SignInPageState extends State<SignInPage> {
               backgroundColor:
                   MaterialStateProperty.all<Color>(AppColor.primaryColor),
               padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(vertical: 16, horizontal: 50)),
+                EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 50,
+                ),
+              ),
             ),
           ),
           SizedBox(
@@ -116,8 +132,15 @@ class _SignInPageState extends State<SignInPage> {
               backgroundColor:
                   MaterialStateProperty.all<Color>('8D92A3'.toColor()),
               padding: MaterialStateProperty.all(
-                  EdgeInsets.symmetric(vertical: 16, horizontal: 50)),
+                EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 50,
+                ),
+              ),
             ),
+            onPressed: () {
+              Beamer.of(context).beamToNamed(RouteName.authSignUp);
+            },
           ),
         ],
       ),

@@ -6,7 +6,7 @@ class Product extends Equatable {
   String picture;
   double price;
   String description;
-  String stok;
+  int stok;
   String createdAt;
   String updatedAt;
   String category;
@@ -34,4 +34,48 @@ class Product extends Equatable {
         category,
         plant,
       ];
+
+  // Product mockProduct = Product(
+  //   id: "1",
+  //   name: "mock food",
+  //   picture: "https://via.placeholder.com/150",
+  //   price: 300000,
+  //   description: "This is mock food for test purpose only",
+  //   stok: 10,
+  //   category: "makanan",
+  //   plant: "Sunter",
+  // );
+
+  static List<Product> mockProducts = [
+    Product(
+      id: "1",
+      name: "mock food 1",
+      picture: "https://via.placeholder.com/150",
+      price: 300000,
+      description: "This is mock food for test purpose only",
+      stok: 10,
+      category: "makanan",
+      plant: "Sunter",
+    ),
+    Product(
+      id: "2",
+      name: "mock food 2",
+      picture: "https://via.placeholder.com/150",
+      price: 320000,
+      description: "This is mock food for test purpose only",
+      stok: 10,
+      category: "makanan",
+      plant: "Sunter",
+    ),
+    Product(
+      id: "3",
+      name: "mock food 3",
+      picture: "https://via.placeholder.com/150",
+      price: 330000,
+      description: "This is mock food for test purpose only",
+      stok: 10,
+      category: "makanan",
+      plant: "Sunter",
+    ),
+  ];
 }

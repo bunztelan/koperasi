@@ -88,33 +88,39 @@ class _HomePageState extends State<HomePage> {
           items: [1, 2, 3, 4, 5].map((i) {
             return Builder(
               builder: (BuildContext context) {
-                return Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 160,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(color: Colors.amber),
-                      child: Container(
-                        child: Text(
-                          'text $i',
-                          style: TextStyle(fontSize: 16.0),
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 160,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: AppColor.softGrayColor,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            'Banner $i',
+                            style: TextStyle(fontSize: 16.0),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      padding: EdgeInsets.only(
-                        top: 8.0,
-                        left: 8,
-                        right: 8,
-                      ),
-                      child: Text("Banner Title $i"),
-                    )
-                  ],
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.white,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        padding: EdgeInsets.only(
+                          top: 8.0,
+                          left: 8,
+                          right: 8,
+                          bottom: 8,
+                        ),
+                        child: Text("Banner Title $i"),
+                      )
+                    ],
+                  ),
                 );
               },
             );
@@ -139,7 +145,13 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 16),
               Column(
                 children: [
-                  ItemCard('Beras ABC', '75000'),
+                  GestureDetector(
+                    onTap: () {
+                      Beamer.of(context)
+                          .beamToNamed(RouteName.userProductDetail);
+                    },
+                    child: ItemCard('Beras ABC', '75000'),
+                  ),
                   ItemCard('Minyak Goreng Bilomi', '23000'),
                   ItemCard('Minyak Goreng Uhuy Badai Bombai', '50000'),
                   ItemCard('Indomie Mie Instant', '1500'),

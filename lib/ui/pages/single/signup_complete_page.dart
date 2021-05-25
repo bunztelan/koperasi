@@ -1,4 +1,6 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:k2ms_v2/config/route/route_name.dart';
 
 import 'illustration_page.dart';
 
@@ -21,7 +23,9 @@ class SignUpCompletePage extends StatelessWidget {
         width: 200,
         picturepath: "assets/signup_success.png",
         buttonTitle1: "Beranda",
-        buttonAction1: () {},
+        buttonAction1: () {
+          Beamer.of(context).beamToNamed(RouteName.userDashboard);
+        },
       ),
     );
   }

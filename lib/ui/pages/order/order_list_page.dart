@@ -31,8 +31,8 @@ class _OrderListPageState extends State<OrderListPage> {
           child: Column(
             children: [
               CustomHeader(
-                title: 'Daftar Pesanan',
-                subTitle: 'Pesanan anda segera diantar',
+                title: 'Pesanan',
+                subTitle: 'Daftar pesanan anda',
               ),
               SizedBox(height: 24),
               Container(
@@ -41,7 +41,7 @@ class _OrderListPageState extends State<OrderListPage> {
                   children: [
                     CustomTabbar(
                       spaceEvenly: false,
-                      titles: ["Proses", "Selesai"],
+                      titles: ["Dalam Proses", "Selesai"],
                       selectedIndex: selectedIndex,
                       onTap: (index) {
                         setState(() {
@@ -237,7 +237,7 @@ class CompletedTab extends StatelessWidget {
           price: '75000',
           totalItem: '5',
           date: 'Mei 2, 2021',
-          status: 'cancelled',
+          status: 'Dibatalkan',
         ),
       ],
     );

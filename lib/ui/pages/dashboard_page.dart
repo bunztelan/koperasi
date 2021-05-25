@@ -21,9 +21,10 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Container(color: Colors.white),
             SafeArea(
-                child: Container(
-              color: 'FAFAFC'.toColor(),
-            )),
+              child: Container(
+                color: 'FAFAFC'.toColor(),
+              ),
+            ),
             SafeArea(
               child: PageView(
                 controller: controller,
@@ -37,10 +38,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     child: HomePage(),
                   ),
                   Center(
-                    child: OrderListPage(),
+                    child: or.OrderListPage(),
                   ),
                   Center(
-                    child: ProfilePage(),
+                    child: pro.ProfilePage(),
                   ),
                 ],
               ),
