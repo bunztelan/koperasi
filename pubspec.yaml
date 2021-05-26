@@ -70,6 +70,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   # Dotted border
   dotted_border: ^2.0.0
+  # Firebase core
+  firebase_core: ^1.2.0
+  # Frebase messaging
+  firebase_messaging: ^10.0.0
 
 dev_dependencies:
   flutter_test:
