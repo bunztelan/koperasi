@@ -11,6 +11,18 @@ class SignInInitialState extends SignInState {}
 
 class SignInLoadingState extends SignInState {}
 
-class SignInErrorState extends SignInState {}
+class SignInErrorState extends SignInState {
+  final String message;
+  SignInErrorState({this.message});
 
-class SignInLoadedState extends SignInState {}
+  @override
+  List<Object> get props => [message];
+}
+
+class SignInLoadedState extends SignInState {
+  final User user;
+  SignInLoadedState(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
