@@ -1,5 +1,7 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:k2ms_v2/config/route/route_name.dart';
 
 import '../../../config/color_config.dart';
 
@@ -81,7 +83,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: 24),
                     MenuCard('Ubah Alamat'),
                     SizedBox(height: 24),
-                    MenuCard('Keluar'),
+                    GestureDetector(
+                      onTap: () {
+                        Beamer.of(context).beamToNamed(RouteName.authSignIn);
+                      },
+                      child: MenuCard('Keluar'),
+                    ),
                   ],
                 ),
               ),

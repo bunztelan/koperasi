@@ -1,5 +1,7 @@
 import 'package:beamer/beamer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:k2ms_v2/ui/pages/single/splash_screen.dart';
 
 import 'ui/pages/order/checkout_page.dart';
 import 'ui/pages/pages.dart';
@@ -16,9 +18,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final _routerDelegate = BeamerRouterDelegate(
+    initialPath: RouteName.generalSplash,
     locationBuilder: SimpleLocationBuilder(
       routes: {
-        '/': (context) => SignInPage(),
+        RouteName.generalSplash: (context) => SplashScreen(),
         RouteName.authSignIn: (context) => SignInPage(),
         RouteName.authSignUp: (context) => SignUpPage(),
         RouteName.userManageAddress: (context) => AddAddressPage(),
