@@ -38,10 +38,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     child: HomePage(),
                   ),
                   Center(
-                    child: or.OrderListPage(),
+                    child: OrderListPage(),
                   ),
                   Center(
-                    child: pro.ProfilePage(),
+                    child: ProfilePage(),
                   ),
                 ],
               ),

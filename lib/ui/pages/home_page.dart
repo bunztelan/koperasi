@@ -111,12 +111,7 @@ class _HomePageState extends State<HomePage> {
                         width: MediaQuery.of(context).size.width,
                         color: Colors.white,
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          left: 8,
-                          right: 8,
-                          bottom: 8,
-                        ),
+                        padding: EdgeInsets.all(8),
                         child: Text("Banner Title $i"),
                       )
                     ],
@@ -148,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () {
                       Beamer.of(context)
-                          .beamToNamed(RouteName.userProductDetail);
+                          .beamToNamed(RouteName.detailFromDashboard);
                     },
                     child: ItemCard('Beras ABC', '75000'),
                   ),

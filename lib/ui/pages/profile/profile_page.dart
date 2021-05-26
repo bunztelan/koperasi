@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       'Akun',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w500,
                           ),
                     ),
                     SizedBox(height: 24),

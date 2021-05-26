@@ -13,4 +13,6 @@ class RouteName {
   static const String userOrderCheckout = '/checkout';
   static const String userManageAddress = '/manage_address';
   static const String userProductDetail = '/product_detail';
+
+  static const String detailFromDashboard = '/dashboard/product_detail';
 }

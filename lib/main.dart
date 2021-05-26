@@ -1,9 +1,11 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:k2ms_v2/ui/pages/pages.dart';
-import 'package:k2ms_v2/ui/pages/single/confirmation_mail_page.dart';
-import 'package:k2ms_v2/ui/pages/single/order_made_page.dart';
-import 'package:k2ms_v2/ui/pages/single/signup_complete_page.dart';
+
+import 'ui/pages/order/checkout_page.dart';
+import 'ui/pages/pages.dart';
+import 'ui/pages/single/confirmation_mail_page.dart';
+import 'ui/pages/single/order_made_page.dart';
+import 'ui/pages/single/signup_complete_page.dart';
 
 import 'config/route/route_name.dart';
 import 'config/theme_config.dart';
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         RouteName.userDashboard: (context) => DashboardPage(),
         RouteName.userProductDetail: (context) => ProductDetailPage(),
         RouteName.userOrderCheckout: (context) => CheckoutPage(),
+        RouteName.detailFromDashboard: (context) => ProductDetailPage(),
       },
     ),
   );
@@ -38,6 +41,8 @@ class MyApp extends StatelessWidget {
       theme: defaultStyleConfig,
       routeInformationParser: BeamerRouteInformationParser(),
       routerDelegate: _routerDelegate,
+      backButtonDispatcher:
+          BeamerBackButtonDispatcher(delegate: _routerDelegate),
     );
   }
 }
