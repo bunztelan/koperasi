@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "253615913284",
+    "project_id": "koperasi-b8fc5",
+    "storage_bucket": "koperasi-b8fc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253615913284:android:1cad40a55d85b2ccf73f11",
+        "android_client_info": {
+          "package_name": "com.k2ms_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253615913284-635o2t9tcdvlg0mnuch6g9ergtli24l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoAfp5hKAKFHBMlfIM0eBOnTeZQbgIMXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253615913284-635o2t9tcdvlg0mnuch6g9ergtli24l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
