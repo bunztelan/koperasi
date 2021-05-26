@@ -20,23 +20,23 @@ class User {
 
   User(
       {this.id,
-        this.roleId,
-        this.name,
-        this.email,
-        this.status,
-        this.nip,
-        this.plantId,
-        this.teamId,
-        this.avatar,
-        this.maritalStatus,
-        this.forgotToken,
-        this.emailConfirmToken,
-        this.phoneNumber,
-        this.emailVerifiedAt,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.role});
+      this.roleId,
+      this.name,
+      this.email,
+      this.status,
+      this.nip,
+      this.plantId,
+      this.teamId,
+      this.avatar,
+      this.maritalStatus,
+      this.forgotToken,
+      this.emailConfirmToken,
+      this.phoneNumber,
+      this.emailVerifiedAt,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.role});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
