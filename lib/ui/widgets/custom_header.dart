@@ -25,7 +25,7 @@ class CustomHeader extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Beamer.of(context).beamBack();
             },
             child: Icon(
               Icons.chevron_left_sharp,

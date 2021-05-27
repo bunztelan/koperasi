@@ -41,7 +41,7 @@ class _SignInPageState extends State<SignInPage> {
             CustomSnackbar.showDangerSnackbar(context, state.message);
           } else if (state is SignInLoadedState) {
             Navigator.pop(context);
-            Beamer.of(context).beamToNamed(RouteName.userDashboard);
+            Beamer.of(context).beamToNamed('/${RouteName.userDashboard}');
           }
         },
         child: GeneralPage(
@@ -81,7 +81,7 @@ class _SignInPageState extends State<SignInPage> {
                       color: AppColor.softGrayColor,
                       fontSize: 14,
                     ),
-                    hintText: "john@gmail.com",
+                    hintText: "bambang@gmail.com",
                   ),
                 ),
                 SizedBox(height: 16),
@@ -92,7 +92,7 @@ class _SignInPageState extends State<SignInPage> {
                   controller: _passwordController,
                   validator: (val) {
                     if (val.trim().isEmpty) {
-                      return 'Password tidak boleh kosong';
+                      return 'Kata sandi tidak boleh kosong';
                     }
                     return null;
                   },
@@ -112,7 +112,7 @@ class _SignInPageState extends State<SignInPage> {
                       color: AppColor.softGrayColor,
                       fontSize: 14,
                     ),
-                    hintText: "sandi54321",
+                    hintText: "Sandi321",
                     // Here is key idea
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -191,7 +191,8 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   onPressed: () {
-                    Beamer.of(context).beamToNamed(RouteName.authSignUp);
+                    Beamer.of(context).beamToNamed(
+                        '/${RouteName.authSignIn}/${RouteName.authSignUp}');
                   },
                 ),
               ],

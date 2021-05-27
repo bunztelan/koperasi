@@ -21,9 +21,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Timer(Duration(seconds: 3), () async {
       if (getUserLocalData != null) {
-        Beamer.of(context).beamToNamed(RouteName.userDashboard);
+        Beamer.of(context).beamToNamed('/${RouteName.userDashboard}');
       } else {
-        Beamer.of(context).beamToNamed(RouteName.authSignIn);
+        Beamer.of(context).beamToNamed('${RouteName.authSignIn}');
       }
     });
   }

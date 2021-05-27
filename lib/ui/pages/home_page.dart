@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () {
                       Beamer.of(context)
-                          .beamToNamed(RouteName.detailFromDashboard);
+                          .beamToNamed(RouteName.userProductDetail);
                     },
                     child: ItemCard('Beras ABC', '75000'),
                   ),

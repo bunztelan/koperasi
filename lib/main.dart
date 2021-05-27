@@ -1,6 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:k2ms_v2/config/route/dashboard_location.dart';
+import 'package:k2ms_v2/config/route/general_location.dart';
 import 'package:k2ms_v2/ui/pages/single/splash_screen.dart';
 
 import 'ui/pages/order/checkout_page.dart';
@@ -17,35 +19,28 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final _routerDelegate = BeamerRouterDelegate(
-    initialPath: RouteName.generalSplash,
-    locationBuilder: SimpleLocationBuilder(
-      routes: {
-        RouteName.generalSplash: (context) => SplashScreen(),
-        RouteName.authSignIn: (context) => SignInPage(),
-        RouteName.authSignUp: (context) => SignUpPage(),
-        RouteName.userManageAddress: (context) => AddAddressPage(),
-        RouteName.generalConfirmationMail: (context) => ConfirmationMailPage(),
-        RouteName.generalSignUpSuccess: (context) => SignUpCompletePage(),
-        RouteName.generalOrderSuccess: (context) => OrderMadePage(),
-        RouteName.userDashboard: (context) => DashboardPage(),
-        RouteName.userProductDetail: (context) => ProductDetailPage(),
-        RouteName.userOrderCheckout: (context) => CheckoutPage(),
-        RouteName.detailFromDashboard: (context) => ProductDetailPage(),
-      },
+  final _routerDelegate = BeamerDelegate(
+    locationBuilder: BeamerLocationBuilder(
+      beamLocations: [
+        GeneralLocation(),
+        DashboardLocation(),
+      ],
     ),
   );
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: defaultStyleConfig,
-      routeInformationParser: BeamerRouteInformationParser(),
+    return BeamerProvider(
       routerDelegate: _routerDelegate,
-      backButtonDispatcher:
-          BeamerBackButtonDispatcher(delegate: _routerDelegate),
+      child: MaterialApp.router(
+        title: 'Flutter Demo',
+        theme: defaultStyleConfig,
+        routeInformationParser: BeamerParser(),
+        routerDelegate: _routerDelegate,
+        backButtonDispatcher:
+            BeamerBackButtonDispatcher(delegate: _routerDelegate),
+      ),
     );
   }
 }
