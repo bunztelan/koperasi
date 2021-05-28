@@ -8,6 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:k2ms_v2/blocs/register/cubit/register_cubit.dart';
+import 'package:k2ms_v2/blocs/register/register_repository_imp.dart';
 import 'package:k2ms_v2/blocs/sign_in/cubit/sign_in_cubit.dart';
 import 'package:k2ms_v2/blocs/sign_in/sign_in_local.dart';
 import 'package:k2ms_v2/blocs/sign_in/sign_in_repository_impl.dart';
