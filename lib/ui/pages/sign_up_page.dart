@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void _nextStep() {
     if (_formKey.currentState.validate()) {
       Beamer.of(context).beamToNamed(
-        '/${RouteName.authSignIn}/${RouteName.authSignUp}/${RouteName.userManageAddress}',
+        '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
         data: {
           'name': _nameController.text.toString(),
           'email': _emailController.text.toString(),
@@ -60,6 +60,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 CustomHeader(
                   title: 'Buat Akun',
                   subTitle: 'Daftar dan pesan',
+                  backFunction: () =>
+                      Beamer.of(context).beamTo(GeneralLocation()),
                 ),
                 SizedBox(height: 24),
                 Form(

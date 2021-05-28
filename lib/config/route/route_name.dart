@@ -1,7 +1,7 @@
 /// Route name directory
 class RouteName {
   // General routes
-  static const String generalSplash = '/';
+  static const String generalSplash = 'splash_screen';
   static const String generalSignUpSuccess = 'signup_success';
   static const String generalError = 'error';
   static const String generalOrderSuccess = 'order_success';

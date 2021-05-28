@@ -1,17 +1,9 @@
 import 'package:beamer/beamer.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/dashboard_location.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
-import 'package:k2ms_v2/ui/pages/single/splash_screen.dart';
+import 'package:k2ms_v2/config/route/splash_location.dart';
 
-import 'ui/pages/order/checkout_page.dart';
-import 'ui/pages/pages.dart';
-import 'ui/pages/single/confirmation_mail_page.dart';
-import 'ui/pages/single/order_made_page.dart';
-import 'ui/pages/single/signup_complete_page.dart';
-
-import 'config/route/route_name.dart';
 import 'config/theme_config.dart';
 
 void main() {
@@ -22,6 +14,7 @@ class MyApp extends StatelessWidget {
   final _routerDelegate = BeamerDelegate(
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
+        SplashlLocation(),
         GeneralLocation(),
         DashboardLocation(),
       ],

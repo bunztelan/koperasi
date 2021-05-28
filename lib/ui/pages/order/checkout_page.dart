@@ -31,7 +31,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               CustomHeader(
                 title: 'Pesanan Anda',
                 subTitle: 'Periksa kembali pesanan anda',
-                context: context,
+                parentContext: context,
               ),
               SizedBox(height: 24),
               Container(

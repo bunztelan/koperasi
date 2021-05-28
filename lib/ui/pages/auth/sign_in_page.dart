@@ -191,8 +191,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   onPressed: () {
-                    Beamer.of(context).beamToNamed(
-                        '/${RouteName.authSignIn}/${RouteName.authSignUp}');
+                    Beamer.of(context).beamToNamed('/${RouteName.authSignUp}');
                   },
                 ),
               ],

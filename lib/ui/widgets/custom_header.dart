@@ -8,12 +8,15 @@ class CustomHeader extends StatelessWidget {
   final String subTitle;
   final bool backButton;
   BuildContext parentContext;
+  Function backFunction;
 
-  CustomHeader(
-      {this.title,
-      this.subTitle,
-      this.backButton = false,
-      BuildContext context});
+  CustomHeader({
+    this.title,
+    this.subTitle,
+    this.backButton = false,
+    this.parentContext,
+    this.backFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,9 @@ class CustomHeader extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Beamer.of(context).beamBack();
+              backFunction == null
+                  ? Beamer.of(context).beamBack()
+                  : backFunction();
             },
             child: Icon(
               Icons.chevron_left_sharp,
