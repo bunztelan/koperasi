@@ -1,5 +1,7 @@
 part of 'pages.dart';
 
+enum MaritalStatus { SINGLE, MARIED }
+
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key key}) : super(key: key);
 
@@ -13,6 +15,8 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _passwordSecured = true;
   bool _rePasswordSecured = true;
   final _formKey = GlobalKey<FormState>();
+
+  MaritalStatus _marital = MaritalStatus.SINGLE;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -41,7 +45,8 @@ class _SignUpPageState extends State<SignUpPage> {
           'email': _emailController.text.toString(),
           'password': _passwordController.text.toString(),
           'nip': _nipController.text.toString(),
-          'plant': _plantController.text.toString()
+          'plant': _plantController.text.toString(),
+          'marital': _marital == MaritalStatus.MARIED ? 'MARIED' : 'SINGLE'
         },
       );
     }
@@ -103,6 +108,52 @@ class _SignUpPageState extends State<SignUpPage> {
                                 fontSize: 14,
                               ),
                               hintText: "Bambang setiawan",
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Text("Status Pernikahan",
+                              style: Theme.of(context).textTheme.bodyText1),
+                          SizedBox(height: 6),
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 7),
+                            decoration: BoxDecoration(
+                                color: AppColor.black70,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio<MaritalStatus>(
+                                      activeColor: AppColor.textPrimaryColor,
+                                      value: MaritalStatus.SINGLE,
+                                      groupValue: _marital,
+                                      onChanged: (MaritalStatus value) {
+                                        setState(() {
+                                          _marital = value;
+                                        });
+                                      },
+                                    ),
+                                    Text('Lajang'),
+                                  ],
+                                ),
+                                SizedBox(width: 24),
+                                Row(
+                                  children: [
+                                    Radio<MaritalStatus>(
+                                      value: MaritalStatus.MARIED,
+                                      activeColor: AppColor.textPrimaryColor,
+                                      groupValue: _marital,
+                                      onChanged: (MaritalStatus value) {
+                                        setState(() {
+                                          _marital = value;
+                                        });
+                                      },
+                                    ),
+                                    Text('Menikah'),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(height: 16),

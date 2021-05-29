@@ -3,6 +3,11 @@
    <application
         android:label="k2ms_v2"
         android:icon="@mipmap/ic_launcher">
+        <meta-data 
+          android:name="com.google.android.geo.API_KEY"
+          android:value="AIzaSyDHUoCDnBGsZbqVMw6l95caZWOJGEdLcD8"
+        />
+        
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

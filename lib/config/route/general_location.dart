@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
+import 'package:k2ms_v2/ui/widgets/map_picker.dart';
 
 class GeneralLocation extends BeamLocation {
   @override

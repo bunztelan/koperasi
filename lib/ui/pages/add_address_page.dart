@@ -14,6 +14,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _telpController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
+  String latitude = '';
+  String longitude = '';
 
   @override
   void initState() {
@@ -31,8 +33,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
   void _register(BuildContext context) {
     var data = Beamer.of(context).currentBeamLocation.state.data;
 
-    if (_formKey.currentState.validate()) {
-      print(data['nip']);
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+
+    if (latitude.trim().isEmpty && longitude.trim().isEmpty) {
+      CustomSnackbar.showDangerSnackbar(
+          context, 'Anda belum melakukan pin lokasi');
+      return;
     }
 
     // TODO: This not use real data at all
@@ -44,11 +52,11 @@ class _AddAddressPageState extends State<AddAddressPage> {
       data['plant'],
       '1',
       _telpController.text.toString(),
-      'MARIED',
+      data['marital'],
       _addressController.text.toString(),
       _addressController.text.toString(),
-      '-7.7872827',
-      '7.0382303',
+      latitude,
+      longitude,
       '1',
     );
   }
@@ -160,7 +168,21 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           ),
                           SizedBox(height: 16),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return MapPicker(
+                                    onLatLongChange: (lat, long) {
+                                      setState(() {
+                                        latitude = lat;
+                                        longitude = long;
+                                      });
+                                    },
+                                  );
+                                },
+                              );
+                            },
                             child: Text(
                               "Pin lokasi anda pada map",
                               style: GoogleFonts.poppins(
@@ -198,7 +220,19 @@ class _AddAddressPageState extends State<AddAddressPage> {
                                   Icon(CupertinoIcons.placemark_fill,
                                       color: AppColor.primaryColor),
                                   SizedBox(width: 8),
-                                  Text("Jalan Joyo Raharjo 281 B")
+                                  latitude.trim().isEmpty &&
+                                          longitude.trim().isEmpty
+                                      ? Text('Lokasi anda belum diset',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2
+                                              .copyWith(
+                                                  color:
+                                                      AppColor.textDangerColor))
+                                      : Text('Lokasi telah diset',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2)
                                 ],
                               )),
                           SizedBox(height: 32),
