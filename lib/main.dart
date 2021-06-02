@@ -1,7 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:k2ms_v2/config/route/dashboard_location.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
+import 'package:k2ms_v2/config/route/order_location.dart';
+import 'package:k2ms_v2/config/route/product_location.dart';
 import 'package:k2ms_v2/config/route/splash_location.dart';
 
 import 'config/theme_config.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       beamLocations: [
         SplashlLocation(),
         GeneralLocation(),
-        DashboardLocation(),
+        ProductLocation(),
+        OrderLocation(),
       ],
     ),
   );
@@ -31,8 +33,6 @@ class MyApp extends StatelessWidget {
         theme: defaultStyleConfig,
         routeInformationParser: BeamerParser(),
         routerDelegate: _routerDelegate,
-        backButtonDispatcher:
-            BeamerBackButtonDispatcher(delegate: _routerDelegate),
       ),
     );
   }

@@ -1,4 +1,6 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/widgets/widgets.dart';
 
 import '../../../config/color_config.dart';
@@ -33,6 +35,7 @@ class _OrderListPageState extends State<OrderListPage> {
               CustomHeader(
                 title: 'Pesanan',
                 subTitle: 'Daftar pesanan anda',
+                backButton: false,
               ),
               SizedBox(height: 24),
               Container(
@@ -217,7 +220,12 @@ class ProccessTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ItemCard('Beras ABC', '75000', '3'),
+        GestureDetector(
+          onTap: () {
+            Beamer.of(context).beamToNamed('/${RouteName.userDashboard}/:1');
+          },
+          child: ItemCard('Beras ABC', '75000', '3'),
+        ),
         ItemCard('Minyak Goreng Bilomi', '23000', '4'),
         ItemCard('Minyak Goreng Uhuy Badai Bombai', '50000', '3'),
         ItemCard('Indomie Mie Instant', '1500', '1'),
@@ -232,12 +240,17 @@ class CompletedTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SufixItemCard(
-          title: 'Bluban cap sedap',
-          price: '75000',
-          totalItem: '5',
-          date: 'Mei 2, 2021',
-          status: 'Dibatalkan',
+        GestureDetector(
+          onTap: () {
+            Beamer.of(context).beamToNamed('/${RouteName.userDashboard}/:1');
+          },
+          child: SufixItemCard(
+            title: 'Bluban cap sedap',
+            price: '75000',
+            totalItem: '5',
+            date: 'Mei 2, 2021',
+            status: 'Dibatalkan',
+          ),
         ),
       ],
     );

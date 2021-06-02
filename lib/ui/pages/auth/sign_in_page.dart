@@ -41,7 +41,9 @@ class _SignInPageState extends State<SignInPage> {
             CustomSnackbar.showDangerSnackbar(context, state.message);
           } else if (state is SignInLoadedState) {
             Navigator.pop(context);
-            Beamer.of(context).beamToNamed('/${RouteName.userDashboard}');
+            Beamer.of(context).clearBeamStateHistory();
+            Beamer.of(context).clearBeamLocationHistory();
+            Beamer.of(context).beamTo(ProductLocation());
           }
         },
         child: GeneralPage(

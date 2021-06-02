@@ -13,7 +13,7 @@ class CustomHeader extends StatelessWidget {
   CustomHeader({
     this.title,
     this.subTitle,
-    this.backButton = false,
+    this.backButton = true,
     this.parentContext,
     this.backFunction,
   });
@@ -26,17 +26,19 @@ class CustomHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 24),
       child: Row(
         children: [
-          GestureDetector(
-            onTap: () {
-              backFunction == null
-                  ? Beamer.of(context).beamBack()
-                  : backFunction();
-            },
-            child: Icon(
-              Icons.chevron_left_sharp,
-              size: 50,
-            ),
-          ),
+          backButton
+              ? GestureDetector(
+                  onTap: () {
+                    backFunction == null
+                        ? Beamer.of(context).beamBack()
+                        : backFunction();
+                  },
+                  child: Icon(
+                    Icons.chevron_left_sharp,
+                    size: 50,
+                  ),
+                )
+              : SizedBox(width: 24),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

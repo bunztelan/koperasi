@@ -2,7 +2,6 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
-import 'package:k2ms_v2/ui/widgets/map_picker.dart';
 
 class GeneralLocation extends BeamLocation {
   @override
@@ -15,7 +14,6 @@ class GeneralLocation extends BeamLocation {
           BeamPage(
             child: SignUpPage(),
             key: ValueKey(RouteName.authSignUp),
-            popToNamed: '/',
           ),
         if (state.uri.pathSegments.contains(RouteName.userManageAddress))
           BeamPage(

@@ -50,7 +50,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     SizedBox(height: 24),
-                    ItemCard('Blue Band', '80000', '14'),
+                    GestureDetector(
+                      onTap: () {
+                        Beamer.of(context).beamToNamed(
+                            '/${RouteName.userOrderCheckout}/:productId');
+                      },
+                      child: ItemCard('Blue Band', '80000', '14'),
+                    ),
                     ItemCard('Minyak Goreng Shaniul', '43000', '14'),
                     ItemCard('Mie Rebus Mi Sari', '23000', '14'),
                     Padding(
@@ -171,8 +177,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () {
-                    Beamer.of(context)
-                        .beamToNamed(RouteName.generalOrderSuccess);
+                    Beamer.of(context).beamToNamed(
+                        '/${RouteName.userOrderCheckout}/${RouteName.generalOrderSuccess}');
                   },
                   child: Text(
                     "Pesan Sekarang",

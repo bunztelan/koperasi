@@ -1,7 +1,9 @@
 part of 'pages.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  ProductDetailPage({Key key}) : super(key: key);
+  final String productId;
+
+  ProductDetailPage({this.productId});
 
   @override
   _ProductDetailPageState createState() {
@@ -37,128 +39,127 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ),
           ),
-          SafeArea(
-            child: ListView(
-              children: [
-                Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(3),
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: Colors.black12,
-                        ),
-                        child: Image.asset("assets/arrow_back.png"),
+          ListView(
+            children: [
+              Container(
+                height: 100,
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                    onTap: () {
+                      Beamer.of(context).popRoute();
+                      print(Beamer.of(context).beamLocationHistory);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.black12,
                       ),
+                      child: Image.asset("assets/arrow_back.png"),
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 180),
-                  padding: EdgeInsets.symmetric(vertical: 26, horizontal: 24),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    color: Colors.white,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 180),
+                padding: EdgeInsets.symmetric(vertical: 26, horizontal: 24),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width - 200,
-                            child: Text(
-                              "Product Name",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: '020202'.toColor(),
-                                  ),
-                            ),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width - 200,
+                          child: Text(
+                            "Product Name",
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: '020202'.toColor(),
+                                    ),
                           ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  //todo add alert when user want to reduce quantity to 0
-                                  setState(() {
-                                    quantity = max(1, quantity - 1);
-                                  });
-                                },
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(width: 1),
-                                  ),
-                                  child: Icon(
-                                    CupertinoIcons.minus,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50,
-                                child: Text(
-                                  "$quantity",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .copyWith(
-                                        fontSize: 18,
-                                      ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    quantity = min(99, quantity + 1);
-                                  });
-                                },
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(width: 1),
-                                  ),
-                                  child: Icon(
-                                    CupertinoIcons.plus,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 32),
-                      Container(
-                        width: double.infinity,
-                        child: Text(
-                          "Product Description",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 15,
-                              ),
                         ),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                //todo add alert when user want to reduce quantity to 0
+                                setState(() {
+                                  quantity = max(1, quantity - 1);
+                                });
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(width: 1),
+                                ),
+                                child: Icon(
+                                  CupertinoIcons.minus,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 50,
+                              child: Text(
+                                "$quantity",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    .copyWith(
+                                      fontSize: 18,
+                                    ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  quantity = min(99, quantity + 1);
+                                });
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(width: 1),
+                                ),
+                                child: Icon(
+                                  CupertinoIcons.plus,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 32),
+                    Container(
+                      width: double.infinity,
+                      child: Text(
+                        "Product Description",
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 15,
+                            ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           SafeArea(
             child: Align(
@@ -200,8 +201,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Beamer.of(context)
-                            .beamToNamed(RouteName.userOrderCheckout);
+                        Beamer.of(context).beamTo(OrderLocation());
                       },
                       child: Text(
                         "Pesan",
