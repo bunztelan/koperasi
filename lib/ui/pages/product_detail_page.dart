@@ -49,7 +49,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   child: GestureDetector(
                     onTap: () {
                       Beamer.of(context).popRoute();
-                      print(Beamer.of(context).beamLocationHistory);
                     },
                     child: Container(
                       padding: EdgeInsets.all(3),
