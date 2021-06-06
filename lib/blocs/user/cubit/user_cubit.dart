@@ -14,8 +14,6 @@ class UserCubit extends Cubit<UserState> {
     try {
       User user = await LocalData.getUserLocalData();
 
-      print(user.name);
-
       emit(UserLoadedState(user));
     } catch (e) {
       emit(UserErrorState(message: 'Terjadi kesalahan'));

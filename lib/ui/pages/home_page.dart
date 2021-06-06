@@ -65,32 +65,41 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: AssetImage('assets/default_avatar.png'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    context.read<UserCubit>().state.user == null
-                        ? ''
-                        : _setProfileHomeName(
-                            context.read<UserCubit>().state.user.name,
+              BlocBuilder<UserCubit, UserState>(
+                bloc: BlocProvider.of<UserCubit>(context),
+                builder: (context, state) {
+                  if (state is UserLoadedState) {
+                    return Column(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: AssetImage('assets/default_avatar.png'),
+                            ),
                           ),
-                    style: Theme.of(context).textTheme.subtitle2.copyWith(
-                          fontWeight: FontWeight.w600,
                         ),
-                  ),
-                ],
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          context.read<UserCubit>().state.user == null
+                              ? ''
+                              : _setProfileHomeName(
+                                  context.read<UserCubit>().state.user.name,
+                                ),
+                          style: Theme.of(context).textTheme.subtitle2.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                      ],
+                    );
+                  }
+
+                  return Text('Load...');
+                },
               )
             ],
           ),
