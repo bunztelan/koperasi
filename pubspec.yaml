@@ -53,6 +53,8 @@ dependencies:
   cached_network_image: ^3.0.0
   #image picker
   image_picker: ^0.7.5
+  #image cropper
+  image_cropper: ^1.4.0
   #Font by google
   google_fonts: ^2.0.0
   # all good things of kotlin

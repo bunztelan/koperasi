@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.k2ms_v2">
+   
+   <uses-permission android:name="android.permission.CAMERA" />
+   <uses-feature android:name="android.hardware.camera" android:required="true" />
+   <uses-permission android:name="android.permission.FLASHLIGHT" />
+   
    <application
         android:label="k2ms_v2"
         android:icon="@mipmap/ic_launcher">
@@ -7,6 +12,11 @@
           android:name="com.google.android.geo.API_KEY"
           android:value="AIzaSyDHUoCDnBGsZbqVMw6l95caZWOJGEdLcD8"
         />
+
+        <activity
+          android:name="com.yalantis.ucrop.UCropActivity"
+          android:screenOrientation="portrait"
+          android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         
         <activity
             android:name=".MainActivity"

@@ -1,12 +1,19 @@
+import 'dart:io';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/config/route/profile_location.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 
 import '../../../config/color_config.dart';
+
+// Enum for camera and gallery
+enum ImagePickerType { camera, file }
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -15,11 +22,105 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   UserCubit _userCubit;
+  File _profileImage; // Photo profile image
+  final _formKey = GlobalKey<FormState>();
+  final _picker = ImagePicker(); // Poster image
+  bool _isUploadingPhoto = false;
 
   @override
   void initState() {
     _userCubit = BlocProvider.of<UserCubit>(context);
     super.initState();
+  }
+
+  /// Handle image picker
+  Future _handleImagePicker(ImagePickerType type, String userId) async {
+    PickedFile pickedFile;
+    final double MAX_WIDTH = 1080;
+    final double MAX_HEIGHT = 1080;
+
+    if (type == ImagePickerType.camera) {
+      pickedFile = await _picker.getImage(
+        maxHeight: MAX_HEIGHT,
+        maxWidth: MAX_WIDTH,
+        source: ImageSource.camera,
+      );
+    } else {
+      pickedFile = await _picker.getImage(
+        maxHeight: MAX_HEIGHT,
+        maxWidth: MAX_WIDTH,
+        source: ImageSource.gallery,
+      );
+    }
+
+    if (pickedFile != null) {
+      // Crop image
+      File croppedImage = await ImageCropper.cropImage(
+        sourcePath: pickedFile.path,
+        maxWidth: MAX_WIDTH.round(), // parse double to int with round()
+        maxHeight: MAX_HEIGHT.round(), // parse double to int with round()
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        androidUiSettings: AndroidUiSettings(
+          hideBottomControls: true,
+        ),
+      );
+
+      if (croppedImage != null) {
+        // TODO: UPDATE DATA PHOTO ON CUBIT
+
+        setState(() {
+          _isUploadingPhoto = true;
+          _profileImage = File(croppedImage.path);
+        });
+      }
+    }
+  }
+
+  /// Show picker menu
+  Future _askedToImagePicker(BuildContext context, String userId) async {
+    switch (await showDialog<ImagePickerType>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text('Ganti foto anda'),
+            children: [
+              SimpleDialogOption(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                onPressed: () {
+                  Navigator.pop(context, ImagePickerType.camera);
+                },
+                child: Text('Buka kamera'),
+              ),
+              SimpleDialogOption(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                onPressed: () {
+                  Navigator.pop(context, ImagePickerType.file);
+                },
+                child: Text(
+                  'Ambil dari galeri',
+                ),
+              ),
+              SimpleDialogOption(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Batal',
+                  style: TextStyle(color: AppColor.textDangerColor),
+                ),
+              )
+            ],
+          );
+        })) {
+      case ImagePickerType.camera:
+        _handleImagePicker(ImagePickerType.camera, userId);
+        break;
+      case ImagePickerType.file:
+        _handleImagePicker(ImagePickerType.file, userId);
+        break;
+      default:
+    }
   }
 
   @override
@@ -44,22 +145,28 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          DottedBorder(
-                            dashPattern: [8, 8, 8, 8],
-                            color: AppColor.mistyColor,
-                            borderType: BorderType.RRect,
-                            radius: Radius.circular(40),
-                            padding: EdgeInsets.all(6),
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                              child: Container(
-                                height: 70,
-                                width: 70,
-                                color: Colors.amber,
-                                child: Image(
-                                  image:
-                                      AssetImage('assets/default_avatar.png'),
+                          GestureDetector(
+                            onTap: () => _askedToImagePicker(
+                              context,
+                              state.user.id.toString(),
+                            ),
+                            child: DottedBorder(
+                              dashPattern: [8, 8, 8, 8],
+                              color: AppColor.mistyColor,
+                              borderType: BorderType.RRect,
+                              radius: Radius.circular(40),
+                              padding: EdgeInsets.all(6),
+                              child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40)),
+                                child: Container(
+                                  height: 70,
+                                  width: 70,
+                                  color: Colors.amber,
+                                  child: Image(
+                                    image:
+                                        AssetImage('assets/default_avatar.png'),
+                                  ),
                                 ),
                               ),
                             ),
