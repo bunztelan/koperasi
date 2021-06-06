@@ -33,6 +33,7 @@ part 'auth/sign_in_page.dart';
 part 'auth/sign_up_page.dart';
 part 'auth/add_address_page.dart';
 part 'profile/update_profile_page.dart';
+part 'profile/update_address_page.dart';
 part 'dashboard_page.dart';
 part 'home_page.dart';
 part 'product_detail_page.dart';

@@ -1,9 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:k2ms_v2/config/route/dashboard_location.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
 import 'package:k2ms_v2/config/route/order_location.dart';
-import 'package:k2ms_v2/config/route/dashboard_location.dart';
-import 'package:k2ms_v2/config/route/profile_location.dart';
 import 'package:k2ms_v2/config/route/splash_location.dart';
 
 import 'config/theme_config.dart';

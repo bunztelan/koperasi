@@ -107,7 +107,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: MenuCard('Ubah Profil'),
                           ),
                           SizedBox(height: 24),
-                          MenuCard('Ubah Alamat'),
+                          GestureDetector(
+                            onTap: () {
+                              Beamer.of(context).beamToNamed(
+                                  '/${RouteName.userDashboard}/${RouteName.updateAddress}');
+                            },
+                            child: MenuCard(
+                              'Ubah Alamat',
+                            ),
+                          ),
                           SizedBox(height: 24),
                           GestureDetector(
                             onTap: () {

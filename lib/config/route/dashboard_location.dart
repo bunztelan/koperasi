@@ -12,8 +12,14 @@ class DashboardLocation extends BeamLocation {
         ),
         if (state.uri.pathSegments.contains(RouteName.updateProfile))
           BeamPage(
-              child: UpdateProfilePage(),
-              key: ValueKey(RouteName.updateProfile)),
+            child: UpdateProfilePage(),
+            key: ValueKey(RouteName.updateProfile),
+          ),
+        if (state.uri.pathSegments.contains(RouteName.updateAddress))
+          BeamPage(
+            child: UpdateAddressPage(),
+            key: ValueKey(RouteName.updateAddress),
+          ),
         if (state.pathParameters.containsKey('productId'))
           BeamPage(
             key: ValueKey('product-${state.pathParameters['productId']}'),
@@ -27,6 +33,7 @@ class DashboardLocation extends BeamLocation {
   List<String> get pathBlueprints => [
         '/${RouteName.userDashboard}',
         '/${RouteName.userDashboard}/${RouteName.updateProfile}',
+        '/${RouteName.userDashboard}/${RouteName.updateAddress}',
         '/${RouteName.userDashboard}/:productId',
       ];
 }
