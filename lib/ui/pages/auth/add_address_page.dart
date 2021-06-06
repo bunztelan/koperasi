@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class AddAddressPage extends StatefulWidget {
   AddAddressPage({Key key}) : super(key: key);

@@ -43,7 +43,7 @@ class _SignInPageState extends State<SignInPage> {
             Navigator.pop(context);
             Beamer.of(context).clearBeamStateHistory();
             Beamer.of(context).clearBeamLocationHistory();
-            Beamer.of(context).beamTo(ProductLocation());
+            Beamer.of(context).beamTo(DashboardLocation());
           }
         },
         child: GeneralPage(

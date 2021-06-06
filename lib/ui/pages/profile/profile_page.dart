@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
+import 'package:k2ms_v2/config/route/profile_location.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 
 import '../../../config/color_config.dart';
@@ -98,7 +99,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                           ),
                           SizedBox(height: 24),
-                          MenuCard('Ubah Profil'),
+                          GestureDetector(
+                            onTap: () {
+                              Beamer.of(context).beamToNamed(
+                                  '/${RouteName.userDashboard}/${RouteName.updateProfile}');
+                            },
+                            child: MenuCard('Ubah Profil'),
+                          ),
                           SizedBox(height: 24),
                           MenuCard('Ubah Alamat'),
                           SizedBox(height: 24),

@@ -1,22 +1,20 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
-enum MaritalStatus { SINGLE, MARIED }
+enum UpdateMaritalStatus { SINGLE, MARIED }
 
-class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key}) : super(key: key);
-
+class UpdateProfilePage extends StatefulWidget {
   @override
-  _SignUpPageState createState() {
-    return _SignUpPageState();
+  _UpdateProfilePageState createState() {
+    return _UpdateProfilePageState();
   }
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _UpdateProfilePageState extends State<UpdateProfilePage> {
   bool _passwordSecured = true;
   bool _rePasswordSecured = true;
   final _formKey = GlobalKey<FormState>();
 
-  MaritalStatus _marital = MaritalStatus.SINGLE;
+  UpdateMaritalStatus _marital = UpdateMaritalStatus.SINGLE;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -30,11 +28,6 @@ class _SignUpPageState extends State<SignUpPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   /// Next Step
   void _nextStep() {
     if (_formKey.currentState.validate()) {
@@ -46,7 +39,8 @@ class _SignUpPageState extends State<SignUpPage> {
           'password': _passwordController.text.toString(),
           'nip': _nipController.text.toString(),
           'plant': _plantController.text.toString(),
-          'marital': _marital == MaritalStatus.MARIED ? 'MARIED' : 'SINGLE'
+          'marital':
+              _marital == UpdateMaritalStatus.MARIED ? 'MARIED' : 'SINGLE'
         },
       );
     }
@@ -63,10 +57,9 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               children: [
                 CustomHeader(
-                  title: 'Buat Akun',
-                  subTitle: 'Daftar dan pesan',
-                  backFunction: () =>
-                      Beamer.of(context).beamTo(GeneralLocation()),
+                  title: 'Perbaruhi Profile',
+                  subTitle: 'Tulis profil anda dengan benar',
+                  backFunction: () => Navigator.pop(context),
                 ),
                 SizedBox(height: 24),
                 Form(
@@ -124,11 +117,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               children: [
                                 Row(
                                   children: [
-                                    Radio<MaritalStatus>(
+                                    Radio<UpdateMaritalStatus>(
                                       activeColor: AppColor.textPrimaryColor,
-                                      value: MaritalStatus.SINGLE,
+                                      value: UpdateMaritalStatus.SINGLE,
                                       groupValue: _marital,
-                                      onChanged: (MaritalStatus value) {
+                                      onChanged: (UpdateMaritalStatus value) {
                                         setState(() {
                                           _marital = value;
                                         });
@@ -140,11 +133,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                 SizedBox(width: 24),
                                 Row(
                                   children: [
-                                    Radio<MaritalStatus>(
-                                      value: MaritalStatus.MARIED,
+                                    Radio<UpdateMaritalStatus>(
+                                      value: UpdateMaritalStatus.MARIED,
                                       activeColor: AppColor.textPrimaryColor,
                                       groupValue: _marital,
-                                      onChanged: (MaritalStatus value) {
+                                      onChanged: (UpdateMaritalStatus value) {
                                         setState(() {
                                           _marital = value;
                                         });
@@ -353,7 +346,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               _nextStep();
                             },
                             child: Text(
-                              "Lanjutkan",
+                              "Perbaruhi",
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,

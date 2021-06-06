@@ -8,12 +8,25 @@ class DashboardLocation extends BeamLocation {
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
         BeamPage(
           child: DashboardPage(),
-          key: ValueKey(
-            RouteName.userDashboard,
+          key: ValueKey(RouteName.userDashboard),
+        ),
+        if (state.uri.pathSegments.contains(RouteName.updateProfile))
+          BeamPage(
+              child: UpdateProfilePage(),
+              key: ValueKey(RouteName.updateProfile)),
+        if (state.pathParameters.containsKey('productId'))
+          BeamPage(
+            key: ValueKey('product-${state.pathParameters['productId']}'),
+            child: ProductDetailPage(
+              productId: state.pathParameters['bookId'],
+            ),
           ),
-        )
       ];
 
   @override
-  List<String> get pathBlueprints => ['/${RouteName.userDashboard}'];
+  List<String> get pathBlueprints => [
+        '/${RouteName.userDashboard}',
+        '/${RouteName.userDashboard}/${RouteName.updateProfile}',
+        '/${RouteName.userDashboard}/:productId',
+      ];
 }

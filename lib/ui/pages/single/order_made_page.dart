@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:k2ms_v2/config/route/product_location.dart';
+import 'package:k2ms_v2/config/route/dashboard_location.dart';
 
 import 'illustration_page.dart';
 
@@ -26,7 +26,7 @@ class OrderMadePage extends StatelessWidget {
         buttonAction1: () {
           Beamer.of(context).clearBeamStateHistory();
           Beamer.of(context).clearBeamLocationHistory();
-          Beamer.of(context).beamTo(ProductLocation());
+          Beamer.of(context).beamTo(DashboardLocation());
         },
       ),
     );
