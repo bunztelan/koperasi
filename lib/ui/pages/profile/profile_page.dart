@@ -7,8 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
+import 'package:k2ms_v2/config/route/general_location.dart';
 import 'package:k2ms_v2/config/route/profile_location.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/color_config.dart';
 
@@ -31,6 +33,18 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     _userCubit = BlocProvider.of<UserCubit>(context);
     super.initState();
+  }
+
+  /// Logout
+  _logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.clear();
+
+    Beamer.of(context).clearBeamLocationHistory();
+    Beamer.of(context).clearBeamStateHistory();
+
+    Beamer.of(context).beamTo(GeneralLocation());
   }
 
   /// Handle image picker
@@ -225,10 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 24),
                           GestureDetector(
-                            onTap: () {
-                              Beamer.of(context)
-                                  .beamToNamed(RouteName.authSignIn);
-                            },
+                            onTap: () => _logout(context),
                             child: MenuCard('Keluar'),
                           ),
                         ],
