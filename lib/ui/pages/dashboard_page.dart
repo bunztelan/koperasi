@@ -50,7 +50,11 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: HomePage(),
                     ),
                     Center(
-                      child: OrderListPage(),
+                      child: Builder(
+                        builder: (context) {
+                          return OrderListPage();
+                        },
+                      ),
                     ),
                     Center(child: Builder(
                       builder: (context) {

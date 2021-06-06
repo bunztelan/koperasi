@@ -12,6 +12,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
 
+  /// Set profile home name
+  String _setProfileHomeName(String name) {
+    if (name.trim().length > 8) {
+      return name.trim().substring(0, 8) + '...';
+    }
+    return name;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -73,7 +81,11 @@ class _HomePageState extends State<HomePage> {
                     height: 4,
                   ),
                   Text(
-                    "Samidi",
+                    context.read<UserCubit>().state.user == null
+                        ? ''
+                        : _setProfileHomeName(
+                            context.read<UserCubit>().state.user.name,
+                          ),
                     style: Theme.of(context).textTheme.subtitle2.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
