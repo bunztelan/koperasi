@@ -93,8 +93,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                               padding: EdgeInsets.only(bottom: 16),
                               decoration: BoxDecoration(
-                                  border:
-                                      Border(bottom: BorderSide(width: 0.5))),
+                                  border: Border(
+                                bottom: BorderSide(
+                                  color: AppColor.black70,
+                                ),
+                              )),
                               child: Text(e.name),
                             ),
                           );
@@ -395,6 +398,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                         return TextFormField(
                                           onTap: _showPlantsDialog,
                                           controller: _plantController,
+                                          onChanged: (val) => {
+                                            _plantController.text =
+                                                _plantController.text
+                                          },
                                           validator: (val) {
                                             if (val.trim().isEmpty) {
                                               return 'Plant tidak boleh kosong';
