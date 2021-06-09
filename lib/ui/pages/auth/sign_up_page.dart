@@ -15,6 +15,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _passwordSecured = true;
   bool _rePasswordSecured = true;
   final _formKey = GlobalKey<FormState>();
+  PlantCubit _plantCubit;
 
   MaritalStatus _marital = MaritalStatus.SINGLE;
 
@@ -24,9 +25,13 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _rePasswordController = TextEditingController();
   TextEditingController _nipController = TextEditingController();
   TextEditingController _plantController = TextEditingController();
+  List<Plant> _plants = [];
+  String _selectedPlant = '0';
 
   @override
   void initState() {
+    _plantCubit = PlantCubit(PlantRepositoryImp())..getPlant();
+
     super.initState();
   }
 
@@ -45,11 +50,62 @@ class _SignUpPageState extends State<SignUpPage> {
           'email': _emailController.text.toString(),
           'password': _passwordController.text.toString(),
           'nip': _nipController.text.toString(),
-          'plant': _plantController.text.toString(),
+          'plant': _selectedPlant,
           'marital': _marital == MaritalStatus.MARIED ? 'MARIED' : 'SINGLE'
         },
       );
     }
+  }
+
+  /// Show list of plants dialog
+  void _showPlantsDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return Dialog(
+          child: Container(
+            width: MediaQuery.of(context).size.width - 30,
+            height: MediaQuery.of(context).size.height - 40,
+            child: SingleChildScrollView(
+              child: _plants.length < 1
+                  ? Container()
+                  : Column(
+                      children: _plants.map(
+                        (e) {
+                          var index = _plants.indexOf(e);
+
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedPlant = e.id.toString();
+                              });
+                              _plantController.text = e.name;
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.only(
+                                top: index == 0 ? 16 : 0,
+                                bottom: 16,
+                                right: 16,
+                                left: 16,
+                              ),
+                              padding: EdgeInsets.only(bottom: 16),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border(bottom: BorderSide(width: 0.5))),
+                              child: Text(e.name),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                    ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -319,32 +375,61 @@ class _SignUpPageState extends State<SignUpPage> {
                           Text("Plant",
                               style: Theme.of(context).textTheme.bodyText1),
                           SizedBox(height: 6),
-                          TextFormField(
-                            controller: _plantController,
-                            validator: (val) {
-                              if (val.trim().isEmpty) {
-                                return 'Plant tidak boleh kosong';
-                              }
-                              return null;
-                            },
-                            style: GoogleFonts.poppins(fontSize: 14),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 18,
-                                horizontal: 12,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: AppColor.primaryColor,
-                                  width: 1,
-                                ),
-                              ),
-                              hintStyle: GoogleFonts.poppins(
-                                color: AppColor.softGrayColor,
-                                fontSize: 14,
-                              ),
-                              hintText: "Plant A",
+                          BlocProvider(
+                            create: (context) => _plantCubit,
+                            child: Builder(
+                              builder: (context) {
+                                return BlocListener<PlantCubit, PlantState>(
+                                  bloc: BlocProvider.of<PlantCubit>(context),
+                                  listener: (context, state) {
+                                    if (state is PlantLoadedState) {
+                                      setState(() {
+                                        _plants = state.plants;
+                                      });
+                                    }
+                                  },
+                                  child: BlocBuilder<PlantCubit, PlantState>(
+                                    bloc: BlocProvider.of<PlantCubit>(context),
+                                    builder: (context, state) {
+                                      if (state is PlantLoadedState) {
+                                        return TextFormField(
+                                          onTap: _showPlantsDialog,
+                                          controller: _plantController,
+                                          validator: (val) {
+                                            if (val.trim().isEmpty) {
+                                              return 'Plant tidak boleh kosong';
+                                            }
+                                            return null;
+                                          },
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                          decoration: InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              vertical: 18,
+                                              horizontal: 12,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                color: AppColor.primaryColor,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            hintStyle: GoogleFonts.poppins(
+                                              color: AppColor.softGrayColor,
+                                              fontSize: 14,
+                                            ),
+                                            hintText: "Plant A",
+                                          ),
+                                        );
+                                      }
+                                      return Container();
+                                    },
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           SizedBox(height: 24),
