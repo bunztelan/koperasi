@@ -8,7 +8,6 @@ import 'package:k2ms_v2/blocs/sign_in/sign_in_local.dart';
 import 'package:k2ms_v2/config/color_config.dart';
 import 'package:k2ms_v2/config/route/dashboard_location.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
-import 'package:k2ms_v2/config/route/dashboard_location.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

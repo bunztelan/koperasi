@@ -31,6 +31,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
   /// Register
   void _register(BuildContext context) {
+    FocusScope.of(context).unfocus();
+
     var data = Beamer.of(context).currentBeamLocation.state.data;
 
     if (!_formKey.currentState.validate()) {

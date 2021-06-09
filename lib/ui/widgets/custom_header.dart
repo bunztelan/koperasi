@@ -7,8 +7,8 @@ class CustomHeader extends StatelessWidget {
   final String title;
   final String subTitle;
   final bool backButton;
-  BuildContext parentContext;
-  Function backFunction;
+  final BuildContext parentContext;
+  final Function backFunction;
 
   CustomHeader({
     this.title,

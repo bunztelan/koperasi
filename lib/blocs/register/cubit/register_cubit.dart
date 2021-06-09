@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:k2ms_v2/blocs/register/register_repository.dart';
-import 'package:k2ms_v2/models/user.dart';
 
 part 'register_state.dart';
 
@@ -32,27 +31,26 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     var token = await _firebaseMessaging.getToken();
 
-    var response = await repository.register(
-      token,
-      name,
-      email,
-      password,
-      nip,
-      plantId,
-      teamId,
-      phoneNumber,
-      maritalStatus,
-      address,
-      street,
-      latitude,
-      longitude,
-      roleId,
-    );
-
     try {
+      var response = await repository.register(
+        token,
+        name,
+        email,
+        password,
+        nip,
+        plantId,
+        teamId,
+        phoneNumber,
+        maritalStatus,
+        address,
+        street,
+        latitude,
+        longitude,
+        roleId,
+      );
       emit(RegisterLoadedState(message: response.message));
     } catch (e) {
-      emit(RegisterErrorState(message: e.toString()));
+      emit(RegisterErrorState(message: e));
     }
   }
 }

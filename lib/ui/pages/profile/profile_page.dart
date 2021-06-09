@@ -50,8 +50,8 @@ class _ProfilePageState extends State<ProfilePage> {
   /// Handle image picker
   Future _handleImagePicker(ImagePickerType type, String userId) async {
     PickedFile pickedFile;
-    final double MAX_WIDTH = 1080;
-    final double MAX_HEIGHT = 1080;
+    const double MAX_WIDTH = 1080;
+    const double MAX_HEIGHT = 1080;
 
     if (type == ImagePickerType.camera) {
       pickedFile = await _picker.getImage(

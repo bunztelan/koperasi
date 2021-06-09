@@ -53,7 +53,7 @@ class UserServices {
           throw (somethingWentWrongMsg);
         }
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       throw (somethingWentWrongMsg);
     }
   }
@@ -122,7 +122,7 @@ class UserServices {
           throw (somethingWentWrongMsg);
         }
       }
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       throw (somethingWentWrongMsg);
     }
   }

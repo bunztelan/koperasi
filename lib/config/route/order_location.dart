@@ -1,5 +1,5 @@
 import 'package:beamer/beamer.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/order_made_page.dart';
