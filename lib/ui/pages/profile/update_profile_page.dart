@@ -10,16 +10,12 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  bool _passwordSecured = true;
-  bool _rePasswordSecured = true;
   final _formKey = GlobalKey<FormState>();
 
   UpdateMaritalStatus _marital = UpdateMaritalStatus.SINGLE;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _rePasswordController = TextEditingController();
   TextEditingController _nipController = TextEditingController();
   TextEditingController _plantController = TextEditingController();
 
@@ -36,7 +32,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         data: {
           'name': _nameController.text.toString(),
           'email': _emailController.text.toString(),
-          'password': _passwordController.text.toString(),
           'nip': _nipController.text.toString(),
           'plant': _plantController.text.toString(),
           'marital':
@@ -179,101 +174,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                 fontSize: 14,
                               ),
                               hintText: "bambang@gmail.com",
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text("Kata sandi",
-                              style: Theme.of(context).textTheme.bodyText1),
-                          SizedBox(height: 6),
-                          TextFormField(
-                            controller: _passwordController,
-                            validator: (val) {
-                              if (val.trim().isEmpty) {
-                                return 'Kata sandi tidak boleh kosong';
-                              }
-                              return null;
-                            },
-                            style: GoogleFonts.poppins(fontSize: 14),
-                            obscureText: _passwordSecured,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 18, horizontal: 12),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: AppColor.primaryColor,
-                                  width: 1,
-                                ),
-                              ),
-                              hintStyle: GoogleFonts.poppins(
-                                color: AppColor.softGrayColor,
-                                fontSize: 14,
-                              ),
-                              hintText: "Sandi321",
-                              // Here is key idea
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  // Based on passwordVisible state choose the icon
-                                  _passwordSecured
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: AppColor.primaryDarkColor,
-                                ),
-                                onPressed: () {
-                                  // Update the state i.e. toogle the state of passwordVisible variable
-                                  setState(() {
-                                    _passwordSecured = !_passwordSecured;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text("Konfirmasi Kata sandi",
-                              style: Theme.of(context).textTheme.bodyText1),
-                          SizedBox(height: 6),
-                          TextFormField(
-                            controller: _rePasswordController,
-                            validator: (val) {
-                              if (val.trim().isEmpty ||
-                                  val != _passwordController.text.toString()) {
-                                return 'Kata sandi anda harus sama dengan sebelumnya';
-                              }
-                              return null;
-                            },
-                            style: GoogleFonts.poppins(fontSize: 14),
-                            obscureText: _rePasswordSecured,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 18, horizontal: 12),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: AppColor.primaryColor,
-                                  width: 1,
-                                ),
-                              ),
-                              hintStyle: GoogleFonts.poppins(
-                                color: AppColor.softGrayColor,
-                                fontSize: 14,
-                              ),
-                              hintText: "Sandi321",
-                              // Here is key idea
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  // Based on passwordVisible state choose the icon
-                                  _rePasswordSecured
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: AppColor.primaryDarkColor,
-                                ),
-                                onPressed: () {
-                                  // Update the state i.e. toogle the state of passwordVisible variable
-                                  setState(() {
-                                    _rePasswordSecured = !_rePasswordSecured;
-                                  });
-                                },
-                              ),
                             ),
                           ),
                           SizedBox(height: 16),
