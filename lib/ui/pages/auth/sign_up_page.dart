@@ -395,40 +395,52 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bloc: BlocProvider.of<PlantCubit>(context),
                                     builder: (context, state) {
                                       if (state is PlantLoadedState) {
-                                        return TextFormField(
+                                        return GestureDetector(
                                           onTap: _showPlantsDialog,
-                                          controller: _plantController,
-                                          onChanged: (val) => {
-                                            _plantController.text =
-                                                _plantController.text
-                                          },
-                                          validator: (val) {
-                                            if (val.trim().isEmpty) {
-                                              return 'Plant tidak boleh kosong';
-                                            }
-                                            return null;
-                                          },
-                                          style:
-                                              GoogleFonts.poppins(fontSize: 14),
-                                          decoration: InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              vertical: 18,
-                                              horizontal: 12,
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              borderSide: BorderSide(
-                                                color: AppColor.primaryColor,
-                                                width: 1,
+                                          child: TextFormField(
+                                            controller: _plantController,
+                                            enabled: false,
+                                            onChanged: (val) => {
+                                              _plantController.text =
+                                                  _plantController.text
+                                            },
+                                            validator: (val) {
+                                              if (val.trim().isEmpty) {
+                                                return 'Plant tidak boleh kosong';
+                                              }
+                                              return null;
+                                            },
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14),
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                vertical: 18,
+                                                horizontal: 12,
                                               ),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                  color: AppColor.primaryColor,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                              disabledBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                  color: AppColor.borderColor,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                              hintStyle: GoogleFonts.poppins(
+                                                color: AppColor.softGrayColor,
+                                                fontSize: 14,
+                                              ),
+                                              hintText: "Plant A",
                                             ),
-                                            hintStyle: GoogleFonts.poppins(
-                                              color: AppColor.softGrayColor,
-                                              fontSize: 14,
-                                            ),
-                                            hintText: "Plant A",
                                           ),
                                         );
                                       }
