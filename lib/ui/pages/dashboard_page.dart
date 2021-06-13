@@ -15,6 +15,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   UserCubit _userCubit;
   CategoryCubit _categoryCubit;
+  ProductCubit _productCubit;
 
   @override
   void initState() {
@@ -23,6 +24,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
     _categoryCubit = CategoryCubit(CategoryRepositoryImp());
     _categoryCubit.getCategory('token123');
+
+    _productCubit = ProductCubit(ProductRepositoryImp());
 
     super.initState();
   }
@@ -33,6 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
       providers: [
         BlocProvider<UserCubit>(create: (context) => _userCubit),
         BlocProvider<CategoryCubit>(create: (context) => _categoryCubit),
+        BlocProvider<ProductCubit>(create: (context) => _productCubit),
       ],
       child: Scaffold(
         body: SafeArea(

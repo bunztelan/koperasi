@@ -12,6 +12,8 @@ import 'package:k2ms_v2/blocs/category/category_repository_imp.dart';
 import 'package:k2ms_v2/blocs/category/cubit/category_cubit.dart';
 import 'package:k2ms_v2/blocs/plant/cubit/plant_cubit.dart';
 import 'package:k2ms_v2/blocs/plant/plant_repository_imp.dart';
+import 'package:k2ms_v2/blocs/product/cubit/product_cubit.dart';
+import 'package:k2ms_v2/blocs/product/product_repository_imp.dart';
 import 'package:k2ms_v2/blocs/register/cubit/register_cubit.dart';
 import 'package:k2ms_v2/blocs/register/register_repository_imp.dart';
 import 'package:k2ms_v2/blocs/sign_in/cubit/sign_in_cubit.dart';

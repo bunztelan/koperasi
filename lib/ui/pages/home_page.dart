@@ -155,7 +155,10 @@ class _HomePageState extends State<HomePage> {
                     return CustomTabbar(
                       titles: state.categories.map((e) => e.name).toList(),
                       selectedIndex: selectedIndex,
-                      onTap: (index) {
+                      onTap: (index) async {
+                        await BlocProvider.of<ProductCubit>(context).getProduct(
+                            'Token123', state.categories[index].id.toString());
+
                         setState(() {
                           selectedIndex = index;
                         });
@@ -166,22 +169,43 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(height: 16),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Beamer.of(context)
-                          .beamToNamed('/${RouteName.userDashboard}/:1');
-                    },
-                    child: ItemCard('Beras ABC', '75000'),
-                  ),
-                  ItemCard('Minyak Goreng Bilomi', '23000'),
-                  ItemCard('Minyak Goreng Uhuy Badai Bombai', '50000'),
-                  ItemCard('Indomie Mie Instant', '1500'),
-                  Container(
-                    height: 50,
-                  ),
-                ],
+              BlocBuilder<ProductCubit, ProductState>(
+                builder: (context, state) {
+                  if (state is ProductLoadedState) {
+                    if (state.products.length < 1 || state.products == null) {
+                      return Center(
+                        child: Container(
+                          width: 350,
+                          padding: EdgeInsets.all(24),
+                          child: Text(
+                              'Tidak ada produk untuk kategori ini sementara.',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .copyWith(color: AppColor.black30)),
+                        ),
+                      );
+                    }
+                    return Column(
+                        children: state.products
+                            .map(
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  Beamer.of(context).beamToNamed(
+                                      '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
+                                      data: {'detailProduct': e});
+                                },
+                                child: ItemCard(
+                                  e.name,
+                                  e.price.toString(),
+                                ),
+                              ),
+                            )
+                            .toList());
+                  }
+                  return Container();
+                },
               )
             ],
           ),
@@ -235,7 +259,11 @@ class ItemCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      'IDR $price',
+                      NumberFormat.currency(
+                        symbol: "IDR ",
+                        decimalDigits: 0,
+                        locale: "id-ID",
+                      ).format(int.parse(price)),
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2

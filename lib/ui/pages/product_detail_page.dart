@@ -82,7 +82,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width - 200,
                           child: Text(
-                            "Product Name",
+                            Beamer.of(context)
+                                .currentBeamLocation
+                                .state
+                                .data['detailProduct']
+                                .name,
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
                                       color: '020202'.toColor(),
@@ -149,7 +153,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     Container(
                       width: double.infinity,
                       child: Text(
-                        "Product Description",
+                        Beamer.of(context)
+                            .currentBeamLocation
+                            .state
+                            .data['detailProduct']
+                            .description,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 15,
                             ),

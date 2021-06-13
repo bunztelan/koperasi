@@ -29,9 +29,9 @@ class Category {
     return Category(
       id: map['id'],
       name: map['name'],
-      imageId: map['imageId'],
+      imageId: map['image_id'],
       status: map['status'],
-      isBuyable: map['isBuyable'],
+      isBuyable: map['is_buyable'],
     );
   }
 

@@ -1,81 +1,78 @@
-import 'package:equatable/equatable.dart';
+import 'dart:convert';
 
-class Product extends Equatable {
-  String id;
+class Product {
+  int id;
+  int categoryId;
   String name;
-  String picture;
-  double price;
   String description;
-  int stok;
+  int stock;
+  int price;
+  bool status;
+  int maritalQuota;
+  int regulerQuota;
   String createdAt;
   String updatedAt;
-  String category;
-  String plant;
+  String deletedAt;
+  List<String> images;
+  bool isBuyable;
 
   Product({
-    this.id,
-    this.name,
-    this.picture,
-    this.price,
-    this.description,
-    this.stok,
-    this.category,
-    this.plant,
+    this.id = 0,
+    this.categoryId = 0,
+    this.name = '',
+    this.description = '',
+    this.stock = 0,
+    this.price = 0,
+    this.status = false,
+    this.maritalQuota = 0,
+    this.regulerQuota = 0,
+    this.createdAt = '',
+    this.updatedAt = '',
+    this.deletedAt = '',
+    this.images = const [],
+    this.isBuyable = false,
   });
 
-  @override
-  List<Object> get props => [
-        id,
-        name,
-        picture,
-        price,
-        description,
-        stok,
-        category,
-        plant,
-      ];
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'categoryId': categoryId,
+      'name': name,
+      'description': description,
+      'stock': stock,
+      'price': price,
+      'status': status,
+      'maritalQuota': maritalQuota,
+      'regulerQuota': regulerQuota,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'deletedAt': deletedAt,
+      'images': images,
+      'isBuyable': isBuyable,
+    };
+  }
 
-  // Product mockProduct = Product(
-  //   id: "1",
-  //   name: "mock food",
-  //   picture: "https://via.placeholder.com/150",
-  //   price: 300000,
-  //   description: "This is mock food for test purpose only",
-  //   stok: 10,
-  //   category: "makanan",
-  //   plant: "Sunter",
-  // );
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'],
+      categoryId: map['category_id'],
+      name: map['name'],
+      description: map['description'],
+      stock: map['stock'],
+      price: map['price'],
+      status: map['status'],
+      maritalQuota: map['marital_quota'],
+      regulerQuota: map['reguler_quota'],
+      createdAt: map['created_at'],
+      updatedAt: map['updated_at'],
+      deletedAt: map['deleted_at'],
+      images: List<String>.from(map['images']),
+      isBuyable: map['is_buyable'],
+    );
+  }
 
-  static List<Product> mockProducts = [
-    Product(
-      id: "1",
-      name: "mock food 1",
-      picture: "https://via.placeholder.com/150",
-      price: 300000,
-      description: "This is mock food for test purpose only",
-      stok: 10,
-      category: "makanan",
-      plant: "Sunter",
-    ),
-    Product(
-      id: "2",
-      name: "mock food 2",
-      picture: "https://via.placeholder.com/150",
-      price: 320000,
-      description: "This is mock food for test purpose only",
-      stok: 10,
-      category: "makanan",
-      plant: "Sunter",
-    ),
-    Product(
-      id: "3",
-      name: "mock food 3",
-      picture: "https://via.placeholder.com/150",
-      price: 330000,
-      description: "This is mock food for test purpose only",
-      stok: 10,
-      category: "makanan",
-      plant: "Sunter",
-    ),
-  ];
+  String toJson() => json.encode(toMap());
+
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source));
 }

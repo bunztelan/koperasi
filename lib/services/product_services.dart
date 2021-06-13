@@ -1,13 +1,13 @@
 part of 'services.dart';
 
-class CategoryServices {
-  static Future<ApiReturnValue<List<Category>>> getCategory(
-      String authToken) async {
+class ProductServices {
+  static Future<ApiReturnValue<List<Product>>> getCategory(
+      String authToken, String categoryId) async {
     var dio = Dio();
 
     try {
       var response = await dio.get(
-        '$host_category',
+        '$host_product/$categoryId/mobile',
         options: Options(
           // headers: {"Authorization": 'Bearer $authToken'},
           headers: {
@@ -20,16 +20,20 @@ class CategoryServices {
       );
 
       if (response.statusCode == 200) {
-        List<Category> categories = [];
+        List<Product> products = [];
 
-        if (response.data['data']['items'] != null &&
-            response.data['data']['items'].length > 0) {
-          for (int i = 0; i < response.data['data']['items'].length; i++) {
-            categories.add(Category.fromMap(response.data['data']['items'][i]));
+        if (response.data['data']['products']['items'] != null &&
+            response.data['data']['products']['items'].length > 0) {
+          for (int i = 0;
+              i < response.data['data']['products']['items'].length;
+              i++) {
+            products.add(
+              Product.fromMap(response.data['data']['products']['items'][i]),
+            );
           }
         }
 
-        return ApiReturnValue(value: categories, message: 'Sukses');
+        return ApiReturnValue(value: products, message: 'Sukses');
       } else {
         String errorMessage = somethingWentWrongMsg;
 
