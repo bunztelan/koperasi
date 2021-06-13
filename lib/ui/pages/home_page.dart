@@ -149,13 +149,20 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomTabbar(
-                titles: ["Makanan", "Minuman", "Lainnya", "Sembako"],
-                selectedIndex: selectedIndex,
-                onTap: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
+              BlocBuilder<CategoryCubit, CategoryState>(
+                builder: (context, state) {
+                  if (state is CategoryLoadedState) {
+                    return CustomTabbar(
+                      titles: state.categories.map((e) => e.name).toList(),
+                      selectedIndex: selectedIndex,
+                      onTap: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                    );
+                  }
+                  return Container();
                 },
               ),
               SizedBox(height: 16),

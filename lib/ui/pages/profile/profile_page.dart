@@ -222,7 +222,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           GestureDetector(
                             onTap: () {
                               Beamer.of(context).beamToNamed(
-                                  '/${RouteName.userDashboard}/${RouteName.updateProfile}');
+                                  '/${RouteName.userDashboard}/${RouteName.updateProfile}',
+                                  data: {
+                                    'userCubit': _userCubit,
+                                    'userData':
+                                        context.read<UserCubit>().state.user
+                                  });
                             },
                             child: MenuCard('Ubah Profil'),
                           ),

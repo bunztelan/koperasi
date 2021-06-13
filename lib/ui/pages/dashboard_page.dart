@@ -14,11 +14,15 @@ class _DashboardPageState extends State<DashboardPage> {
   PageController controller = PageController(initialPage: 0);
 
   UserCubit _userCubit;
+  CategoryCubit _categoryCubit;
 
   @override
   void initState() {
     _userCubit = UserCubit();
     _userCubit.getUserLocalData();
+
+    _categoryCubit = CategoryCubit(CategoryRepositoryImp());
+    _categoryCubit.getCategory('token123');
 
     super.initState();
   }
@@ -26,7 +30,10 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider<UserCubit>(create: (context) => _userCubit)],
+      providers: [
+        BlocProvider<UserCubit>(create: (context) => _userCubit),
+        BlocProvider<CategoryCubit>(create: (context) => _categoryCubit),
+      ],
       child: Scaffold(
         body: SafeArea(
           child: Stack(

@@ -16,8 +16,6 @@ class PlantCubit extends Cubit<PlantState> {
 
       var response = await repository.getPlant();
 
-      print(response.length);
-
       emit(PlantLoadedState(plants: response));
     } catch (e) {
       emit(PlantErrorState(message: e));

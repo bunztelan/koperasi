@@ -23,6 +23,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   TextEditingController _plantController = TextEditingController();
   List<Plant> _plants = [];
   String _selectedPlant = '0';
+  User _user;
 
   @override
   void initState() {
@@ -36,22 +37,27 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     super.dispose();
   }
 
-  /// Next Step
-  void _nextStep() {
-    if (_formKey.currentState.validate()) {
-      Beamer.of(context).beamToNamed(
-        '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
-        data: {
-          'name': _nameController.text.toString(),
-          'email': _emailController.text.toString(),
-          'nip': _nipController.text.toString(),
-          'plant': _selectedPlant,
-          'marital':
-              _marital == UpdateMaritalStatus.MARIED ? 'MARIED' : 'SINGLE'
-        },
-      );
+  /// Set initial plant to form
+  String _initialPlantForm(int initialId) {
+    for (int i = 0; i < _plants.length; i++) {
+      if (_plants[i].id == initialId) {
+        return _plants[i].name;
+      }
+    }
+    return '';
+  }
+
+  /// Set initial marital status
+  void _initialMaritalForm(String status) {
+    if (status == 'SINGLE') {
+      _marital = UpdateMaritalStatus.SINGLE;
+    } else {
+      _marital = UpdateMaritalStatus.MARIED;
     }
   }
+
+  /// Update profile
+  void _updateProfile() {}
 
   /// Show list of plants dialog
   void _showPlantsDialog() {
@@ -118,10 +124,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             child: Column(
               children: [
                 CustomHeader(
-                  title: 'Buat Akun',
-                  subTitle: 'Daftar dan pesan',
-                  backFunction: () =>
-                      Beamer.of(context).beamTo(GeneralLocation()),
+                  title: 'Perbaruhi profil',
+                  subTitle: 'Isi data secara lengkap',
+                  backFunction: () => Navigator.pop(context),
                 ),
                 SizedBox(height: 24),
                 Form(
@@ -289,6 +294,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                     if (state is PlantLoadedState) {
                                       setState(() {
                                         _plants = state.plants;
+                                        _user = Beamer.of(context)
+                                            .currentBeamLocation
+                                            .state
+                                            .data['userData'];
+                                        _nameController.text = _user.name;
+                                        _emailController.text = _user.email;
+                                        _nipController.text = _user.nip;
+                                        _plantController.text =
+                                            _initialPlantForm(_user.plantId);
+                                        _selectedPlant =
+                                            _user.plantId.toString();
+                                        _initialMaritalForm(_user.status);
                                       });
                                     }
                                   },
@@ -351,9 +368,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           ),
                           SizedBox(height: 24),
                           TextButton(
-                            onPressed: () {
-                              _nextStep();
-                            },
+                            onPressed: _updateProfile,
                             child: Text(
                               "Perbaruhi",
                               style: GoogleFonts.poppins(
