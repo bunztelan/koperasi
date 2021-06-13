@@ -169,44 +169,52 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(height: 16),
-              BlocBuilder<ProductCubit, ProductState>(
-                builder: (context, state) {
-                  if (state is ProductLoadedState) {
-                    if (state.products.length < 1 || state.products == null) {
-                      return Center(
-                        child: Container(
-                          width: 350,
-                          padding: EdgeInsets.all(24),
-                          child: Text(
-                              'Tidak ada produk untuk kategori ini sementara.',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                                  .copyWith(color: AppColor.black30)),
-                        ),
-                      );
-                    }
-                    return Column(
-                        children: state.products
-                            .map(
-                              (e) => GestureDetector(
-                                onTap: () {
-                                  Beamer.of(context).beamToNamed(
-                                      '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
-                                      data: {'detailProduct': e});
-                                },
-                                child: ItemCard(
-                                  e.name,
-                                  e.price.toString(),
-                                ),
-                              ),
-                            )
-                            .toList());
+              BlocListener<CategoryCubit, CategoryState>(
+                listener: (context, state) {
+                  if (state is CategoryLoadedState) {
+                    BlocProvider.of<ProductCubit>(context).getProduct(
+                        'Token123', state.categories[0].id.toString());
                   }
-                  return Container();
                 },
-              )
+                child: BlocBuilder<ProductCubit, ProductState>(
+                  builder: (context, state) {
+                    if (state is ProductLoadedState) {
+                      if (state.products.length < 1 || state.products == null) {
+                        return Center(
+                          child: Container(
+                            width: 350,
+                            padding: EdgeInsets.all(24),
+                            child: Text(
+                                'Tidak ada produk untuk kategori ini sementara.',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .copyWith(color: AppColor.black30)),
+                          ),
+                        );
+                      }
+                      return Column(
+                          children: state.products
+                              .map(
+                                (e) => GestureDetector(
+                                  onTap: () {
+                                    Beamer.of(context).beamToNamed(
+                                        '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
+                                        data: {'detailProduct': e});
+                                  },
+                                  child: ItemCard(
+                                    e.name,
+                                    e.price.toString(),
+                                  ),
+                                ),
+                              )
+                              .toList());
+                    }
+                    return Container();
+                  },
+                ),
+              ),
             ],
           ),
         )
