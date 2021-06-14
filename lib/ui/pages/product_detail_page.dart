@@ -15,6 +15,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int quantity = 1;
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        quantity = BlocProvider.of<OrderCubit>(context).setOrderQty(
+            Beamer.of(context).currentBeamLocation.state.data['detailProduct']);
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -198,7 +210,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             symbol: "IDR ",
                             decimalDigits: 0,
                             locale: "id-ID",
-                          ).format(10000),
+                          ).format(
+                            (Beamer.of(context)
+                                    .currentBeamLocation
+                                    .state
+                                    .data['detailProduct']
+                                    .price *
+                                quantity),
+                          ),
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 20,
@@ -208,10 +227,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Beamer.of(context).beamTo(OrderLocation());
+                        BlocProvider.of<OrderCubit>(context).setOrder(
+                          Beamer.of(context)
+                              .currentBeamLocation
+                              .state
+                              .data['detailProduct'],
+                          quantity,
+                        );
+                        Beamer.of(context).beamToNamed(
+                          '/${RouteName.userDashboard}/${RouteName.userProductDetail}/${RouteName.userOrderCheckout}',
+                        );
                       },
                       child: Text(
-                        "Pesan",
+                        "Tambah",
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

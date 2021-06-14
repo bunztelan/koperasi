@@ -24,9 +24,12 @@ class SignInCubit extends Cubit<SignInState> {
       var response = await repository.login(email, password, token);
 
       // Add user data to local
-      LocalData.setUserLocalData(response);
+      LocalData.setUserLocalData(response.user);
 
-      emit(SignInLoadedState(response));
+      // Add token data to local
+      LocalData.setTokenLocalData(response.token);
+
+      emit(SignInLoadedState(response.user));
     } catch (e) {
       emit(SignInErrorState(message: e.toString()));
     }

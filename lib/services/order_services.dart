@@ -1,13 +1,25 @@
 part of 'services.dart';
 
-class CategoryServices {
-  static Future<ApiReturnValue<List<Category>>> getCategory(
-      String authToken) async {
+class OrderServices {
+  static Future<ApiReturnValue<String>> checkout({
+    String authToken,
+    List<Order> orders,
+    String method,
+    String note,
+  }) async {
     var dio = Dio();
 
+    List<Map<String, dynamic>> convertOrder =
+        orders.map((e) => {'product_id': e.product.id, 'qty': e.qty}).toList();
+
     try {
-      var response = await dio.get(
-        '$host_category',
+      var response = await dio.post(
+        '$host_order/create',
+        data: {
+          'items': convertOrder,
+          'method': method,
+          'note': note,
+        },
         options: Options(
           headers: {"Authorization": 'Bearer $authToken'},
           validateStatus: (status) {
@@ -17,16 +29,7 @@ class CategoryServices {
       );
 
       if (response.statusCode == 200) {
-        List<Category> categories = [];
-
-        if (response.data['data']['items'] != null &&
-            response.data['data']['items'].length > 0) {
-          for (int i = 0; i < response.data['data']['items'].length; i++) {
-            categories.add(Category.fromMap(response.data['data']['items'][i]));
-          }
-        }
-
-        return ApiReturnValue(value: categories, message: 'Sukses');
+        return ApiReturnValue(value: 'Sukses', message: 'Sukses');
       } else {
         String errorMessage = somethingWentWrongMsg;
 

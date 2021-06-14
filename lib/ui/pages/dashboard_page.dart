@@ -13,33 +13,25 @@ class _DashboardPageState extends State<DashboardPage> {
   int selectedIndex = 0;
   PageController controller = PageController(initialPage: 0);
 
-  UserCubit _userCubit;
-  CategoryCubit _categoryCubit;
-  ProductCubit _productCubit;
-
   @override
   void initState() {
-    _userCubit = UserCubit();
-    _userCubit.getUserLocalData();
+    BlocProvider.of<TokenCubit>(context).getTokenLocalData();
 
-    _categoryCubit = CategoryCubit(CategoryRepositoryImp());
-    _categoryCubit.getCategory('token123');
-
-    _productCubit = ProductCubit(ProductRepositoryImp());
+    BlocProvider.of<UserCubit>(context).getUserLocalData();
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<UserCubit>(create: (context) => _userCubit),
-        BlocProvider<CategoryCubit>(create: (context) => _categoryCubit),
-        BlocProvider<ProductCubit>(create: (context) => _productCubit),
-      ],
-      child: Scaffold(
-        body: SafeArea(
+    return Scaffold(
+      body: SafeArea(
+        child: BlocListener<TokenCubit, TokenState>(
+          listener: (context, state) {
+            if (state is TokenLoadedState) {
+              BlocProvider.of<CategoryCubit>(context).getCategory(state.token);
+            }
+          },
           child: Stack(
             children: [
               Container(color: Colors.white),

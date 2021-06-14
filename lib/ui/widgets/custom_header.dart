@@ -9,6 +9,7 @@ class CustomHeader extends StatelessWidget {
   final bool backButton;
   final BuildContext parentContext;
   final Function backFunction;
+  final isBackIcon;
 
   CustomHeader({
     this.title,
@@ -16,6 +17,7 @@ class CustomHeader extends StatelessWidget {
     this.backButton = true,
     this.parentContext,
     this.backFunction,
+    this.isBackIcon = true,
   });
 
   @override
@@ -33,10 +35,18 @@ class CustomHeader extends StatelessWidget {
                         ? Beamer.of(context).beamBack()
                         : backFunction();
                   },
-                  child: Icon(
-                    Icons.chevron_left_sharp,
-                    size: 50,
-                  ),
+                  child: isBackIcon
+                      ? Icon(
+                          Icons.chevron_left_sharp,
+                          size: 50,
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Icon(
+                            Icons.close,
+                            size: 38,
+                          ),
+                        ),
                 )
               : SizedBox(width: 24),
           Column(

@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/ui/pages/order/checkout_page.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 
 class DashboardLocation extends BeamLocation {
@@ -27,6 +28,11 @@ class DashboardLocation extends BeamLocation {
               productId: state.pathParameters['bookId'],
             ),
           ),
+        if (state.uri.pathSegments.contains(RouteName.userOrderCheckout))
+          BeamPage(
+            child: CheckoutPage(),
+            key: ValueKey(RouteName.userOrderCheckout),
+          )
       ];
 
   @override
@@ -35,5 +41,6 @@ class DashboardLocation extends BeamLocation {
         '/${RouteName.userDashboard}/${RouteName.updateProfile}',
         '/${RouteName.userDashboard}/${RouteName.updateAddress}',
         '/${RouteName.userDashboard}/:productId',
+        '/${RouteName.userDashboard}/${RouteName.userProductDetail}/${RouteName.userOrderCheckout}'
       ];
 }

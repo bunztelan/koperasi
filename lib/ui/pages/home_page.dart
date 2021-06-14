@@ -153,11 +153,14 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, state) {
                   if (state is CategoryLoadedState) {
                     return CustomTabbar(
+                      spaceEvenly: false,
                       titles: state.categories.map((e) => e.name).toList(),
                       selectedIndex: selectedIndex,
                       onTap: (index) async {
                         await BlocProvider.of<ProductCubit>(context).getProduct(
-                            'Token123', state.categories[index].id.toString());
+                          context.read<TokenCubit>().state.token,
+                          state.categories[index].id.toString(),
+                        );
 
                         setState(() {
                           selectedIndex = index;
@@ -173,7 +176,8 @@ class _HomePageState extends State<HomePage> {
                 listener: (context, state) {
                   if (state is CategoryLoadedState) {
                     BlocProvider.of<ProductCubit>(context).getProduct(
-                        'Token123', state.categories[0].id.toString());
+                        context.read<TokenCubit>().state.token,
+                        state.categories[0].id.toString());
                   }
                 },
                 child: BlocBuilder<ProductCubit, ProductState>(
@@ -195,21 +199,25 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                       return Column(
-                          children: state.products
-                              .map(
-                                (e) => GestureDetector(
-                                  onTap: () {
-                                    Beamer.of(context).beamToNamed(
-                                        '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
-                                        data: {'detailProduct': e});
-                                  },
-                                  child: ItemCard(
-                                    e.name,
-                                    e.price.toString(),
-                                  ),
+                        children: state.products
+                            .map(
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  Beamer.of(context).beamToNamed(
+                                    '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
+                                    data: {
+                                      'detailProduct': e,
+                                    },
+                                  );
+                                },
+                                child: ItemCard(
+                                  e.name,
+                                  e.price.toString(),
                                 ),
-                              )
-                              .toList());
+                              ),
+                            )
+                            .toList(),
+                      );
                     }
                     return Container();
                   },

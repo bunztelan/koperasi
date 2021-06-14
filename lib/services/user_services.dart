@@ -1,7 +1,7 @@
 part of 'services.dart';
 
 class UserServices {
-  static Future<ApiReturnValue<User>> login(
+  static Future<ApiReturnValue<SignInValue>> login(
     String email,
     String password,
     String firebaseToken,
@@ -25,7 +25,10 @@ class UserServices {
 
       if (response.statusCode == 200) {
         User user = User.fromJson(response.data['data']['profile']);
-        return ApiReturnValue(value: user, message: 'Sukses');
+        String token = response.data['data']['session']['access_token'];
+
+        return ApiReturnValue(
+            value: SignInValue(user: user, token: token), message: 'Sukses');
       } else {
         String errorMessage = somethingWentWrongMsg;
 

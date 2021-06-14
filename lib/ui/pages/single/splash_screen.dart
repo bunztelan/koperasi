@@ -22,9 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Timer(Duration(seconds: 3), () async {
       if (getUserLocalData != null) {
+        Beamer.of(context).beamTo(DashboardLocation());
         Beamer.of(context).clearBeamStateHistory();
         Beamer.of(context).clearBeamLocationHistory();
-        Beamer.of(context).beamTo(DashboardLocation());
       } else {
         Beamer.of(context).clearBeamStateHistory();
         Beamer.of(context).clearBeamLocationHistory();

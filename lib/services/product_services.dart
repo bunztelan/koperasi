@@ -9,10 +9,7 @@ class ProductServices {
       var response = await dio.get(
         '$host_product/$categoryId/mobile',
         options: Options(
-          // headers: {"Authorization": 'Bearer $authToken'},
-          headers: {
-            "Authorization": 'Bearer 6126f7a8-750c-49d5-ae25-d6003a3b7d54'
-          },
+          headers: {"Authorization": 'Bearer $authToken'},
           validateStatus: (status) {
             return status <= 500;
           },

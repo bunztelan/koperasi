@@ -46,4 +46,22 @@ class LocalData {
       return null;
     }
   }
+
+  /// Set user data to local storage
+  static void setTokenLocalData(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('token', token);
+  }
+
+  /// Get user data from local storage
+  static Future<String> getTokenLocalData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    try {
+      return prefs.getString('token');
+    } catch (e) {
+      return null;
+    }
+  }
 }
