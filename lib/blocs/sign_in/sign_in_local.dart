@@ -19,6 +19,11 @@ class LocalData {
     prefs.setString('maritalStatus', user.maritalStatus.toString());
     prefs.setString('status', user.status.toString());
     prefs.setString('teamId', user.teamId.toString());
+    prefs.setString('address', user.address.toString());
+    prefs.setString('latitude', user.latitude.toString());
+    prefs.setString('longitude', user.longitude.toString());
+    prefs.setString('addressId', user.addressId.toString());
+    prefs.setString('addressDesc', user.addressDesc.toString());
   }
 
   /// Get user data from local storage
@@ -40,6 +45,11 @@ class LocalData {
         maritalStatus: prefs.getString('maritalStatus'),
         status: prefs.getString('status'),
         teamId: int.parse(prefs.getString('teamId')),
+        address: prefs.getString('address'),
+        latitude: double.parse(prefs.getString('latitude')),
+        longitude: double.parse(prefs.getString('longitude')),
+        addressId: int.parse(prefs.getString('addressId')),
+        addressDesc: prefs.getString('addressDesc'),
       );
       return user;
     } catch (e) {

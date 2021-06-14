@@ -88,8 +88,7 @@ class _HomePageState extends State<HomePage> {
                           context.read<UserCubit>().state.user == null
                               ? ''
                               : _setProfileHomeName(
-                                  context.read<UserCubit>().state.user.name,
-                                ),
+                                  context.read<UserCubit>().state.user.name),
                           style: Theme.of(context).textTheme.subtitle2.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
