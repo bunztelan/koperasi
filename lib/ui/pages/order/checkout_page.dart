@@ -67,6 +67,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 context, 'Gagal melakukan pesanan, coba kembali.');
           } else if (state is CheckoutLoadedState) {
             Navigator.pop(context);
+            Beamer.of(context).beamToNamed(
+              '/${RouteName.userDashboard}/${RouteName.generalOrderSuccess}',
+            );
           }
         },
         child: Container(
@@ -324,7 +327,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 160,
                             child: Text(
-                              context.read<UserCubit>().state.user.phoneNumber,
+                              context.read<UserCubit>().state.user.address +
+                                  context
+                                      .read<UserCubit>()
+                                      .state
+                                      .user
+                                      .addressDesc,
                               textAlign: TextAlign.right,
                               style: Theme.of(context)
                                   .textTheme

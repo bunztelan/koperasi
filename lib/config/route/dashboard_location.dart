@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/pages/order/checkout_page.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
+import 'package:k2ms_v2/ui/pages/single/order_made_page.dart';
 
 class DashboardLocation extends BeamLocation {
   @override
@@ -32,6 +33,11 @@ class DashboardLocation extends BeamLocation {
           BeamPage(
             child: CheckoutPage(),
             key: ValueKey(RouteName.userOrderCheckout),
+          ),
+        if (state.uri.pathSegments.contains(RouteName.generalOrderSuccess))
+          BeamPage(
+            child: OrderMadePage(),
+            key: ValueKey(RouteName.generalOrderSuccess),
           )
       ];
 
@@ -42,5 +48,6 @@ class DashboardLocation extends BeamLocation {
         '/${RouteName.userDashboard}/${RouteName.updateAddress}',
         '/${RouteName.userDashboard}/:productId',
         '/${RouteName.userDashboard}/${RouteName.userProductDetail}/${RouteName.userOrderCheckout}'
+            '/${RouteName.userDashboard}/${RouteName.generalOrderSuccess}'
       ];
 }
