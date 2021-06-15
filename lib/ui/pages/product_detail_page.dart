@@ -13,6 +13,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int quantity = 1;
+  bool _onCart = false;
 
   @override
   void initState() {
@@ -20,6 +21,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       setState(() {
         quantity = BlocProvider.of<OrderCubit>(context).setOrderQty(
             Beamer.of(context).currentBeamLocation.state.data['detailProduct']);
+        _onCart = BlocProvider.of<OrderCubit>(context).searchOrderProduct(
+                    Beamer.of(context)
+                        .currentBeamLocation
+                        .state
+                        .data['detailProduct']
+                        .id) ==
+                -1
+            ? false
+            : true;
       });
     });
 
@@ -90,9 +100,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width - 200,
+                          width: MediaQuery.of(context).size.width -
+                              (_onCart ? 230 : 200),
                           child: Text(
                             Beamer.of(context)
                                 .currentBeamLocation
@@ -104,6 +116,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       color: '020202'.toColor(),
                                     ),
                           ),
+                        ),
+                        SizedBox(
+                          width: 6,
                         ),
                         Row(
                           children: [
@@ -157,6 +172,44 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
                             ),
+                            !_onCart
+                                ? Container()
+                                : GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _onCart = false;
+                                        quantity = 1;
+                                      });
+                                      CustomSnackbar.showSuccessSnackbar(
+                                          context,
+                                          'Produk dihapus dari keranjang.');
+                                      BlocProvider.of<OrderCubit>(context)
+                                          .removeItem(
+                                        Beamer.of(context)
+                                            .currentBeamLocation
+                                            .state
+                                            .data['detailProduct']
+                                            .id,
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      margin: EdgeInsets.only(left: 16),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.roseColor,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      child: Icon(
+                                        Icons.remove_outlined,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                           ],
                         )
                       ],

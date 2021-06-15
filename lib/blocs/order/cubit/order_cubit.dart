@@ -47,6 +47,15 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
+  /// Remove item from cart
+  Future<void> removeItem(int searchId) async {
+    emit(OrderLoadingState());
+
+    orders.removeAt(searchOrderProduct(searchId));
+
+    emit(OrderLoadedState(orders: orders));
+  }
+
   /// Get order from cart
   Future<void> getOrder() async {
     try {
