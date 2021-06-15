@@ -61,16 +61,35 @@ class OrderServices {
         ),
       );
 
-      print(response);
-
       if (response.statusCode == 200) {
         List<OrderedItem> orders = [];
-
+        // print(response.data['data']['items'][0]['items'][0]['product_name']);
         if (response.data['data']['items'] != null &&
             response.data['data']['items'].length > 0) {
+          // List<dynamic> w = jsonEncode (response.data['data']['items'][0]['items'][0]['product_name']);
+
           for (int i = 0; i < response.data['data']['items'].length; i++) {
+            /// Convert items to order
+            List<Order> orderItems = [];
+
+            for (int j = 0;
+                j < response.data['data']['items'][i]['items'].length;
+                j++) {
+              orderItems.add(
+                Order(
+                    product: Product(
+                      name: response.data['data']['items'][i]['items'][j]
+                          ['product_name'],
+                      price: response.data['data']['items'][i]['items'][j]
+                          ['price'],
+                    ),
+                    qty: response.data['data']['items'][i]['items'][j]['qty']),
+              );
+            }
+
             orders.add(
-              OrderedItem.fromMap(response.data['data']['items'][i]),
+              OrderedItem.fromMap(
+                  response.data['data']['items'][i], orderItems),
             );
           }
         }

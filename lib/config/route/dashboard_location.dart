@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/pages/order/checkout_page.dart';
+import 'package:k2ms_v2/ui/pages/order/order_detail.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/order_made_page.dart';
 
@@ -38,12 +39,18 @@ class DashboardLocation extends BeamLocation {
           BeamPage(
             child: OrderMadePage(),
             key: ValueKey(RouteName.generalOrderSuccess),
-          )
+          ),
+        if (state.uri.pathSegments.contains(RouteName.userOrderDetail))
+          BeamPage(
+            child: OrderDetailPage(),
+            key: ValueKey(RouteName.userOrderDetail),
+          ),
       ];
 
   @override
   List<String> get pathBlueprints => [
         '/${RouteName.userDashboard}',
+        '/${RouteName.userDashboard}/${RouteName.userOrderDetail}',
         '/${RouteName.userDashboard}/${RouteName.updateProfile}',
         '/${RouteName.userDashboard}/${RouteName.updateAddress}',
         '/${RouteName.userDashboard}/:productId',

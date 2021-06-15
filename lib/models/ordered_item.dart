@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:k2ms_v2/models/order.dart';
+import 'package:k2ms_v2/models/product.dart';
 
 class OrderedItem {
   int id;
@@ -55,7 +56,8 @@ class OrderedItem {
     };
   }
 
-  factory OrderedItem.fromMap(Map<String, dynamic> map) {
+  factory OrderedItem.fromMap(
+      Map<String, dynamic> map, List<Order> orderItems) {
     return OrderedItem(
       id: map['id'],
       userId: map['user_id'],
@@ -71,11 +73,7 @@ class OrderedItem {
       addressLatitude: map['address_latitude'],
       addressLongitude: map['address_longitude'],
       updatedAt: map['updated_at'],
+      orders: orderItems,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory OrderedItem.fromJson(String source) =>
-      OrderedItem.fromMap(json.decode(source));
 }

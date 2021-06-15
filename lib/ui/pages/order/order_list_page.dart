@@ -76,70 +76,6 @@ class _OrderListPageState extends State<OrderListPage> {
   }
 }
 
-/// Item Card
-class ItemCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String totalItem;
-
-  ItemCard(this.title, this.price, this.totalItem);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(
-        bottom: 24,
-        right: 24,
-        left: 24,
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: AppColor.softGrayColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      '$totalItem item  ⋅  IDR $price',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          .copyWith(color: AppColor.black30),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
 /// Item Card with suffix
 class SufixItemCard extends StatelessWidget {
   final String title;
@@ -257,14 +193,18 @@ class ProccessTab extends StatelessWidget {
               var index = state.orders.indexOf(e);
 
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Beamer.of(context).beamToNamed(
+                      '/${RouteName.userDashboard}/${RouteName.userOrderDetail}',
+                      data: {'detailOrder': e});
+                },
                 child: Padding(
                   padding: EdgeInsets.only(
                       bottom: index == (state.orders.length - 1) ? 50 : 0),
                   child: SufixItemCard(
                     title: 'ORDER ${e.id.toString()}',
                     price: e.totalPrice.toString(),
-                    totalItem: '5',
+                    totalItem: e.orders.length.toString(),
                     date: DateFormat("dd MMM, yyyy HH:mm")
                         .format(DateTime.parse(e.updatedAt)),
                     status: e.status,

@@ -23,8 +23,7 @@ class OrderBackendCubit extends Cubit<OrderBackendState> {
 
       emit(OrderBackendLoadedState(orders: orders));
     } catch (e) {
-      print(e);
-      // emit(OrderBackendErrorState(message: e));
+      emit(OrderBackendErrorState(message: e.toString()));
     }
   }
 }
