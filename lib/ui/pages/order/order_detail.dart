@@ -345,7 +345,12 @@ class OrderDetailPageState extends State<OrderDetailPage> {
                       ),
                       SizedBox(height: 24),
                       QrImage(
-                        data: "1234567890",
+                        data: Beamer.of(context)
+                            .currentBeamLocation
+                            .state
+                            .data['detailOrder']
+                            .id
+                            .toString(),
                         version: QrVersions.auto,
                         size: 200.0,
                       ),
