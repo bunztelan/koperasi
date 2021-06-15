@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                             return GestureDetector(
                               onTap: () {
                                 Beamer.of(context).beamToNamed(
-                                  '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
+                                  '/${RouteName.userDashboard}/:${state.products[index].id.toString()}',
                                   data: {
                                     'detailProduct': e,
                                   },

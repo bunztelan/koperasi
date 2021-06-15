@@ -4,6 +4,8 @@ import 'package:beamer/beamer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:k2ms_v2/blocs/order/cubit/order_cubit.dart';
 import 'package:k2ms_v2/blocs/sign_in/sign_in_local.dart';
 import 'package:k2ms_v2/config/color_config.dart';
 import 'package:k2ms_v2/config/route/dashboard_location.dart';
@@ -19,6 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future _toMain() async {
     await Firebase.initializeApp();
     var getUserLocalData = await LocalData.getUserLocalData();
+    var getCartLocalData = await LocalData.getCartLocalData();
+
+    if (getCartLocalData != null && getCartLocalData.length > 0) {
+      BlocProvider.of<OrderCubit>(context).initialData(getCartLocalData);
+    }
 
     return Timer(Duration(seconds: 3), () async {
       if (getUserLocalData != null) {

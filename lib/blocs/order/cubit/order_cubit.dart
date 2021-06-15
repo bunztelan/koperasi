@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:k2ms_v2/blocs/sign_in/sign_in_local.dart';
 import 'package:k2ms_v2/models/order.dart';
 import 'package:k2ms_v2/models/product.dart';
 
@@ -9,6 +12,15 @@ class OrderCubit extends Cubit<OrderState> {
   List<Order> orders = [];
 
   OrderCubit() : super(OrderInitialState());
+
+  /// Initial data (from local data)
+  Future<void> initialData(List<Order> initOrders) async {
+    emit(OrderLoadingState());
+
+    orders = initOrders;
+
+    emit(OrderLoadedState(orders: orders));
+  }
 
   int searchOrderProduct(int searchId) {
     if (orders.length == 0 || orders == null) return -1;
@@ -45,6 +57,8 @@ class OrderCubit extends Cubit<OrderState> {
         orders.insert(0, Order(product: product, qty: qty));
       }
     }
+
+    LocalData.setCartLocalData(orders);
   }
 
   /// Remove item from cart
@@ -52,6 +66,8 @@ class OrderCubit extends Cubit<OrderState> {
     emit(OrderLoadingState());
 
     orders.removeAt(searchOrderProduct(searchId));
+
+    LocalData.setCartLocalData(orders);
 
     emit(OrderLoadedState(orders: orders));
   }

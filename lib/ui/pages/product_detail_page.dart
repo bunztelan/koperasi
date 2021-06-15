@@ -201,11 +201,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                         borderRadius: BorderRadius.circular(8),
                                         border: Border.all(
                                           width: 1,
-                                          color: Colors.white,
+                                          color: AppColor.roseColor,
                                         ),
                                       ),
                                       child: Icon(
-                                        Icons.remove_outlined,
+                                        Icons.close_outlined,
                                         color: Colors.white,
                                       ),
                                     ),

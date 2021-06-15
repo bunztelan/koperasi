@@ -71,6 +71,25 @@ class Product {
     );
   }
 
+  factory Product.fromLocalMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'],
+      categoryId: map['categoryId'],
+      name: map['name'],
+      description: map['description'],
+      stock: map['stock'],
+      price: map['price'],
+      status: map['status'],
+      maritalQuota: map['maritalQuota'],
+      regulerQuota: map['regulerQuota'],
+      createdAt: map['createdAt'],
+      updatedAt: map['updatedAt'],
+      deletedAt: map['deletedAt'],
+      images: List<String>.from(map['images']),
+      isBuyable: map['isBuyable'],
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory Product.fromJson(String source) =>

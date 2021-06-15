@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:k2ms_v2/models/order.dart';
 import 'package:k2ms_v2/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,6 +73,40 @@ class LocalData {
 
     try {
       return prefs.getString('token');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Set data order-cart to json
+  static Future<void> setCartLocalData(List<Order> orders) async {
+    if (orders.length < 1 || orders == null) return;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var convert = orders.map((e) => jsonEncode(e.toJson())).toList();
+
+    prefs.setString('cart', convert.toString());
+  }
+
+  /// Set data order-cart to json
+  static Future<List<Order>> getCartLocalData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    try {
+      var list = jsonDecode(prefs.getString('cart'));
+
+      List<Order> orders = [];
+
+      for (int i = 0; i < list.length; i++) {
+        print(i);
+        orders.insert(
+          0,
+          Order.fromMap(jsonDecode(list[i])),
+        );
+      }
+
+      return orders;
     } catch (e) {
       return null;
     }
