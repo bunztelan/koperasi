@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:k2ms_v2/blocs/order_backend/cubit/order_backend_cubit.dart';
 import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/models/order.dart';
+import 'package:k2ms_v2/models/ordered_item.dart';
 import 'package:k2ms_v2/ui/widgets/widgets.dart';
 
 import '../../../config/color_config.dart';
@@ -27,6 +29,9 @@ class _OrderListPageState extends State<OrderListPage> {
 
   // Set tab content
   Widget setTabContent() {
+    BlocProvider.of<OrderBackendCubit>(context)
+        .getOrderBackend(context.read<TokenCubit>().state.token, 'ALL');
+
     if (selectedIndex == 0) {
       return ProccessTab();
     }
@@ -143,7 +148,11 @@ class SufixItemCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      '$totalItem item  ⋅  IDR $price',
+                      '$totalItem item  ⋅  ${NumberFormat.currency(
+                        symbol: "IDR ",
+                        decimalDigits: 0,
+                        locale: "id-ID",
+                      ).format(int.parse(price))}',
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2
@@ -182,13 +191,43 @@ class SufixItemCard extends StatelessWidget {
 
 /// Proccess Tab
 class ProccessTab extends StatelessWidget {
+  String _countItem(List<Order> orders) {
+    int total = 0;
+
+    for (int i = 0; i < orders.length; i++) {
+      total += orders[i].qty;
+    }
+
+    return total.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrderBackendCubit, OrderBackendState>(
       builder: (context, state) {
         if (state is OrderBackendLoadedState) {
+          List<OrderedItem> proccessList = state.orders;
+
+          proccessList.removeWhere((e) =>
+              e.status == 'COMPLETED' ||
+              e.status == 'CANCELLED' ||
+              e.status == 'REJECTED');
+
+          if (proccessList.length < 1 || proccessList == null) {
+            return Padding(
+              padding: EdgeInsets.only(bottom: 24),
+              child: Text(
+                'Anda tidak memiliki pesanan.',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(color: AppColor.black30),
+              ),
+            );
+          }
+
           return Column(
-              children: state.orders.map(
+              children: proccessList.map(
             (e) {
               var index = state.orders.indexOf(e);
 
@@ -204,7 +243,7 @@ class ProccessTab extends StatelessWidget {
                   child: SufixItemCard(
                     title: 'ORDER ${e.id.toString()}',
                     price: e.totalPrice.toString(),
-                    totalItem: e.orders.length.toString(),
+                    totalItem: _countItem(e.orders),
                     date: DateFormat("dd MMM, yyyy HH:mm")
                         .format(DateTime.parse(e.updatedAt)),
                     status: e.status,
@@ -222,21 +261,70 @@ class ProccessTab extends StatelessWidget {
 
 /// Completed tab
 class CompletedTab extends StatelessWidget {
+  String _countItem(List<Order> orders) {
+    int total = 0;
+
+    for (int i = 0; i < orders.length; i++) {
+      total += orders[i].qty;
+    }
+
+    return total.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () {},
-          child: SufixItemCard(
-            title: 'Bluban cap sedap',
-            price: '75000',
-            totalItem: '5',
-            date: 'Mei 2, 2021',
-            status: 'Dibatalkan',
-          ),
-        ),
-      ],
+    return BlocBuilder<OrderBackendCubit, OrderBackendState>(
+      builder: (context, state) {
+        if (state is OrderBackendLoadedState) {
+          List<OrderedItem> proccessList = state.orders;
+
+          proccessList.removeWhere((e) =>
+              e.status != 'COMPLETED' ||
+              e.status != 'CANCELLED' ||
+              e.status != 'REJECTED');
+
+          if (proccessList.length < 1 || proccessList == null) {
+            return Padding(
+              padding: EdgeInsets.only(bottom: 24),
+              child: Text(
+                'Histori anda masih kosong.',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(color: AppColor.black30),
+              ),
+            );
+          }
+
+          return Column(
+              children: proccessList.map(
+            (e) {
+              var index = state.orders.indexOf(e);
+
+              return GestureDetector(
+                onTap: () {
+                  Beamer.of(context).beamToNamed(
+                      '/${RouteName.userDashboard}/${RouteName.userOrderDetail}',
+                      data: {'detailOrder': e});
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: index == (state.orders.length - 1) ? 50 : 0),
+                  child: SufixItemCard(
+                    title: 'ORDER ${e.id.toString()}',
+                    price: e.totalPrice.toString(),
+                    totalItem: _countItem(e.orders),
+                    date: DateFormat("dd MMM, yyyy HH:mm")
+                        .format(DateTime.parse(e.updatedAt)),
+                    status: e.status,
+                  ),
+                ),
+              );
+            },
+          ).toList());
+        }
+        return Container();
+      },
     );
   }
 }
