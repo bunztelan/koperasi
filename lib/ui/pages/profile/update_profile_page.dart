@@ -23,11 +23,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   TextEditingController _plantController = TextEditingController();
   List<Plant> _plants = [];
   String _selectedPlant = '0';
-  User _user;
 
   @override
   void initState() {
     _plantCubit = PlantCubit(PlantRepositoryImp())..getPlant();
+    _nameController.text = BlocProvider.of<UserCubit>(context).state.user.name;
+    _emailController.text =
+        BlocProvider.of<UserCubit>(context).state.user.email;
+    _nipController.text = BlocProvider.of<UserCubit>(context).state.user.nip;
 
     super.initState();
   }
@@ -292,21 +295,23 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                   bloc: BlocProvider.of<PlantCubit>(context),
                                   listener: (context, state) {
                                     if (state is PlantLoadedState) {
-                                      setState(() {
-                                        _plants = state.plants;
-                                        _user = Beamer.of(context)
-                                            .currentBeamLocation
-                                            .state
-                                            .data['userData'];
-                                        _nameController.text = _user.name;
-                                        _emailController.text = _user.email;
-                                        _nipController.text = _user.nip;
-                                        _plantController.text =
-                                            _initialPlantForm(_user.plantId);
-                                        _selectedPlant =
-                                            _user.plantId.toString();
-                                        _initialMaritalForm(_user.status);
-                                      });
+                                      _plants = state.plants;
+                                      _plantController.text = _initialPlantForm(
+                                          BlocProvider.of<UserCubit>(context)
+                                              .state
+                                              .user
+                                              .plantId);
+                                      _selectedPlant =
+                                          BlocProvider.of<UserCubit>(context)
+                                              .state
+                                              .user
+                                              .plantId
+                                              .toString();
+                                      _initialMaritalForm(
+                                          BlocProvider.of<UserCubit>(context)
+                                              .state
+                                              .user
+                                              .status);
                                     }
                                   },
                                   child: BlocBuilder<PlantCubit, PlantState>(

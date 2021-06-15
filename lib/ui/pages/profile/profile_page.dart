@@ -22,7 +22,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  UserCubit _userCubit;
   File _profileImage; // Photo profile image
   final _formKey = GlobalKey<FormState>();
   final _picker = ImagePicker(); // Poster image
@@ -30,7 +29,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    _userCubit = BlocProvider.of<UserCubit>(context);
     super.initState();
   }
 
@@ -139,7 +137,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserCubit, UserState>(
-      bloc: _userCubit,
       builder: (context, state) {
         if (state is UserLoadedState) {
           return Scaffold(
@@ -224,7 +221,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               Beamer.of(context).beamToNamed(
                                   '/${RouteName.userDashboard}/${RouteName.updateProfile}',
                                   data: {
-                                    'userCubit': _userCubit,
                                     'userData':
                                         context.read<UserCubit>().state.user
                                   });
