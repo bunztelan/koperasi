@@ -11,6 +11,7 @@ import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/models/order.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
 import 'package:k2ms_v2/ui/widgets/loading_dialog.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../config/color_config.dart';
 import '../../../config/route/route_name.dart';
@@ -204,10 +205,24 @@ class OrderDetailPageState extends State<OrderDetailPage> {
                           ),
                           Text(
                             Beamer.of(context)
-                                .currentBeamLocation
-                                .state
-                                .data['detailOrder']
-                                .note,
+                                            .currentBeamLocation
+                                            .state
+                                            .data['detailOrder']
+                                            .note ==
+                                        null ||
+                                    Beamer.of(context)
+                                            .currentBeamLocation
+                                            .state
+                                            .data['detailOrder']
+                                            .note
+                                            .length ==
+                                        0
+                                ? '-'
+                                : Beamer.of(context)
+                                    .currentBeamLocation
+                                    .state
+                                    .data['detailOrder']
+                                    .note,
                             textAlign: TextAlign.right,
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
@@ -308,6 +323,31 @@ class OrderDetailPageState extends State<OrderDetailPage> {
                             ),
                           ),
                         ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 24),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(24),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "QR Code",
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                color: AppColor.textPrimaryColor,
+                              ),
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      QrImage(
+                        data: "1234567890",
+                        version: QrVersions.auto,
+                        size: 200.0,
                       ),
                     ],
                   ),
