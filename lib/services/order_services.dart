@@ -63,11 +63,8 @@ class OrderServices {
 
       if (response.statusCode == 200) {
         List<OrderedItem> orders = [];
-        // print(response.data['data']['items'][0]['items'][0]['product_name']);
         if (response.data['data']['items'] != null &&
             response.data['data']['items'].length > 0) {
-          // List<dynamic> w = jsonEncode (response.data['data']['items'][0]['items'][0]['product_name']);
-
           for (int i = 0; i < response.data['data']['items'].length; i++) {
             /// Convert items to order
             List<Order> orderItems = [];
