@@ -18,6 +18,15 @@ class UpdateAddressPageState extends State<UpdateAddressPage> {
   @override
   void initState() {
     _registerCubit = RegisterCubit(RegisterRepositoryImp());
+    _telpController.text =
+        BlocProvider.of<UserCubit>(context).state.user.phoneNumber;
+    _addressController.text =
+        BlocProvider.of<UserCubit>(context).state.user.address;
+
+    latitude =
+        BlocProvider.of<UserCubit>(context).state.user.latitude.toString();
+    longitude =
+        BlocProvider.of<UserCubit>(context).state.user.longitude.toString();
 
     super.initState();
   }
