@@ -6,6 +6,8 @@ import 'package:k2ms_v2/blocs/category/cubit/category_cubit.dart';
 import 'package:k2ms_v2/blocs/checkout/checkout_repository_imp.dart';
 import 'package:k2ms_v2/blocs/checkout/cubit/checkout_cubit.dart';
 import 'package:k2ms_v2/blocs/order/cubit/order_cubit.dart';
+import 'package:k2ms_v2/blocs/order_backend/cubit/order_backend_cubit.dart';
+import 'package:k2ms_v2/blocs/order_backend/order_backend_repository_imp.dart';
 import 'package:k2ms_v2/blocs/product/cubit/product_cubit.dart';
 import 'package:k2ms_v2/blocs/product/product_repository_imp.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
@@ -47,6 +49,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<ProductCubit>(
               create: (context) => ProductCubit(ProductRepositoryImp())),
           BlocProvider<OrderCubit>(create: (context) => OrderCubit()),
+          BlocProvider<OrderBackendCubit>(
+              create: (context) =>
+                  OrderBackendCubit(OrderBackendRepositoryImp())),
           BlocProvider<CheckoutCubit>(
               create: (context) => CheckoutCubit(CheckoutRepositoryImp())),
         ],

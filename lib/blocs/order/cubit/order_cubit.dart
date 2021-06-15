@@ -47,6 +47,7 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
+  /// Get order from cart
   Future<void> getOrder() async {
     try {
       emit(OrderLoadedState(orders: orders));

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:k2ms_v2/models/category.dart';
 import 'package:k2ms_v2/models/order.dart';
+import 'package:k2ms_v2/models/ordered_item.dart';
 import 'package:k2ms_v2/models/plant.dart';
 import 'package:k2ms_v2/models/product.dart';
 import 'package:k2ms_v2/models/response/api_return_value.dart';

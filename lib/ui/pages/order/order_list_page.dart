@@ -1,5 +1,9 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:k2ms_v2/blocs/order_backend/cubit/order_backend_cubit.dart';
+import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/widgets/widgets.dart';
 
@@ -13,6 +17,13 @@ class OrderListPage extends StatefulWidget {
 
 class _OrderListPageState extends State<OrderListPage> {
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    BlocProvider.of<OrderBackendCubit>(context)
+        .getOrderBackend(context.read<TokenCubit>().state.token, 'ALL');
+    super.initState();
+  }
 
   // Set tab content
   Widget setTabContent() {
@@ -137,6 +148,25 @@ class SufixItemCard extends StatelessWidget {
   final String date;
   final String status;
 
+  String _setStatus(String status) {
+    switch (status) {
+      case 'CONFIRM':
+        return 'Pesanan Dikonfirmasi';
+      case 'PENDING':
+        return 'Pending';
+      case 'ON_DELIVERY':
+        return 'Dikirim';
+      case 'COMPLETED':
+        return 'Diterima';
+      case 'REJECTED':
+        return 'Diterima';
+      case 'CANCELLED':
+        return 'Dibatalkan';
+      default:
+        return '';
+    }
+  }
+
   SufixItemCard(
       {this.title, this.price, this.totalItem, this.date, this.status});
 
@@ -199,9 +229,9 @@ class SufixItemCard extends StatelessWidget {
                   ),
                   SizedBox(height: 3),
                   Text(
-                    status,
+                    _setStatus(status),
                     style: Theme.of(context).textTheme.caption.copyWith(
-                          color: AppColor.textDangerColor,
+                          color: AppColor.green,
                         ),
                   ),
                 ],
@@ -218,18 +248,34 @@ class SufixItemCard extends StatelessWidget {
 class ProccessTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () {
-            Beamer.of(context).beamToNamed('/${RouteName.userDashboard}/:1');
-          },
-          child: ItemCard('Beras ABC', '75000', '3'),
-        ),
-        ItemCard('Minyak Goreng Bilomi', '23000', '4'),
-        ItemCard('Minyak Goreng Uhuy Badai Bombai', '50000', '3'),
-        ItemCard('Indomie Mie Instant', '1500', '1'),
-      ],
+    return BlocBuilder<OrderBackendCubit, OrderBackendState>(
+      builder: (context, state) {
+        if (state is OrderBackendLoadedState) {
+          return Column(
+              children: state.orders.map(
+            (e) {
+              var index = state.orders.indexOf(e);
+
+              return GestureDetector(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: index == (state.orders.length - 1) ? 50 : 0),
+                  child: SufixItemCard(
+                    title: 'ORDER ${e.id.toString()}',
+                    price: e.totalPrice.toString(),
+                    totalItem: '5',
+                    date: DateFormat("dd MMM, yyyy HH:mm")
+                        .format(DateTime.parse(e.updatedAt)),
+                    status: e.status,
+                  ),
+                ),
+              );
+            },
+          ).toList());
+        }
+        return Container();
+      },
     );
   }
 }
@@ -241,9 +287,7 @@ class CompletedTab extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            Beamer.of(context).beamToNamed('/${RouteName.userDashboard}/:1');
-          },
+          onTap: () {},
           child: SufixItemCard(
             title: 'Bluban cap sedap',
             price: '75000',

@@ -1,6 +1,7 @@
 part of 'services.dart';
 
 class OrderServices {
+  /// Checkout
   static Future<ApiReturnValue<String>> checkout({
     String authToken,
     List<Order> orders,
@@ -30,6 +31,51 @@ class OrderServices {
 
       if (response.statusCode == 200) {
         return ApiReturnValue(value: 'Sukses', message: 'Sukses');
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
+
+  /// Get order from server
+  static Future<ApiReturnValue<List<OrderedItem>>> getOrderBackend(
+      String authToken, String statusOrder) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.get(
+        '$host_order/customer/$statusOrder',
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      print(response);
+
+      if (response.statusCode == 200) {
+        List<OrderedItem> orders = [];
+
+        if (response.data['data']['items'] != null &&
+            response.data['data']['items'].length > 0) {
+          for (int i = 0; i < response.data['data']['items'].length; i++) {
+            orders.add(
+              OrderedItem.fromMap(response.data['data']['items'][i]),
+            );
+          }
+        }
+
+        return ApiReturnValue(value: orders, message: 'Sukses');
       } else {
         String errorMessage = somethingWentWrongMsg;
 

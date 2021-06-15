@@ -198,24 +198,32 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                       return Column(
-                        children: state.products
-                            .map(
-                              (e) => GestureDetector(
-                                onTap: () {
-                                  Beamer.of(context).beamToNamed(
-                                    '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
-                                    data: {
-                                      'detailProduct': e,
-                                    },
-                                  );
-                                },
+                        children: state.products.map(
+                          (e) {
+                            var index = state.products.indexOf(e);
+
+                            return GestureDetector(
+                              onTap: () {
+                                Beamer.of(context).beamToNamed(
+                                  '/${RouteName.userDashboard}/:${state.products[0].id.toString()}',
+                                  data: {
+                                    'detailProduct': e,
+                                  },
+                                );
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: index == state.products.length - 1
+                                        ? 50
+                                        : 0),
                                 child: ItemCard(
                                   e.name,
                                   e.price.toString(),
                                 ),
                               ),
-                            )
-                            .toList(),
+                            );
+                          },
+                        ).toList(),
                       );
                     }
                     return Container();
