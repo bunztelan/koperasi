@@ -67,6 +67,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 context, 'Gagal melakukan pesanan, coba kembali.');
           } else if (state is CheckoutLoadedState) {
             Navigator.pop(context);
+
+            // Remove cart when success checkout
+            List<Order> emptyOrder = [];
+            BlocProvider.of<OrderCubit>(context).initialData(emptyOrder);
+
             Beamer.of(context).beamToNamed(
               '/${RouteName.userDashboard}/${RouteName.generalOrderSuccess}',
             );
