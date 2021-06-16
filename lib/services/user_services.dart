@@ -130,7 +130,7 @@ class UserServices {
     }
   }
 
-  Future<ApiReturnValue<String>> updateProfile({
+  static Future<ApiReturnValue<String>> updateProfile({
     String id,
     String authToken,
     String name,
@@ -142,7 +142,7 @@ class UserServices {
     var dio = Dio();
 
     try {
-      var response = await dio.post(
+      var response = await dio.put(
         '$host_user/$id',
         data: {
           'name': name,
@@ -152,6 +152,7 @@ class UserServices {
           'marital_status': maritalStatus,
         },
         options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
           validateStatus: (status) {
             return status <= 500;
           },
@@ -169,7 +170,7 @@ class UserServices {
               errorMessage = 'Email anda tidak valid, mohon cek kembali.';
               break;
             default:
-              errorMessage = response.data['message'].toString();
+              errorMessage = somethingWentWrongMsg;
               break;
           }
 

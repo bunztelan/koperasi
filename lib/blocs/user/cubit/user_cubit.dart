@@ -21,14 +21,46 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> updateProfile({
-    String id,
-    String authToken,
     String name,
     String maritalStatus,
     String email,
     String nip,
     String plantId,
-  }) async {}
+    User oldUser,
+  }) async {
+    try {
+      User newUser = User(
+        id: oldUser.id,
+        name: name,
+        email: email,
+        maritalStatus: oldUser.maritalStatus,
+        plantId: int.parse(plantId),
+        nip: nip,
+        address: oldUser.address,
+        addressDesc: oldUser.addressDesc,
+        addressId: oldUser.addressId,
+        avatar: oldUser.avatar,
+        createdAt: oldUser.createdAt,
+        deletedAt: oldUser.deletedAt,
+        emailConfirmToken: oldUser.emailConfirmToken,
+        emailVerifiedAt: oldUser.emailVerifiedAt,
+        forgotToken: oldUser.forgotToken,
+        latitude: oldUser.latitude,
+        longitude: oldUser.longitude,
+        phoneNumber: oldUser.phoneNumber,
+        role: oldUser.role,
+        roleId: oldUser.roleId,
+        status: oldUser.status,
+        teamId: oldUser.teamId,
+        updatedAt: oldUser.updatedAt,
+      );
+
+      LocalData.setUserLocalData(newUser);
+      emit(UserLoadedState(newUser));
+    } catch (e) {
+      emit(UserErrorState(message: e));
+    }
+  }
 
   Future<void> updateAddress({
     String authToke,

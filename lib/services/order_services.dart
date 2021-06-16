@@ -43,7 +43,7 @@ class OrderServices {
                 blackList.add(response.data['data'][i]['name']);
               }
 
-              errorMessage = 'Stok habis untuk (${blackList.join(',')})';
+              errorMessage = 'Quota anda habis untuk (${blackList.join(',')})';
               break;
             default:
               errorMessage = errorMessage;

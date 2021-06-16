@@ -10,6 +10,8 @@ import 'package:k2ms_v2/blocs/order_backend/cubit/order_backend_cubit.dart';
 import 'package:k2ms_v2/blocs/order_backend/order_backend_repository_imp.dart';
 import 'package:k2ms_v2/blocs/product/cubit/product_cubit.dart';
 import 'package:k2ms_v2/blocs/product/product_repository_imp.dart';
+import 'package:k2ms_v2/blocs/update_profile/cubit/update_profile_cubit.dart';
+import 'package:k2ms_v2/blocs/update_profile/update_profile_repository.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/config/route/dashboard_location.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
@@ -17,6 +19,7 @@ import 'package:k2ms_v2/config/route/order_location.dart';
 import 'package:k2ms_v2/config/route/splash_location.dart';
 
 import 'blocs/token/cubit/token_cubit.dart';
+import 'blocs/update_profile/update_profile_repository_imp.dart';
 import 'config/theme_config.dart';
 
 void main() {
@@ -54,6 +57,9 @@ class MyApp extends StatelessWidget {
                   OrderBackendCubit(OrderBackendRepositoryImp())),
           BlocProvider<CheckoutCubit>(
               create: (context) => CheckoutCubit(CheckoutRepositoryImp())),
+          BlocProvider<UpdateProfileCubit>(
+              create: (context) =>
+                  UpdateProfileCubit(UpdateProfileRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',
@@ -65,3 +71,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class ProfileUpdateCubit {}

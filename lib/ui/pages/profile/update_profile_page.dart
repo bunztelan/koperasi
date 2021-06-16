@@ -60,7 +60,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   /// Update profile
-  void _updateProfile() {}
+  void _updateProfile() {
+    LoadingDialog.showLoadingDialog(context, 'Menunggu...');
+
+    if (_formKey.currentState.validate()) {
+      BlocProvider.of<UpdateProfileCubit>(context).updateProfile(
+        authToken: context.read<TokenCubit>().state.token,
+        id: context.read<UserCubit>().state.user.id.toString(),
+        name: _nameController.text.toString(),
+        email: _emailController.text.toString(),
+        maritalStatus:
+            _marital == UpdateMaritalStatus.MARIED ? 'MARIED' : 'SINGLE',
+        nip: _nipController.text.toString(),
+        plantId: _selectedPlant,
+      );
+    }
+  }
 
   /// Show list of plants dialog
   void _showPlantsDialog() {
@@ -120,6 +135,26 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+          child: BlocListener<UpdateProfileCubit, UpdateProfileState>(
+        listener: (context, state) {
+          if (state is UpdateProfileLoadedState) {
+            Navigator.pop(context);
+            CustomSnackbar.showSuccessSnackbar(
+                context, 'Profile berhasil diperbaruhi.');
+            BlocProvider.of<UserCubit>(context).updateProfile(
+              name: _nameController.text,
+              email: _emailController.text,
+              maritalStatus:
+                  _marital == UpdateMaritalStatus.MARIED ? 'maried' : 'single',
+              nip: _nipController.text,
+              plantId: _selectedPlant,
+              oldUser: context.read<UserCubit>().state.user,
+            );
+          } else if (state is UpdateProfileErrorState) {
+            Navigator.pop(context);
+            CustomSnackbar.showDangerSnackbar(context, state.message);
+          }
+        },
         child: Container(
           color: AppColor.bodyColor,
           height: MediaQuery.of(context).size.height,
@@ -400,7 +435,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             ),
           ),
         ),
-      ),
+      )),
     );
   }
 }
