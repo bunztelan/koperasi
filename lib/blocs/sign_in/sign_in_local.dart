@@ -99,7 +99,6 @@ class LocalData {
       List<Order> orders = [];
 
       for (int i = 0; i < list.length; i++) {
-        print(i);
         orders.insert(
           0,
           Order.fromMap(jsonDecode(list[i])),

@@ -66,7 +66,7 @@ class Product {
       createdAt: map['created_at'],
       updatedAt: map['updated_at'],
       deletedAt: map['deleted_at'],
-      images: List<String>.from(map['images']),
+      images: null,
       isBuyable: map['is_buyable'],
     );
   }
@@ -85,7 +85,7 @@ class Product {
       createdAt: map['createdAt'],
       updatedAt: map['updatedAt'],
       deletedAt: map['deletedAt'],
-      images: List<String>.from(map['images']),
+      images: null,
       isBuyable: map['isBuyable'],
     );
   }

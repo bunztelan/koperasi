@@ -64,8 +64,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         listener: (context, state) {
           if (state is CheckkoutErrorState) {
             Navigator.pop(context);
-            CustomSnackbar.showDangerSnackbar(
-                context, 'Gagal melakukan pesanan, coba kembali.');
+            CustomSnackbar.showDangerSnackbar(context, state.message);
           } else if (state is CheckoutLoadedState) {
             Navigator.pop(context);
 

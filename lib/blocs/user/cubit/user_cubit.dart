@@ -19,4 +19,26 @@ class UserCubit extends Cubit<UserState> {
       emit(UserErrorState(message: 'Terjadi kesalahan'));
     }
   }
+
+  Future<void> updateProfile({
+    String id,
+    String authToken,
+    String name,
+    String maritalStatus,
+    String email,
+    String nip,
+    String plantId,
+  }) async {}
+
+  Future<void> updateAddress({
+    String authToke,
+    String address,
+    String phoneNumber,
+    String latitude,
+    String longitude,
+    String addressDesc,
+  }) async {}
+
+  Future<void> changePassword() async {}
+  Future<void> updatePhoto() async {}
 }

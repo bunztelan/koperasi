@@ -28,7 +28,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
       emit(CheckoutLoadedState());
     } catch (e) {
-      emit(CheckkoutErrorState(message: 'Terjadi kesalahan.'));
+      emit(CheckkoutErrorState(message: e));
     }
   }
 }

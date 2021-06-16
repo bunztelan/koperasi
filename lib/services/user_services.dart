@@ -129,4 +129,57 @@ class UserServices {
       throw (somethingWentWrongMsg);
     }
   }
+
+  Future<ApiReturnValue<String>> updateProfile({
+    String id,
+    String authToken,
+    String name,
+    String maritalStatus,
+    String email,
+    String nip,
+    String plantId,
+  }) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.post(
+        '$host_user/$id',
+        data: {
+          'name': name,
+          'email': email,
+          'nip': nip,
+          'plant_id': plantId,
+          'marital_status': maritalStatus,
+        },
+        options: Options(
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return ApiReturnValue(message: 'Akun anda berhasil didaftarkan.');
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          switch (response.data['message'].toString()) {
+            case '[email must be an email]':
+              errorMessage = 'Email anda tidak valid, mohon cek kembali.';
+              break;
+            default:
+              errorMessage = response.data['message'].toString();
+              break;
+          }
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
 }

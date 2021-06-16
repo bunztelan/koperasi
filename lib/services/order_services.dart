@@ -35,13 +35,27 @@ class OrderServices {
         String errorMessage = somethingWentWrongMsg;
 
         if (response.data['message'] != null) {
+          switch (response.data['message'].toString()) {
+            case 'INSUFFICIENT_QUOTA':
+              List<String> blackList = [];
+
+              for (int i = 0; i < response.data['data'].length; i++) {
+                blackList.add(response.data['data'][i]['name']);
+              }
+
+              errorMessage = 'Stok habis untuk (${blackList.join(',')})';
+              break;
+            default:
+              errorMessage = errorMessage;
+              break;
+          }
           throw (errorMessage);
         } else {
           throw (somethingWentWrongMsg);
         }
       }
-    } on DioError catch (_) {
-      throw (somethingWentWrongMsg);
+    } on DioError catch (e) {
+      throw (e);
     }
   }
 

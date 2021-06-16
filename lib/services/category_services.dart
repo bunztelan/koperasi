@@ -7,7 +7,7 @@ class CategoryServices {
 
     try {
       var response = await dio.get(
-        '$host_category',
+        '$host_product/0/mobile',
         options: Options(
           headers: {"Authorization": 'Bearer $authToken'},
           validateStatus: (status) {
@@ -19,10 +19,11 @@ class CategoryServices {
       if (response.statusCode == 200) {
         List<Category> categories = [];
 
-        if (response.data['data']['items'] != null &&
-            response.data['data']['items'].length > 0) {
-          for (int i = 0; i < response.data['data']['items'].length; i++) {
-            categories.add(Category.fromMap(response.data['data']['items'][i]));
+        if (response.data['data']['categories'] != null &&
+            response.data['data']['categories'].length > 0) {
+          for (int i = 0; i < response.data['data']['categories'].length; i++) {
+            categories
+                .add(Category.fromMap(response.data['data']['categories'][i]));
           }
         }
 

@@ -77,7 +77,7 @@ class OrderCubit extends Cubit<OrderState> {
     try {
       emit(OrderLoadedState(orders: orders));
     } catch (e) {
-      emit(OrderErrorState(message: 'Terjadi kesalahan.'));
+      emit(OrderErrorState(message: e));
     }
   }
 }
