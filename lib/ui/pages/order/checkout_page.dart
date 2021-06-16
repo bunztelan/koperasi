@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:k2ms_v2/blocs/checkout/cubit/checkout_cubit.dart';
 import 'package:k2ms_v2/blocs/order/cubit/order_cubit.dart';
+import 'package:k2ms_v2/blocs/sign_in/sign_in_local.dart';
 import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/models/order.dart';
@@ -70,6 +71,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
             // Remove cart when success checkout
             List<Order> emptyOrder = [];
+            LocalData.clearCart();
             BlocProvider.of<OrderCubit>(context).initialData(emptyOrder);
 
             Beamer.of(context).beamToNamed(

@@ -22,7 +22,6 @@ class UpdateAddressPageState extends State<UpdateAddressPage> {
         BlocProvider.of<UserCubit>(context).state.user.phoneNumber;
     _addressController.text =
         BlocProvider.of<UserCubit>(context).state.user.address;
-
     latitude =
         BlocProvider.of<UserCubit>(context).state.user.latitude.toString();
     longitude =

@@ -111,4 +111,11 @@ class LocalData {
       return null;
     }
   }
+
+  /// Clear data order-cart
+  static Future<void> clearCart() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove('cart');
+  }
 }
