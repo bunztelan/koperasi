@@ -107,6 +107,40 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future<void> updatePhoto(String avatar, User oldUser) async {
+    try {
+      User newUser = User(
+        avatar: avatar,
+        address: oldUser.address,
+        addressDesc: oldUser.addressDesc,
+        phoneNumber: oldUser.phoneNumber,
+        latitude: oldUser.latitude,
+        longitude: oldUser.longitude,
+        id: oldUser.id,
+        name: oldUser.name,
+        email: oldUser.email,
+        maritalStatus: oldUser.maritalStatus,
+        plantId: oldUser.plantId,
+        nip: oldUser.nip,
+        addressId: oldUser.addressId,
+        createdAt: oldUser.createdAt,
+        deletedAt: oldUser.deletedAt,
+        emailConfirmToken: oldUser.emailConfirmToken,
+        emailVerifiedAt: oldUser.emailVerifiedAt,
+        forgotToken: oldUser.forgotToken,
+        role: oldUser.role,
+        roleId: oldUser.roleId,
+        status: oldUser.status,
+        teamId: oldUser.teamId,
+        updatedAt: oldUser.updatedAt,
+      );
+
+      LocalData.setUserLocalData(newUser);
+      emit(UserLoadedState(newUser));
+    } catch (e) {
+      emit(UserErrorState(message: e));
+    }
+  }
+
   Future<void> changePassword() async {}
-  Future<void> updatePhoto() async {}
 }

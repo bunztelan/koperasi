@@ -16,6 +16,8 @@ import 'blocs/update_address/cubit/update_address_cubit.dart';
 import 'blocs/update_address/update_address_repository_imp.dart';
 import 'blocs/update_profile/cubit/update_profile_cubit.dart';
 import 'blocs/update_profile/update_profile_repository_imp.dart';
+import 'blocs/upload_photo/cubit/upload_photo_cubit.dart';
+import 'blocs/upload_photo/upload_photo_repository_imp.dart';
 import 'blocs/user/cubit/user_cubit.dart';
 import 'config/route/dashboard_location.dart';
 import 'config/route/general_location.dart';
@@ -64,6 +66,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<UpdateAddressCubit>(
               create: (context) =>
                   UpdateAddressCubit(UpdateAddressRepositoryImp())),
+          BlocProvider<UploadPhotoCubit>(
+              create: (context) =>
+                  UploadPhotoCubit(UploadPhotoRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',

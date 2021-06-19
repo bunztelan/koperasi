@@ -234,4 +234,45 @@ class UserServices {
       throw (somethingWentWrongMsg);
     }
   }
+
+  /// Upload photo
+  static Future<ApiReturnValue<String>> uploadPhoto({
+    String authToken,
+    String filePath,
+  }) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.post(
+        '$host_file/upload',
+        data: FormData.fromMap({
+          'file': await MultipartFile.fromFile(filePath, filename: filePath)
+        }),
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return ApiReturnValue(
+            value: response.data['path_url'],
+            message: 'Foto anda berhasil diperbaruhi.');
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          errorMessage = somethingWentWrongMsg;
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
 }

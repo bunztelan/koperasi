@@ -77,7 +77,25 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             image: DecorationImage(
-                              image: AssetImage('assets/default_avatar.png'),
+                              image:
+                                  context.read<UserCubit>().state.user.avatar ==
+                                              null ||
+                                          context
+                                                  .read<UserCubit>()
+                                                  .state
+                                                  .user
+                                                  .avatar ==
+                                              'null'
+                                      ? AssetImage(
+                                          'assets/default_avatar.png',
+                                        )
+                                      : NetworkImage(
+                                          context
+                                              .read<UserCubit>()
+                                              .state
+                                              .user
+                                              .avatar,
+                                        ),
                             ),
                           ),
                         ),

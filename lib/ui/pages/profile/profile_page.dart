@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
+import 'package:k2ms_v2/blocs/upload_photo/cubit/upload_photo_cubit.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
@@ -26,6 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
   final _picker = ImagePicker(); // Poster image
   bool _isUploadingPhoto = false;
+  double _photoOpacity = 1.0;
 
   @override
   void initState() {
@@ -77,7 +80,9 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
       if (croppedImage != null) {
-        // TODO: UPDATE DATA PHOTO ON CUBIT
+        BlocProvider.of<UploadPhotoCubit>(context).uploadPhoto(
+            context.read<TokenCubit>().state.token,
+            croppedImage.path.toString());
 
         setState(() {
           _isUploadingPhoto = true;
@@ -93,7 +98,10 @@ class _ProfilePageState extends State<ProfilePage> {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text('Ganti foto anda'),
+            title: Text(
+              'Ganti foto anda',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
             children: [
               SimpleDialogOption(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -172,10 +180,96 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Container(
                                   height: 70,
                                   width: 70,
-                                  color: Colors.amber,
-                                  child: Image(
-                                    image:
-                                        AssetImage('assets/default_avatar.png'),
+                                  color: AppColor.black70,
+                                  child: Stack(
+                                    children: [
+                                      Opacity(
+                                        opacity: _photoOpacity,
+                                        child: Container(
+                                          width: 70,
+                                          height: 70,
+                                          child: Image(
+                                            fit: BoxFit.cover,
+                                            image: context
+                                                            .read<UserCubit>()
+                                                            .state
+                                                            .user
+                                                            .avatar ==
+                                                        null ||
+                                                    context
+                                                            .read<UserCubit>()
+                                                            .state
+                                                            .user
+                                                            .avatar ==
+                                                        'null'
+                                                ? AssetImage(
+                                                    'assets/default_avatar.png',
+                                                  )
+                                                : NetworkImage(
+                                                    context
+                                                        .read<UserCubit>()
+                                                        .state
+                                                        .user
+                                                        .avatar,
+                                                  ),
+                                          ),
+                                        ),
+                                      ),
+                                      BlocListener<UploadPhotoCubit,
+                                          UploadPhotoState>(
+                                        listener: (context, state) {
+                                          if (state
+                                              is UploadPhotoLoadingState) {
+                                            setState(() {
+                                              _photoOpacity = 0.2;
+                                            });
+                                          } else if (state
+                                              is UploadPhotoLoadedState) {
+                                            BlocProvider.of<UserCubit>(context)
+                                                .updatePhoto(
+                                              state.path,
+                                              context
+                                                  .read<UserCubit>()
+                                                  .state
+                                                  .user,
+                                            );
+                                            setState(() {
+                                              _photoOpacity = 1;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              _photoOpacity = 1;
+                                            });
+                                          }
+                                        },
+                                        child: BlocBuilder<UploadPhotoCubit,
+                                            UploadPhotoState>(
+                                          builder: (context, state) {
+                                            if (state
+                                                is UploadPhotoLoadingState) {
+                                              return Center(
+                                                child: Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    backgroundColor:
+                                                        AppColor.primaryColor,
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      AppColor
+                                                          .primaryLighterColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            return Container();
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
