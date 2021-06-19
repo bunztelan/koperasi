@@ -80,6 +80,8 @@ dependencies:
   geolocator: ^7.0.3
   # QR Code
   qr_flutter: ^4.0.0
+  # Open mail
+  open_mail_app: ^0.1.1
 
 dev_dependencies:
   flutter_test:

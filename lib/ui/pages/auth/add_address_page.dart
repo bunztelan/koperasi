@@ -77,7 +77,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
             CustomSnackbar.showDangerSnackbar(context, state.message);
           } else if (state is RegisterLoadedState) {
             Navigator.pop(context);
-            CustomSnackbar.showSuccessSnackbar(context, state.message);
+            Beamer.of(context).beamToNamed(
+                '${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}');
           }
         },
         child: Scaffold(
