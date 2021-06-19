@@ -26,6 +26,7 @@ class _OrderListPageState extends State<OrderListPage> {
   void initState() {
     BlocProvider.of<OrderBackendCubit>(context)
         .getOrderBackend(context.read<TokenCubit>().state.token, 'ALL');
+    BlocProvider.of<OrderCubit>(context).getOrder();
     super.initState();
   }
 
@@ -271,7 +272,6 @@ class CartTab extends StatelessWidget {
       builder: (context, state) {
         if (state is OrderLoadedState) {
           List<Order> orders = state.orders;
-
           if (orders.length < 1 || orders == null) {
             return Padding(
               padding: EdgeInsets.only(bottom: 24),
