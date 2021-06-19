@@ -11,6 +11,7 @@ import 'package:k2ms_v2/blocs/upload_photo/cubit/upload_photo_cubit.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/config/route/general_location.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/color_config.dart';
@@ -225,6 +226,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                             });
                                           } else if (state
                                               is UploadPhotoLoadedState) {
+                                            CustomSnackbar.showSuccessSnackbar(
+                                                context,
+                                                'Foto anda berhasil diubah');
                                             BlocProvider.of<UserCubit>(context)
                                                 .updatePhoto(
                                               state.path,
@@ -233,6 +237,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   .state
                                                   .user,
                                             );
+                                            setState(() {
+                                              _photoOpacity = 1;
+                                            });
+                                          } else if (state
+                                              is UploadPhotoErrorState) {
+                                            CustomSnackbar.showDangerSnackbar(
+                                                context,
+                                                'Terjadi kesalahan, coba lagi');
                                             setState(() {
                                               _photoOpacity = 1;
                                             });
