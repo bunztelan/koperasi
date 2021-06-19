@@ -18,6 +18,7 @@ import '../../../config/color_config.dart';
 
 // Enum for camera and gallery
 enum ImagePickerType { camera, file }
+enum LogoutPickerType { logout, cancel }
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -138,6 +139,46 @@ class _ProfilePageState extends State<ProfilePage> {
         break;
       case ImagePickerType.file:
         _handleImagePicker(ImagePickerType.file, userId);
+        break;
+      default:
+    }
+  }
+
+  /// Show picker menu
+  Future _askedToLogoutPicker(BuildContext context) async {
+    switch (await showDialog<LogoutPickerType>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text(
+              'Apakah anda ingin keluar?',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            children: [
+              SimpleDialogOption(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                onPressed: () {
+                  Navigator.pop(context, LogoutPickerType.logout);
+                },
+                child: Text('Keluar'),
+              ),
+              SimpleDialogOption(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                onPressed: () {
+                  Navigator.pop(context, LogoutPickerType.cancel);
+                },
+                child: Text(
+                  'Batal',
+                  style: TextStyle(color: AppColor.textDangerColor),
+                ),
+              ),
+            ],
+          );
+        })) {
+      case LogoutPickerType.logout:
+        _logout(context);
+        break;
+      case LogoutPickerType.cancel:
         break;
       default:
     }
@@ -345,7 +386,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 24),
                           GestureDetector(
-                            onTap: () => _logout(context),
+                            onTap: () => _askedToLogoutPicker(context),
                             child: MenuCard('Keluar'),
                           ),
                         ],
