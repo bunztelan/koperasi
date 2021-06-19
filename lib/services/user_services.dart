@@ -1,6 +1,7 @@
 part of 'services.dart';
 
 class UserServices {
+  /// Login
   static Future<ApiReturnValue<SignInValue>> login(
     String email,
     String password,
@@ -61,6 +62,7 @@ class UserServices {
     }
   }
 
+  /// Register
   static Future<ApiReturnValue<String>> register(
     String firebaseToken,
     String name,
@@ -130,6 +132,7 @@ class UserServices {
     }
   }
 
+  /// Update profile
   static Future<ApiReturnValue<String>> updateProfile({
     String id,
     String authToken,
@@ -173,6 +176,54 @@ class UserServices {
               errorMessage = somethingWentWrongMsg;
               break;
           }
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
+
+  /// Update address
+  static Future<ApiReturnValue<String>> updateAddress({
+    String authToken,
+    String phoneNumber,
+    String address,
+    String street,
+    String latitude,
+    String longitude,
+    String addressId,
+  }) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.put(
+        '$host_address/$addressId',
+        data: {
+          'phone_number': phoneNumber,
+          'address': address,
+          'street': street,
+          'latitude': latitude,
+          'longitude': longitude
+        },
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return ApiReturnValue(message: 'Alamat anda berhasil diperbaruhi.');
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          errorMessage = somethingWentWrongMsg;
 
           throw (errorMessage);
         } else {

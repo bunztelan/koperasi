@@ -64,13 +64,11 @@ class _TopSnackBarState extends State<TopSnackBar> {
     return SafeArea(
       child: Material(
         child: Container(
-          height: 40,
+          height: 55,
           width: double.infinity,
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: widget.backgroundColor,
-            borderRadius: BorderRadius.circular(5),
           ),
           child: Row(
             children: [

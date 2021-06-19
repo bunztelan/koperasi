@@ -8,6 +8,7 @@ part 'user_state.dart';
 class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserInitialState());
 
+  /// Get local data user
   Future<void> getUserLocalData() async {
     emit(UserLoadingState());
 
@@ -20,6 +21,7 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  /// Update local profile and BLOC
   Future<void> updateProfile({
     String name,
     String maritalStatus,
@@ -62,14 +64,48 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  /// Update local address and BLOC
   Future<void> updateAddress({
-    String authToke,
     String address,
     String phoneNumber,
     String latitude,
     String longitude,
     String addressDesc,
-  }) async {}
+    User oldUser,
+  }) async {
+    try {
+      User newUser = User(
+        address: address,
+        addressDesc: addressDesc,
+        phoneNumber: phoneNumber,
+        latitude: double.parse(latitude),
+        longitude: double.parse(longitude),
+        id: oldUser.id,
+        name: oldUser.name,
+        email: oldUser.email,
+        maritalStatus: oldUser.maritalStatus,
+        plantId: oldUser.plantId,
+        nip: oldUser.nip,
+        addressId: oldUser.addressId,
+        avatar: oldUser.avatar,
+        createdAt: oldUser.createdAt,
+        deletedAt: oldUser.deletedAt,
+        emailConfirmToken: oldUser.emailConfirmToken,
+        emailVerifiedAt: oldUser.emailVerifiedAt,
+        forgotToken: oldUser.forgotToken,
+        role: oldUser.role,
+        roleId: oldUser.roleId,
+        status: oldUser.status,
+        teamId: oldUser.teamId,
+        updatedAt: oldUser.updatedAt,
+      );
+
+      LocalData.setUserLocalData(newUser);
+      emit(UserLoadedState(newUser));
+    } catch (e) {
+      emit(UserErrorState(message: e));
+    }
+  }
 
   Future<void> changePassword() async {}
   Future<void> updatePhoto() async {}

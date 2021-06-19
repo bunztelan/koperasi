@@ -1,25 +1,26 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:k2ms_v2/blocs/category/category_repository_imp.dart';
-import 'package:k2ms_v2/blocs/category/cubit/category_cubit.dart';
-import 'package:k2ms_v2/blocs/checkout/checkout_repository_imp.dart';
-import 'package:k2ms_v2/blocs/checkout/cubit/checkout_cubit.dart';
-import 'package:k2ms_v2/blocs/order/cubit/order_cubit.dart';
-import 'package:k2ms_v2/blocs/order_backend/cubit/order_backend_cubit.dart';
-import 'package:k2ms_v2/blocs/order_backend/order_backend_repository_imp.dart';
-import 'package:k2ms_v2/blocs/product/cubit/product_cubit.dart';
-import 'package:k2ms_v2/blocs/product/product_repository_imp.dart';
-import 'package:k2ms_v2/blocs/update_profile/cubit/update_profile_cubit.dart';
-import 'package:k2ms_v2/blocs/update_profile/update_profile_repository.dart';
-import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
-import 'package:k2ms_v2/config/route/dashboard_location.dart';
-import 'package:k2ms_v2/config/route/general_location.dart';
-import 'package:k2ms_v2/config/route/order_location.dart';
-import 'package:k2ms_v2/config/route/splash_location.dart';
 
+import 'blocs/category/category_repository_imp.dart';
+import 'blocs/category/cubit/category_cubit.dart';
+import 'blocs/checkout/checkout_repository_imp.dart';
+import 'blocs/checkout/cubit/checkout_cubit.dart';
+import 'blocs/order/cubit/order_cubit.dart';
+import 'blocs/order_backend/cubit/order_backend_cubit.dart';
+import 'blocs/order_backend/order_backend_repository_imp.dart';
+import 'blocs/product/cubit/product_cubit.dart';
+import 'blocs/product/product_repository_imp.dart';
 import 'blocs/token/cubit/token_cubit.dart';
+import 'blocs/update_address/cubit/update_address_cubit.dart';
+import 'blocs/update_address/update_address_repository_imp.dart';
+import 'blocs/update_profile/cubit/update_profile_cubit.dart';
 import 'blocs/update_profile/update_profile_repository_imp.dart';
+import 'blocs/user/cubit/user_cubit.dart';
+import 'config/route/dashboard_location.dart';
+import 'config/route/general_location.dart';
+import 'config/route/order_location.dart';
+import 'config/route/splash_location.dart';
 import 'config/theme_config.dart';
 
 void main() {
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<UpdateProfileCubit>(
               create: (context) =>
                   UpdateProfileCubit(UpdateProfileRepositoryImp())),
+          BlocProvider<UpdateAddressCubit>(
+              create: (context) =>
+                  UpdateAddressCubit(UpdateAddressRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',

@@ -23,3 +23,4 @@ const host_plant = 'https://data.dev-k2ms.com/plant';
 const host_product = 'https://data.dev-k2ms.com/product';
 const host_order = 'https://data.dev-k2ms.com/orders';
 const host_user = 'https://data.dev-k2ms.com/user';
+const host_address = 'https://data.dev-k2ms.com/address';

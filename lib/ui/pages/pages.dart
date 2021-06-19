@@ -20,6 +20,7 @@ import 'package:k2ms_v2/blocs/register/register_repository_imp.dart';
 import 'package:k2ms_v2/blocs/sign_in/cubit/sign_in_cubit.dart';
 import 'package:k2ms_v2/blocs/sign_in/sign_in_repository_impl.dart';
 import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
+import 'package:k2ms_v2/blocs/update_address/cubit/update_address_cubit.dart';
 import 'package:k2ms_v2/blocs/update_profile/cubit/update_profile_cubit.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/config/color_config.dart';
