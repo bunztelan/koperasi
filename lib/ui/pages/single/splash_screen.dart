@@ -61,11 +61,11 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Koperasi',
+              'K2MS',
               style: Theme.of(context)
                   .textTheme
-                  .headline3
-                  .copyWith(color: AppColor.textPrimaryColor),
+                  .headline2
+                  .copyWith(color: AppColor.textPrimaryColor, fontSize: 86),
             ),
             SizedBox(height: 5),
             Container(

@@ -82,6 +82,8 @@ dependencies:
   qr_flutter: ^4.0.0
   # Open mail
   open_mail_app: ^0.1.1
+  # Http parser
+  http_parser: ^4.0.0
 
 dev_dependencies:
   flutter_test:

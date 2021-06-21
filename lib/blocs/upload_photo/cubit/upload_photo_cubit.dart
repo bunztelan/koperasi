@@ -9,17 +9,24 @@ class UploadPhotoCubit extends Cubit<UploadPhotoState> {
 
   UploadPhotoCubit(this.repository) : super(UploadPhotoInitial());
 
-  Future<void> uploadPhoto(String authToken, String filePath) async {
+  Future<void> uploadPhoto({
+    String authToken,
+    String filePath,
+    String email,
+    String userId,
+  }) async {
     try {
       emit(UploadPhotoLoadingState());
 
       var response = await repository.uploadPhoto(
-          authToken: authToken, filePath: filePath);
+        authToken: authToken,
+        filePath: filePath,
+        email: email,
+        userId: userId,
+      );
 
       emit(UploadPhotoLoadedState(path: response));
     } catch (e) {
-      print('ERROR IS' + e.toString());
-
       emit(UploadPhotoErrorState(message: e));
     }
   }

@@ -1,6 +1,39 @@
 part of 'services.dart';
 
 class UserServices {
+  /// Get photo profile
+  static Future<String> getAvatar(String authToken) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.get(
+        '$host_user/profile',
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return response.data['data']['avatar']['image_medium'];
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          errorMessage = somethingWentWrongMsg;
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
+
   /// Login
   static Future<ApiReturnValue<SignInValue>> login(
     String email,
@@ -27,6 +60,12 @@ class UserServices {
       if (response.statusCode == 200) {
         User user = User.fromJson(response.data['data']['profile']);
         String token = response.data['data']['session']['access_token'];
+
+        if (response.data['data']['profile']['avatar'] != null &&
+            response.data['data']['profile']['avatar'].trim() != '') {
+          String avatar = await getAvatar(token);
+          user.setAvatar(avatar);
+        }
 
         return ApiReturnValue(
             value: SignInValue(user: user, token: token), message: 'Sukses');
@@ -235,18 +274,56 @@ class UserServices {
     }
   }
 
+  /// Update photo on profile backend
+  static Future<String> updateAvatarProfile(
+      {String authToken, String id, String imageId, String email}) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.put(
+        '$host_user/$id',
+        data: {'email': email, 'image_id': imageId},
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return 'Foto avatar berhasil diperbaruhi';
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          errorMessage = somethingWentWrongMsg;
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
+
   /// Upload photo
-  static Future<ApiReturnValue<String>> uploadPhoto({
-    String authToken,
-    String filePath,
-  }) async {
+  static Future<ApiReturnValue<String>> uploadPhoto(
+      {String authToken, String filePath, String email, String userId}) async {
     var dio = Dio();
 
     try {
       var response = await dio.post(
         '$host_file/upload',
         data: FormData.fromMap({
-          'file': await MultipartFile.fromFile(filePath, filename: filePath)
+          'type': 'image/png',
+          'file': await MultipartFile.fromFile(
+            filePath,
+            filename: filePath,
+            contentType: MediaType('image', 'png'),
+          )
         }),
         options: Options(
           headers: {"Authorization": 'Bearer $authToken'},
@@ -257,6 +334,14 @@ class UserServices {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        // Update avatar on profile
+        await updateAvatarProfile(
+          authToken: authToken,
+          email: email,
+          id: userId,
+          imageId: response.data['id'].toString(),
+        );
+
         return ApiReturnValue(
             value: response.data['path_url'],
             message: 'Foto anda berhasil diperbaruhi.');

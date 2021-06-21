@@ -99,4 +99,9 @@ class User {
     data['role'] = this.role;
     return data;
   }
+
+  /// Set photo profile
+  void setAvatar(String avatar) {
+    this.avatar = avatar;
+  }
 }

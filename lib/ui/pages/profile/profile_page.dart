@@ -83,8 +83,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
       if (croppedImage != null) {
         BlocProvider.of<UploadPhotoCubit>(context).uploadPhoto(
-            context.read<TokenCubit>().state.token,
-            croppedImage.path.toString());
+          authToken: context.read<TokenCubit>().state.token,
+          filePath: croppedImage.path.toString(),
+          email: context.read<UserCubit>().state.user.email,
+          userId: context.read<UserCubit>().state.user.id.toString(),
+        );
 
         setState(() {
           _isUploadingPhoto = true;
