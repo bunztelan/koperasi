@@ -129,33 +129,41 @@ class _HomePageState extends State<HomePage> {
                 items: state.banners.map((e) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 160,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                color: AppColor.softGrayColor,
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  e.name,
-                                  style: TextStyle(fontSize: 16.0),
+                      return GestureDetector(
+                        onTap: () {
+                          if (e.bannerLink == null) {
+                            CustomSnackbar.showDangerSnackbar(
+                                context, 'Banner ini tidak memiliki link');
+                          }
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 160,
+                                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                decoration: BoxDecoration(
+                                  color: AppColor.softGrayColor,
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    e.name,
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.white,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              padding: EdgeInsets.all(8),
-                              child: Text(e.name),
-                            )
-                          ],
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.white,
+                                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                padding: EdgeInsets.all(8),
+                                child: Text(e.name),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
