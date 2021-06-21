@@ -30,6 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
           listener: (context, state) {
             if (state is TokenLoadedState) {
               BlocProvider.of<CategoryCubit>(context).getCategory(state.token);
+              BlocProvider.of<BannerCubit>(context).getBanner(state.token);
             }
           },
           child: Stack(

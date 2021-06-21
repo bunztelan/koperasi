@@ -2,6 +2,8 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'blocs/banner/banner_repository_imp.dart';
+import 'blocs/banner/cubit/banner_cubit.dart';
 import 'blocs/category/category_repository_imp.dart';
 import 'blocs/category/cubit/category_cubit.dart';
 import 'blocs/checkout/checkout_repository_imp.dart';
@@ -69,6 +71,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<UploadPhotoCubit>(
               create: (context) =>
                   UploadPhotoCubit(UploadPhotoRepositoryImp())),
+          BlocProvider<BannerCubit>(
+              create: (context) => BannerCubit(BannerRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',

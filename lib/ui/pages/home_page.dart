@@ -121,43 +121,50 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        CarouselSlider(
-          options: CarouselOptions(height: 200.0),
-          items: [1, 2, 3, 4, 5].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 160,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                          color: AppColor.softGrayColor,
+        BlocBuilder<BannerCubit, BannerState>(
+          builder: (context, state) {
+            if (state is BannerLoadedState) {
+              return CarouselSlider(
+                options: CarouselOptions(height: 200.0),
+                items: state.banners.map((e) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 160,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                color: AppColor.softGrayColor,
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  e.name,
+                                  style: TextStyle(fontSize: 16.0),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.white,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              padding: EdgeInsets.all(8),
+                              child: Text(e.name),
+                            )
+                          ],
                         ),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            'Banner $i',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.white,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        padding: EdgeInsets.all(8),
-                        child: Text("Banner Title $i"),
-                      )
-                    ],
-                  ),
-                );
-              },
-            );
-          }).toList(),
+                      );
+                    },
+                  );
+                }).toList(),
+              );
+            }
+            return Container();
+          },
         ),
         SizedBox(height: 24),
         Container(
