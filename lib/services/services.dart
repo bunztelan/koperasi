@@ -19,6 +19,7 @@ part 'category_services.dart';
 part 'product_services.dart';
 part 'order_services.dart';
 part 'banner_services.dart';
+part 'forgot_password_services.dart';
 
 const platform = 'customer';
 const somethingWentWrongMsg = 'Terjadi kesalahan, coba lagi.';

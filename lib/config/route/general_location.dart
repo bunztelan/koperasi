@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/ui/pages/auth/send_email_confirm_password.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/confirmation_mail_page.dart';
 
@@ -26,6 +27,11 @@ class GeneralLocation extends BeamLocation {
             child: ConfirmationMailPage(),
             key: ValueKey(RouteName.generalConfirmationMail),
           ),
+        if (state.uri.pathSegments.contains(RouteName.authSECPassword))
+          BeamPage(
+            child: SECPasswordPage(),
+            key: ValueKey(RouteName.authSECPassword),
+          ),
       ];
 
   @override
@@ -34,5 +40,6 @@ class GeneralLocation extends BeamLocation {
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}',
+        '/${RouteName.authSECPassword}'
       ];
 }

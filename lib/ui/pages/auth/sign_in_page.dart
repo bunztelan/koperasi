@@ -137,6 +137,8 @@ class _SignInPageState extends State<SignInPage> {
                 Align(
                   alignment: Alignment.topRight,
                   child: GestureDetector(
+                    onTap: () => Beamer.of(context)
+                        .beamToNamed('/${RouteName.authSECPassword}'),
                     child: Text(
                       "Lupa password ?",
                       style: GoogleFonts.poppins(

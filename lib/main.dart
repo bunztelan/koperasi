@@ -8,6 +8,8 @@ import 'blocs/category/category_repository_imp.dart';
 import 'blocs/category/cubit/category_cubit.dart';
 import 'blocs/checkout/checkout_repository_imp.dart';
 import 'blocs/checkout/cubit/checkout_cubit.dart';
+import 'blocs/forgot_password/cubit/forgot_password_cubit.dart';
+import 'blocs/forgot_password/forgot_password_repository_imp.dart';
 import 'blocs/order/cubit/order_cubit.dart';
 import 'blocs/order_backend/cubit/order_backend_cubit.dart';
 import 'blocs/order_backend/order_backend_repository_imp.dart';
@@ -73,6 +75,9 @@ class MyApp extends StatelessWidget {
                   UploadPhotoCubit(UploadPhotoRepositoryImp())),
           BlocProvider<BannerCubit>(
               create: (context) => BannerCubit(BannerRepositoryImp())),
+          BlocProvider<ForgotPasswordCubit>(
+              create: (context) =>
+                  ForgotPasswordCubit(ForgotPasswordRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',
