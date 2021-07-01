@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:k2ms_v2/blocs/forgot_password/cubit/forgot_password_cubit.dart';
+import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
 import 'package:k2ms_v2/ui/widgets/loading_dialog.dart';
 
@@ -40,6 +41,10 @@ class SECPasswordPageState extends State<SECPasswordPage> {
             if (state is ForgotPasswordErrorState) {
               Navigator.pop(context);
               CustomSnackbar.showDangerSnackbar(context, state.message);
+            } else if (state is ForgotPasswordLoadedState) {
+              Navigator.pop(context);
+              Beamer.of(context).beamToNamed(
+                  '/${RouteName.authSECPassword}/${RouteName.generalConfirmationMail}/forgot_password');
             }
           },
           child: Container(

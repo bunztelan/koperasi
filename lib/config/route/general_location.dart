@@ -22,15 +22,18 @@ class GeneralLocation extends BeamLocation {
             child: AddAddressPage(),
             key: ValueKey(RouteName.userManageAddress),
           ),
-        if (state.uri.pathSegments.contains(RouteName.generalConfirmationMail))
-          BeamPage(
-            child: ConfirmationMailPage(),
-            key: ValueKey(RouteName.generalConfirmationMail),
-          ),
         if (state.uri.pathSegments.contains(RouteName.authSECPassword))
           BeamPage(
             child: SECPasswordPage(),
             key: ValueKey(RouteName.authSECPassword),
+          ),
+        if (state.pathParameters.containsKey('status'))
+          BeamPage(
+            child: ConfirmationMailPage(
+              status: state.pathParameters['status'],
+            ),
+            key: ValueKey(
+                '${RouteName.generalConfirmationMail}-${state.pathParameters['status']}'),
           ),
       ];
 
@@ -39,7 +42,8 @@ class GeneralLocation extends BeamLocation {
         '/${RouteName.authSignUp}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
-        '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}',
-        '/${RouteName.authSECPassword}'
+        '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}/:status',
+        '/${RouteName.authSECPassword}',
+        '/${RouteName.authSECPassword}/${RouteName.generalConfirmationMail}/:status',
       ];
 }
