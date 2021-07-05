@@ -1,16 +1,13 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:k2ms_v2/blocs/checkout/cubit/checkout_cubit.dart';
 import 'package:k2ms_v2/blocs/order/cubit/order_cubit.dart';
 import 'package:k2ms_v2/blocs/order_backend/cubit/order_backend_cubit.dart';
-import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/models/order.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
-import 'package:k2ms_v2/ui/widgets/loading_dialog.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../config/color_config.dart';

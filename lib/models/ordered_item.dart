@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:k2ms_v2/models/order.dart';
-import 'package:k2ms_v2/models/product.dart';
 
 class OrderedItem {
   int id;

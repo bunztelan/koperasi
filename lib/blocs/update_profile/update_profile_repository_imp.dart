@@ -1,4 +1,3 @@
-import 'package:k2ms_v2/blocs/update_profile/cubit/update_profile_cubit.dart';
 import 'package:k2ms_v2/blocs/update_profile/update_profile_repository.dart';
 import 'package:k2ms_v2/services/services.dart';
 

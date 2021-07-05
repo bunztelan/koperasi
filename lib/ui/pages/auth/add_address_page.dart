@@ -45,7 +45,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
       return;
     }
 
-    // TODO: This not use real data at all
     _registerCubit.register(
       data['name'],
       data['email'],

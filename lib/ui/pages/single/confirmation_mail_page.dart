@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:k2ms_v2/config/color_config.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
-import 'package:k2ms_v2/ui/pages/single/illustration_page.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 
