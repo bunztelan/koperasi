@@ -1,6 +1,8 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:k2ms_v2/config/color_config.dart';
+import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/pages/single/illustration_page.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
 import 'package:open_mail_app/open_mail_app.dart';
@@ -20,6 +22,11 @@ class ConfirmationMailPage extends StatelessWidget {
     } else if (!result.didOpen && result.canOpen) {
       // For iOS
     }
+  }
+
+  Future<void> _openReset(BuildContext context) async {
+    Beamer.of(context).beamToNamed(
+        '/${RouteName.authSECPassword}/${RouteName.authResetPassword}');
   }
 
   @override
@@ -100,7 +107,7 @@ class ConfirmationMailPage extends StatelessWidget {
               Container(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: null,
+                  onPressed: () => _openReset(context),
                   child: Text(
                     'Konfirmasi',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(

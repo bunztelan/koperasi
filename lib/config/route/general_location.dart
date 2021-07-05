@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/ui/pages/auth/reset_password_page.dart';
 import 'package:k2ms_v2/ui/pages/auth/send_email_confirm_password.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/confirmation_mail_page.dart';
@@ -35,6 +36,11 @@ class GeneralLocation extends BeamLocation {
             key: ValueKey(
                 '${RouteName.generalConfirmationMail}-${state.pathParameters['status']}'),
           ),
+        if (state.uri.pathSegments.contains(RouteName.authResetPassword))
+          BeamPage(
+            child: ResetPasswordPage(),
+            key: ValueKey(RouteName.authResetPassword),
+          ),
       ];
 
   @override
@@ -45,5 +51,6 @@ class GeneralLocation extends BeamLocation {
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}/:status',
         '/${RouteName.authSECPassword}',
         '/${RouteName.authSECPassword}/${RouteName.generalConfirmationMail}/:status',
+        '/${RouteName.authSECPassword}/${RouteName.authResetPassword}',
       ];
 }
