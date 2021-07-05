@@ -104,4 +104,9 @@ class User {
   void setAvatar(String avatar) {
     this.avatar = avatar;
   }
+
+  /// Set user id
+  void setUserId(int id) {
+    this.id = id;
+  }
 }

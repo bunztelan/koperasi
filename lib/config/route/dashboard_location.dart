@@ -27,7 +27,7 @@ class DashboardLocation extends BeamLocation {
           BeamPage(
             key: ValueKey('product-${state.pathParameters['productId']}'),
             child: ProductDetailPage(
-              productId: state.pathParameters['bookId'],
+              productId: state.pathParameters['productId'],
             ),
           ),
         if (state.uri.pathSegments.contains(RouteName.userOrderCheckout))

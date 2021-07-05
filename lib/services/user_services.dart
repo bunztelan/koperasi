@@ -147,6 +147,12 @@ class UserServices {
       );
 
       if (response.statusCode == 200) {
+        await Future.delayed(
+            Duration(seconds: 2)); // Make sure that data already created on DB
+
+        // Send confirmation code
+        await sendCodeRegToEmail(response.data['data']['user_id'].toString());
+
         return ApiReturnValue(message: 'Akun anda berhasil didaftarkan.');
       } else {
         String errorMessage = somethingWentWrongMsg;
@@ -168,6 +174,28 @@ class UserServices {
       }
     } on DioError catch (_) {
       throw (somethingWentWrongMsg);
+    }
+  }
+
+  /// Send /  resend code to email (register)
+  static Future<String> sendCodeRegToEmail(String userId) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.get(
+        '$host_auth/auth/resend-confirm-email/{$userId}',
+        options: Options(
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return 'Sukses';
+      }
+    } on DioError catch (_) {
+      throw ('Kode konfirmasi gagal dikirim.');
     }
   }
 
