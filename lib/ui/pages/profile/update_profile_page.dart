@@ -52,10 +52,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   /// Set initial marital status
   void _initialMaritalForm(String status) {
-    if (status == 'SINGLE') {
-      _marital = UpdateMaritalStatus.SINGLE;
+    if (status.toLowerCase() == 'SINGLE'.toLowerCase()) {
+      setState(() {
+        _marital = UpdateMaritalStatus.SINGLE;
+      });
     } else {
-      _marital = UpdateMaritalStatus.MARIED;
+      setState(() {
+        _marital = UpdateMaritalStatus.MARIED;
+      });
     }
   }
 
