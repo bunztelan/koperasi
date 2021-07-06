@@ -148,7 +148,8 @@ class UserServices {
 
       if (response.statusCode == 200) {
         await Future.delayed(
-            Duration(seconds: 2)); // Make sure that data already created on DB
+          Duration(seconds: 2),
+        ); // Make sure that data already created on DB
 
         // Send confirmation code
         await sendCodeRegToEmail(response.data['data']['user_id'].toString());
@@ -196,6 +197,38 @@ class UserServices {
       }
     } on DioError catch (_) {
       throw ('Kode konfirmasi gagal dikirim.');
+    }
+  }
+
+  /// Confirm code email confirmation
+  static Future<String> confirmEmailCode(String code) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.post(
+        '$host_auth/confirm_email',
+        data: {'code': code},
+        options: Options(
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return 'SUCCESS';
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          errorMessage = 'Kode tidak valid';
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
     }
   }
 

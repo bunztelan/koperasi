@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:k2ms_v2/config/route/general_location.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 
 import 'illustration_page.dart';
@@ -18,13 +19,15 @@ class SignUpCompletePage extends StatelessWidget {
       child: IllustrationPage(
         title: "Pendaftaran Selesai",
         subtitle:
-        "Akun anda telah berhasil di konfirmasi. Sekarang anda dapat masuk kedalam aplikasi",
+            "Akun anda berhasil di konfirmasi. Sekarang anda dapat masuk ke dalam aplikasi",
         height: 290,
         width: 200,
         picturepath: "assets/signup_success.png",
-        buttonTitle1: "Beranda",
+        buttonTitle1: "Masuk",
         buttonAction1: () {
-          Beamer.of(context).beamToNamed(RouteName.userDashboard);
+          Beamer.of(context).beamStateHistory.clear();
+          Beamer.of(context).beamLocationHistory.clear();
+          Beamer.of(context).beamTo(GeneralLocation());
         },
       ),
     );
