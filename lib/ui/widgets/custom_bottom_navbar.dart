@@ -14,68 +14,57 @@ class CustomBottomNav extends StatelessWidget {
     return Container(
       height: 60,
       width: double.infinity,
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 5,
+            blurRadius: 3,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           GestureDetector(
-            onTap: (){
-              if(onTap!=null){
+            onTap: () {
+              if (onTap != null) {
                 onTap(0);
               }
             },
-            child: Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/ic_home" +
-                        (selectedIndex == 0 ? '.png' : '_normal.png'),
-                  ),
-                  fit: BoxFit.contain,
-                ),
-              ),
+            child: Icon(
+              FeatherIcons.home,
+              color:
+                  selectedIndex == 0 ? AppColor.primaryColor : AppColor.black30,
+              size: 28,
             ),
           ),
           GestureDetector(
-            onTap: (){
-              if(onTap!=null){
+            onTap: () {
+              if (onTap != null) {
                 onTap(1);
               }
             },
-            child: Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/ic_order" +
-                        (selectedIndex == 1 ? '.png' : '_normal.png'),
-                  ),
-                  fit: BoxFit.contain,
-                ),
-              ),
+            child: Icon(
+              FeatherIcons.shoppingBag,
+              color:
+                  selectedIndex == 1 ? AppColor.primaryColor : AppColor.black30,
+              size: 28,
             ),
           ),
           GestureDetector(
-            onTap: (){
-              if(onTap!=null){
+            onTap: () {
+              if (onTap != null) {
                 onTap(2);
               }
             },
-            child: Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/ic_profile" +
-                        (selectedIndex == 2 ? '.png' : '_normal.png'),
-                  ),
-                  fit: BoxFit.contain,
-                ),
-              ),
+            child: Icon(
+              FeatherIcons.user,
+              color:
+                  selectedIndex == 2 ? AppColor.primaryColor : AppColor.black30,
+              size: 28,
             ),
           )
         ],

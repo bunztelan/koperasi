@@ -5,6 +5,7 @@ import 'package:k2ms_v2/config/color_config.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/models/productfds.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 part 'custom_bottom_navbar.dart';
 part 'custom_tabbar.dart';
