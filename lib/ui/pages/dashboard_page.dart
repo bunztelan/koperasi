@@ -25,6 +25,15 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: CustomBottomNav(
+        selectedIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+          controller.jumpToPage(selectedIndex);
+        },
+      ),
       body: SafeArea(
         child: BlocListener<TokenCubit, TokenState>(
           listener: (context, state) {
@@ -68,18 +77,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomBottomNav(
-                  selectedIndex: selectedIndex,
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                    controller.jumpToPage(selectedIndex);
-                  },
-                ),
-              )
             ],
           ),
         ),

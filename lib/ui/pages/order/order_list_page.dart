@@ -274,9 +274,12 @@ class CartTab extends StatelessWidget {
           List<Order> orders = state.orders;
           if (orders.length < 1 || orders == null) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 24),
+              padding: EdgeInsets.only(
+                bottom: 98,
+                top: 74,
+              ),
               child: Text(
-                'Keranjang anda kosong.',
+                'Keranjang anda masih kosong.',
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2
@@ -374,7 +377,10 @@ class ProccessTab extends StatelessWidget {
 
           if (proccessList.length < 1 || proccessList == null) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 24),
+              padding: EdgeInsets.only(
+                bottom: 98,
+                top: 74,
+              ),
               child: Text(
                 'Anda tidak memiliki pesanan.',
                 style: Theme.of(context)
@@ -444,7 +450,10 @@ class CompletedTab extends StatelessWidget {
 
           if (proccessList.length < 1 || proccessList == null) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 24),
+              padding: EdgeInsets.only(
+                bottom: 98,
+                top: 74,
+              ),
               child: Text(
                 'Histori anda masih kosong.',
                 style: Theme.of(context)
