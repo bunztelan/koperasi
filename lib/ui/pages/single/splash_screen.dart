@@ -53,6 +53,29 @@ class _SplashScreenState extends State<SplashScreen> {
     );
 
     return Scaffold(
+      bottomSheet: Container(
+        width: double.infinity,
+        height: 70,
+        color: AppColor.primaryColor,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            decoration: BoxDecoration(
+              color: AppColor.textPrimaryColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              'Version 1.0.0',
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .caption
+                  .copyWith(color: AppColor.primaryColor),
+            ),
+          ),
+        ),
+      ),
       body: Container(
         width: double.infinity,
         color: AppColor.primaryColor,
@@ -60,28 +83,11 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'K2MS',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2
-                  .copyWith(color: AppColor.textPrimaryColor, fontSize: 86),
-            ),
-            SizedBox(height: 5),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: AppColor.textPrimaryColor,
-                borderRadius: BorderRadius.circular(10),
+            Image(
+              image: AssetImage(
+                'assets/k2ms_logo.png',
               ),
-              child: Text(
-                'By Koperasi Karyawan Mitra Sejahtera',
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .caption
-                    .copyWith(color: AppColor.primaryColor),
-              ),
+              height: 164,
             ),
           ],
         ),

@@ -137,9 +137,14 @@ class _HomePageState extends State<HomePage> {
                       builder: (BuildContext context) {
                         return GestureDetector(
                           onTap: () {
-                            if (e.bannerLink == null) {
+                            if (e.bannerLink == null ||
+                                e.bannerLink.trim() == '') {
                               CustomSnackbar.showDangerSnackbar(
                                   context, 'Banner ini tidak memiliki link');
+                            } else {
+                              Beamer.of(context).beamToNamed(
+                                  '/${RouteName.userDashboard}/${RouteName.userWebView}/${e.id}',
+                                  data: {'title': e.name, 'url': e.bannerLink});
                             }
                           },
                           child: ClipRRect(

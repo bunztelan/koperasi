@@ -5,6 +5,7 @@ import 'package:k2ms_v2/ui/pages/order/checkout_page.dart';
 import 'package:k2ms_v2/ui/pages/order/order_detail.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/order_made_page.dart';
+import 'package:k2ms_v2/ui/pages/single/webview_page.dart';
 
 class DashboardLocation extends BeamLocation {
   @override
@@ -13,6 +14,13 @@ class DashboardLocation extends BeamLocation {
           child: DashboardPage(),
           key: ValueKey(RouteName.userDashboard),
         ),
+        if (state.pathParameters.containsKey('webId'))
+          BeamPage(
+            key: ValueKey('web-${state.pathParameters['webId']}'),
+            child: WebViewPage(
+              webId: state.pathParameters['urlId'],
+            ),
+          ),
         if (state.uri.pathSegments.contains(RouteName.updateProfile))
           BeamPage(
             child: UpdateProfilePage(),
@@ -50,6 +58,7 @@ class DashboardLocation extends BeamLocation {
   @override
   List<String> get pathBlueprints => [
         '/${RouteName.userDashboard}',
+        '/${RouteName.userDashboard}/${RouteName.userWebView}/:webId',
         '/${RouteName.userDashboard}/${RouteName.userOrderDetail}',
         '/${RouteName.userDashboard}/${RouteName.updateProfile}',
         '/${RouteName.userDashboard}/${RouteName.updateAddress}',

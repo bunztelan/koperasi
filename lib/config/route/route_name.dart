@@ -11,11 +11,13 @@ class RouteName {
   static const String authSignUp = 'signup';
   static const String authSECPassword = 'send_email_confirm_password';
   static const String authResetPassword = 'resetPassword';
+
   static const String userManageAddress = 'manage_address';
   static const String userDashboard = 'dashboard';
   static const String userOrderCheckout = 'checkout';
   static const String userProductDetail = 'product_detail';
   static const String userOrderDetail = 'order_detail';
+  static const String userWebView = 'web_view';
 
   static const String updateProfile = 'update_profile';
   static const String updateAddress = 'update_address';
