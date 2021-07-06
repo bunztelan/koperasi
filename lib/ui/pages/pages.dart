@@ -33,6 +33,9 @@ import 'package:k2ms_v2/ui/widgets/custom_header.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
 import 'package:k2ms_v2/ui/widgets/loading_dialog.dart';
 import 'package:k2ms_v2/ui/widgets/map_picker.dart';
+import 'package:k2ms_v2/ui/widgets/shimmer_banner.dart';
+import 'package:k2ms_v2/ui/widgets/shimmer_item_list.dart';
+import 'package:k2ms_v2/ui/widgets/shimmer_profile.dart';
 import 'package:k2ms_v2/ui/widgets/widgets.dart';
 import 'package:supercharged/supercharged.dart';
 

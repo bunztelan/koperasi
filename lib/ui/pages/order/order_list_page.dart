@@ -9,6 +9,7 @@ import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/models/order.dart';
 import 'package:k2ms_v2/models/ordered_item.dart';
+import 'package:k2ms_v2/ui/widgets/shimmer_item_list.dart';
 import 'package:k2ms_v2/ui/widgets/widgets.dart';
 
 import '../../../config/color_config.dart';
@@ -270,7 +271,9 @@ class CartTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderCubit, OrderState>(
       builder: (context, state) {
-        if (state is OrderLoadedState) {
+        if (state is OrderLoadingState) {
+          return ShimmerItemList();
+        } else if (state is OrderLoadedState) {
           List<Order> orders = state.orders;
           if (orders.length < 1 || orders == null) {
             return Padding(
@@ -367,7 +370,9 @@ class ProccessTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderBackendCubit, OrderBackendState>(
       builder: (context, state) {
-        if (state is OrderBackendLoadedState) {
+        if (state is OrderBackendLoadingState) {
+          return ShimmerItemList();
+        } else if (state is OrderBackendLoadedState) {
           List<OrderedItem> proccessList = state.orders;
 
           proccessList.removeWhere((e) =>
@@ -440,7 +445,9 @@ class CompletedTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderBackendCubit, OrderBackendState>(
       builder: (context, state) {
-        if (state is OrderBackendLoadedState) {
+        if (state is OrderBackendLoadingState) {
+          return ShimmerItemList();
+        } else if (state is OrderBackendLoadedState) {
           List<OrderedItem> proccessList = state.orders;
 
           proccessList.removeWhere((e) =>

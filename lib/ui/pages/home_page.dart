@@ -70,7 +70,9 @@ class _HomePageState extends State<HomePage> {
                 BlocBuilder<UserCubit, UserState>(
                   bloc: BlocProvider.of<UserCubit>(context),
                   builder: (context, state) {
-                    if (state is UserLoadedState) {
+                    if (state is UserLoadingState) {
+                      return ShimmerProfile();
+                    } else if (state is UserLoadedState) {
                       return Column(
                         children: [
                           Container(
@@ -129,7 +131,9 @@ class _HomePageState extends State<HomePage> {
           ),
           BlocBuilder<BannerCubit, BannerState>(
             builder: (context, state) {
-              if (state is BannerLoadedState) {
+              if (state is BannerLoadingState) {
+                return ShimmerBanner();
+              } else if (state is BannerLoadedState) {
                 return CarouselSlider(
                   options: CarouselOptions(height: 200.0),
                   items: state.banners.map((e) {
@@ -226,7 +230,10 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: BlocBuilder<ProductCubit, ProductState>(
                     builder: (context, state) {
-                      if (state is ProductLoadedState) {
+                      if (state is ProductLoadingState ||
+                          state is ProductInitialState) {
+                        return ShimmerItemList();
+                      } else if (state is ProductLoadedState) {
                         if (state.products.length < 1 ||
                             state.products == null) {
                           return Center(
