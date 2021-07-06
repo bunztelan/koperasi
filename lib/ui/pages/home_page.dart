@@ -10,7 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
+  int selectedIndex;
+
+  @override
+  void initState() {
+    selectedIndex = 0;
+    super.initState();
+  }
 
   /// Set profile home name
   String _setProfileHomeName(String name) {

@@ -394,8 +394,9 @@ class ItemCard extends StatelessWidget {
   final String title;
   final String price;
   final String totalItem;
+  String image;
 
-  ItemCard(this.title, this.price, this.totalItem);
+  ItemCard(this.title, this.price, this.totalItem, {this.image = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -411,14 +412,29 @@ class ItemCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: AppColor.softGrayColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+              image == ''
+                  ? SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/groceries.jpg'),
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(image),
+                        ),
+                      ),
+                    ),
               SizedBox(
                 width: 16,
               ),

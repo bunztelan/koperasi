@@ -97,6 +97,7 @@ class SufixItemCard extends StatelessWidget {
   final String totalItem;
   final String date;
   final String status;
+  String image;
 
   String _setStatus(String status) {
     switch (status) {
@@ -117,8 +118,14 @@ class SufixItemCard extends StatelessWidget {
     }
   }
 
-  SufixItemCard(
-      {this.title, this.price, this.totalItem, this.date, this.status});
+  SufixItemCard({
+    this.title,
+    this.price,
+    this.totalItem,
+    this.date,
+    this.status,
+    this.image = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -133,14 +140,29 @@ class SufixItemCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: AppColor.softGrayColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+              image == ''
+                  ? SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/groceries.jpg'),
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(image),
+                        ),
+                      ),
+                    ),
               SizedBox(
                 width: 16,
               ),
@@ -202,8 +224,9 @@ class SufixItemCard extends StatelessWidget {
 class ItemCard extends StatelessWidget {
   final String title;
   final String price;
+  String image;
 
-  ItemCard(this.title, this.price);
+  ItemCard(this.title, this.price, {this.image = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -218,14 +241,29 @@ class ItemCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: AppColor.softGrayColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+              image == ''
+                  ? SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/groceries.jpg'),
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(image),
+                        ),
+                      ),
+                    ),
               SizedBox(
                 width: 16,
               ),
@@ -308,6 +346,10 @@ class CartTab extends StatelessWidget {
                       child: ItemCard(
                         e.product.name,
                         e.product.price.toString(),
+                        image: e.product.images != null &&
+                                e.product.images.length > 0
+                            ? e.product.images[0]
+                            : '',
                       ),
                     );
                   },
@@ -417,6 +459,7 @@ class ProccessTab extends StatelessWidget {
                     date: DateFormat("dd MMM, yyyy HH:mm")
                         .format(DateTime.parse(e.updatedAt)),
                     status: e.status,
+                    image: '',
                   ),
                 ),
               );
@@ -492,6 +535,7 @@ class CompletedTab extends StatelessWidget {
                     date: DateFormat("dd MMM, yyyy HH:mm")
                         .format(DateTime.parse(e.updatedAt)),
                     status: e.status,
+                    image: '',
                   ),
                 ),
               );
