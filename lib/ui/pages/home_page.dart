@@ -161,12 +161,16 @@ class _HomePageState extends State<HomePage> {
                                   margin: EdgeInsets.symmetric(horizontal: 5.0),
                                   decoration: BoxDecoration(
                                     color: AppColor.softGrayColor,
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(
-                                      e.name,
-                                      style: TextStyle(fontSize: 16.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                    child: Image(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage('assets/banner.jpg'),
                                     ),
                                   ),
                                 ),
@@ -275,6 +279,10 @@ class _HomePageState extends State<HomePage> {
                                   child: ItemCard(
                                     e.name,
                                     e.price.toString(),
+                                    image:
+                                        e.images != null && e.images.length > 0
+                                            ? e.images[0]
+                                            : '',
                                   ),
                                 ),
                               );
@@ -299,8 +307,9 @@ class _HomePageState extends State<HomePage> {
 class ItemCard extends StatelessWidget {
   final String title;
   final String price;
+  final String image;
 
-  ItemCard(this.title, this.price);
+  ItemCard(this.title, this.price, {this.image = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -315,14 +324,29 @@ class ItemCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: AppColor.softGrayColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+              image == ''
+                  ? SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/groceries.jpg'),
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(image),
+                        ),
+                      ),
+                    ),
               SizedBox(
                 width: 16,
               ),
