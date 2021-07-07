@@ -15,6 +15,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     selectedIndex = 0;
+
+    if (context.read<CategoryCubit>().state.categories != null &&
+        context.read<CategoryCubit>().state.categories.length > 0) {
+      context.read<ProductCubit>().getProduct(
+            context.read<TokenCubit>().state.token,
+            context.read<CategoryCubit>().state.categories[0].id.toString(),
+          );
+    }
+
     super.initState();
   }
 

@@ -1,7 +1,9 @@
 part of 'category_cubit.dart';
 
 abstract class CategoryState extends Equatable {
-  const CategoryState();
+  final List<Category> categories;
+
+  CategoryState({this.categories});
 
   @override
   List<Object> get props => [];
@@ -22,7 +24,7 @@ class CategoryErrorState extends CategoryState {
 class CategoryLoadedState extends CategoryState {
   final List<Category> categories;
 
-  CategoryLoadedState({this.categories});
+  CategoryLoadedState({this.categories}) : super(categories: categories);
 
   List<Object> get props => [categories];
 }
