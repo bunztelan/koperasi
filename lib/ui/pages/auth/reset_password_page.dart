@@ -19,10 +19,12 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  bool _oldPasswordSecured = true;
   bool _passwordSecured = true;
   bool _rePasswordSecured = true;
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController _oldPasswordController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _rePasswordController = TextEditingController();
 
@@ -70,7 +72,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               child: Column(
                 children: [
                   CustomHeader(
-                    title: 'Reset Kata Sandi',
+                    title: 'Ganti Kata Sandi',
                     subTitle: 'Kata sandi baru',
                     backFunction: () => Navigator.pop(context),
                   ),
@@ -85,6 +87,53 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            Text("Kata sandi lama",
+                                style: Theme.of(context).textTheme.bodyText1),
+                            SizedBox(height: 6),
+                            TextFormField(
+                              controller: _oldPasswordController,
+                              validator: (val) {
+                                if (val.trim().isEmpty) {
+                                  return 'Kata sandi tidak boleh kosong';
+                                }
+                                return null;
+                              },
+                              style: GoogleFonts.poppins(fontSize: 14),
+                              obscureText: _oldPasswordSecured,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 18, horizontal: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: AppColor.primaryColor,
+                                    width: 1,
+                                  ),
+                                ),
+                                hintStyle: GoogleFonts.poppins(
+                                  color: AppColor.softGrayColor,
+                                  fontSize: 14,
+                                ),
+                                hintText: "Sandi321",
+                                // Here is key idea
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    // Based on passwordVisible state choose the icon
+                                    _oldPasswordSecured
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: AppColor.primaryDarkColor,
+                                  ),
+                                  onPressed: () {
+                                    // Update the state i.e. toogle the state of passwordVisible variable
+                                    setState(() {
+                                      _oldPasswordSecured =
+                                          !_oldPasswordSecured;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
                             SizedBox(height: 16),
                             Text("Kata sandi Baru",
                                 style: Theme.of(context).textTheme.bodyText1),
