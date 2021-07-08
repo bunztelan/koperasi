@@ -4,6 +4,7 @@ class BannerModel {
   int id;
   String name;
   String imageId;
+  String image;
   bool status;
   String bannerLink;
 
@@ -11,6 +12,7 @@ class BannerModel {
     this.id = 0,
     this.name = '',
     this.imageId = '',
+    this.image = '',
     this.status = false,
     this.bannerLink = '',
   });
@@ -20,6 +22,7 @@ class BannerModel {
       'id': id,
       'name': name,
       'imageId': imageId,
+      'image': 'image',
       'status': status,
       'bannerLink': bannerLink,
     };
@@ -30,6 +33,7 @@ class BannerModel {
       id: map['id'],
       name: map['name'],
       imageId: map['image_id'],
+      image: map['image'],
       status: map['status'],
       bannerLink: map['banner_link'],
     );

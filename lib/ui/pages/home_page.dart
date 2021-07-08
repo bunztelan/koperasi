@@ -158,8 +158,8 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             if (e.bannerLink == null ||
                                 e.bannerLink.trim() == '') {
-                              CustomSnackbar.showDangerSnackbar(
-                                  context, 'Banner ini tidak memiliki link');
+                              CustomSnackbar.showInfoSnackbar(context,
+                                  'Banner tidak memiliki link saat ini.');
                             } else {
                               Beamer.of(context).beamToNamed(
                                   '/${RouteName.userDashboard}/${RouteName.userWebView}/${e.id}',
@@ -185,7 +185,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     child: Image(
                                       fit: BoxFit.cover,
-                                      image: AssetImage('assets/banner.jpg'),
+                                      image: e.image != null && e.image != ''
+                                          ? NetworkImage(e.image)
+                                          : AssetImage(
+                                              'assets/banner.jpg',
+                                            ),
                                     ),
                                   ),
                                 ),
