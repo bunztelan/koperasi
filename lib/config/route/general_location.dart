@@ -6,6 +6,7 @@ import 'package:k2ms_v2/ui/pages/auth/reset_password_page.dart';
 import 'package:k2ms_v2/ui/pages/auth/send_email_confirm_password.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
 import 'package:k2ms_v2/ui/pages/single/confirmation_mail_page.dart';
+import 'package:k2ms_v2/ui/pages/single/forgot_password_complete_page.dart';
 import 'package:k2ms_v2/ui/pages/single/signup_complete_page.dart';
 
 class GeneralLocation extends BeamLocation {
@@ -47,6 +48,12 @@ class GeneralLocation extends BeamLocation {
             child: SignUpCompletePage(),
             key: ValueKey(RouteName.generalSignUpSuccess),
           ),
+        if (state.uri.pathSegments
+            .contains(RouteName.generalForgotPasswordSuccess))
+          BeamPage(
+            child: ForgotPasswordCompletePage(),
+            key: ValueKey(RouteName.generalForgotPasswordSuccess),
+          ),
       ];
 
   @override
@@ -58,5 +65,6 @@ class GeneralLocation extends BeamLocation {
         '/${RouteName.authSECPassword}',
         '/${RouteName.authSECPassword}/${RouteName.authResetPassword}/:email',
         '/${RouteName.generalSignUpSuccess}',
+        '/${RouteName.generalForgotPasswordSuccess}',
       ];
 }

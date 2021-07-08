@@ -3,6 +3,7 @@ class RouteName {
   // General routes
   static const String generalSplash = 'splash_screen';
   static const String generalSignUpSuccess = 'signup_success';
+  static const String generalForgotPasswordSuccess = 'forgot_password_success';
   static const String generalError = 'error';
   static const String generalOrderSuccess = 'order_success';
   static const String generalConfirmationMail = 'confirmation_mail';

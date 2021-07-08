@@ -4,8 +4,8 @@ import 'package:k2ms_v2/config/route/general_location.dart';
 
 import 'illustration_page.dart';
 
-class SignUpCompletePage extends StatelessWidget {
-  SignUpCompletePage({Key key}) : super(key: key);
+class ForgotPasswordCompletePage extends StatelessWidget {
+  ForgotPasswordCompletePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class SignUpCompletePage extends StatelessWidget {
         horizontal: 24,
       ),
       child: IllustrationPage(
-        title: "Pendaftaran Selesai",
+        title: "Kata Sandi Diperbarui",
         subtitle:
-            "Akun anda berhasil di konfirmasi. Sekarang anda dapat masuk ke dalam aplikasi",
+            "Kata sandi anda berhasil diperbaruhi. Sekarang masuk ke aplikasi dengan kata sandi baru anda.",
         height: 290,
         width: 200,
         picturepath: "assets/signup_success.png",

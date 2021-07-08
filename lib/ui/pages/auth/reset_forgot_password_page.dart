@@ -122,7 +122,9 @@ class RFPasswordPageState extends State<RFPasswordPage> {
 
                 Beamer.of(context).beamStateHistory.clear();
                 Beamer.of(context).beamLocationHistory.clear();
-                Beamer.of(context).beamTo(GeneralLocation());
+                Beamer.of(context).beamToNamed(
+                  '/${RouteName.generalForgotPasswordSuccess}',
+                );
               }
             },
           )
