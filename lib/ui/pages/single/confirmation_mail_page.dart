@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:beamer/beamer.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:k2ms_v2/blocs/confirmation_email_register/cubit/confirmation_email_register_cubit.dart';
+import 'package:k2ms_v2/blocs/resend_code_register/cubit/resend_code_register_cubit.dart';
 import 'package:k2ms_v2/config/color_config.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
 import 'package:k2ms_v2/ui/widgets/custom_snackbar.dart';
@@ -10,7 +14,8 @@ import 'package:k2ms_v2/ui/widgets/loading_dialog.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 
 class ConfirmationMailPage extends StatefulWidget {
-  ConfirmationMailPage({Key key}) : super(key: key);
+  String userId;
+  ConfirmationMailPage({Key key, this.userId}) : super(key: key);
 
   @override
   _ConfirmationMailPageState createState() => _ConfirmationMailPageState();
@@ -18,12 +23,46 @@ class ConfirmationMailPage extends StatefulWidget {
 
 class _ConfirmationMailPageState extends State<ConfirmationMailPage> {
   TextEditingController _codeController = TextEditingController();
+  Timer _timer;
+  static const int LIMIT_TIMER = 59;
+  int _start;
+  bool timerOnProg = false;
 
   @override
   void initState() {
+    _start = LIMIT_TIMER;
     BlocProvider.of<CERegisterCubit>(context).initState();
 
     super.initState();
+  }
+
+  void _startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            _start = LIMIT_TIMER;
+            timerOnProg = false;
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+  /// Resend code to email
+  Future<void> _resendCode() async {
+    if (!timerOnProg) {
+      LoadingDialog.showLoadingDialog(context, 'Mengirim...');
+      BlocProvider.of<ResendCodeRegisterCubit>(context)
+          .resendCodeRegister(widget.userId);
+    }
   }
 
   Future<void> _openMail(BuildContext context) async {
@@ -55,6 +94,37 @@ class _ConfirmationMailPageState extends State<ConfirmationMailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Container(
+        height: 50,
+        color: Colors.white,
+        width: double.infinity,
+        child: Center(
+          child: RichText(
+            text: TextSpan(
+              style: Theme.of(context).textTheme.caption.copyWith(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+              children: [
+                TextSpan(text: 'Tidak menerima kode ?'),
+                TextSpan(text: ' '), // Space
+                TextSpan(
+                  text: timerOnProg ? 'Tunggu 00:$_start' : 'Kirim ulang',
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      _resendCode();
+                    },
+                  style: Theme.of(context).textTheme.caption.copyWith(
+                        fontSize: 16,
+                        color:
+                            timerOnProg ? Colors.black : AppColor.primaryColor,
+                      ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       body: MultiBlocListener(
         listeners: [
           BlocListener<CERegisterCubit, CERegisterState>(
@@ -65,6 +135,30 @@ class _ConfirmationMailPageState extends State<ConfirmationMailPage> {
               } else if (state is CERegisterLoadedState) {
                 Navigator.pop(context);
                 _openRegisterSuccess();
+              }
+            },
+          ),
+          BlocListener<ResendCodeRegisterCubit, ResendCodeRegisterState>(
+            listener: (context, state) {
+              if (state is ResendCodeRegisterErrorState) {
+                Navigator.pop(context);
+
+                CustomSnackbar.showDangerSnackbar(
+                  context,
+                  'Kode gagal dikirim, coba lagi.',
+                );
+              } else if (state is ResendCodeRegisterLoadedState) {
+                Navigator.pop(context);
+
+                CustomSnackbar.showSuccessSnackbar(
+                  context,
+                  'Kode berhasil dikirim ke alamat email anda.',
+                );
+
+                setState(() {
+                  timerOnProg = true;
+                });
+                _startTimer();
               }
             },
           )

@@ -31,10 +31,13 @@ class GeneralLocation extends BeamLocation {
             child: SECPasswordPage(),
             key: ValueKey(RouteName.authSECPassword),
           ),
-        if (state.uri.pathSegments.contains(RouteName.generalConfirmationMail))
+        if (state.pathParameters.containsKey('userId'))
           BeamPage(
-            child: ConfirmationMailPage(),
-            key: ValueKey(RouteName.generalConfirmationMail),
+            child: ConfirmationMailPage(
+              userId: state.pathParameters['userId'],
+            ),
+            key: ValueKey(
+                'confirmation_register-${state.pathParameters['userId']}'),
           ),
         if (state.pathParameters.containsKey('email'))
           BeamPage(
@@ -61,7 +64,7 @@ class GeneralLocation extends BeamLocation {
         '/${RouteName.authSignUp}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
-        '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}',
+        '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}/:userId',
         '/${RouteName.authSECPassword}',
         '/${RouteName.authSECPassword}/${RouteName.authResetPassword}/:email',
         '/${RouteName.generalSignUpSuccess}',

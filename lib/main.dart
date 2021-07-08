@@ -19,6 +19,8 @@ import 'blocs/order_backend/cubit/order_backend_cubit.dart';
 import 'blocs/order_backend/order_backend_repository_imp.dart';
 import 'blocs/product/cubit/product_cubit.dart';
 import 'blocs/product/product_repository_imp.dart';
+import 'blocs/resend_code_register/cubit/resend_code_register_cubit.dart';
+import 'blocs/resend_code_register/resend_code_register_repository_imp.dart';
 import 'blocs/token/cubit/token_cubit.dart';
 import 'blocs/update_address/cubit/update_address_cubit.dart';
 import 'blocs/update_address/update_address_repository_imp.dart';
@@ -87,6 +89,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<ChangePasswordCubit>(
               create: (context) =>
                   ChangePasswordCubit(ChangePasswordRepositoryImp())),
+          BlocProvider<ResendCodeRegisterCubit>(
+              create: (context) =>
+                  ResendCodeRegisterCubit(ResendCodeRegisterRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',

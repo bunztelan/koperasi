@@ -21,8 +21,9 @@ class RegisterErrorState extends RegisterState {
 
 class RegisterLoadedState extends RegisterState {
   final String message;
+  final String userId;
 
-  RegisterLoadedState({this.message});
+  RegisterLoadedState({this.userId, this.message});
 
   List<Object> get props => [message];
 }

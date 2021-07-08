@@ -48,7 +48,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         longitude,
         roleId,
       );
-      emit(RegisterLoadedState(message: response.message));
+      emit(RegisterLoadedState(
+        userId: response.value,
+        message: response.message,
+      ));
     } catch (e) {
       emit(RegisterErrorState(message: e));
     }

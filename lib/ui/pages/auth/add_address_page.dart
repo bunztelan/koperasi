@@ -77,7 +77,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
           } else if (state is RegisterLoadedState) {
             Navigator.pop(context);
             Beamer.of(context).beamToNamed(
-                '${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}');
+                '${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}/${state.userId}');
           }
         },
         child: Scaffold(

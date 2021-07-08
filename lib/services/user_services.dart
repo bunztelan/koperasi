@@ -154,7 +154,9 @@ class UserServices {
         // Send confirmation code
         await sendCodeRegToEmail(response.data['data']['user_id'].toString());
 
-        return ApiReturnValue(message: 'Akun anda berhasil didaftarkan.');
+        return ApiReturnValue(
+            value: response.data['data']['user_id'].toString(),
+            message: 'Akun anda berhasil didaftarkan.');
       } else {
         String errorMessage = somethingWentWrongMsg;
 
