@@ -13,4 +13,18 @@ class ForgotPasswordRepositoryImp extends ForgotPasswordRepository {
       throw (e);
     }
   }
+
+  @override
+  Future<String> resetForgotPassword(
+      {String password, String passwordToken}) async {
+    try {
+      var response = await ForgotPasswordServices.resetForgotPassword(
+        password: password,
+        passwordToken: passwordToken,
+      );
+      return response;
+    } catch (e) {
+      throw (e);
+    }
+  }
 }

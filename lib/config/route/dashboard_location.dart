@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/ui/pages/auth/reset_password_page.dart';
 import 'package:k2ms_v2/ui/pages/order/checkout_page.dart';
 import 'package:k2ms_v2/ui/pages/order/order_detail.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
@@ -53,6 +54,11 @@ class DashboardLocation extends BeamLocation {
             child: OrderDetailPage(),
             key: ValueKey(RouteName.userOrderDetail),
           ),
+        if (state.uri.pathSegments.contains(RouteName.authResetPassword))
+          BeamPage(
+            child: ResetPasswordPage(),
+            key: ValueKey(RouteName.authResetPassword),
+          ),
       ];
 
   @override
@@ -62,6 +68,7 @@ class DashboardLocation extends BeamLocation {
         '/${RouteName.userDashboard}/${RouteName.userOrderDetail}',
         '/${RouteName.userDashboard}/${RouteName.updateProfile}',
         '/${RouteName.userDashboard}/${RouteName.updateAddress}',
+        '/${RouteName.userDashboard}/${RouteName.authResetPassword}',
         '/${RouteName.userDashboard}/:productId',
         '/${RouteName.userDashboard}/${RouteName.userProductDetail}/${RouteName.userOrderCheckout}'
             '/${RouteName.userDashboard}/${RouteName.generalOrderSuccess}'

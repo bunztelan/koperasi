@@ -26,3 +26,5 @@ class ForgotPasswordLoadedState extends ForgotPasswordState {
 
   List<Object> get props => [message];
 }
+
+class ForgotPasswordUpdatedState extends ForgotPasswordState {}

@@ -421,4 +421,44 @@ class UserServices {
       throw (somethingWentWrongMsg);
     }
   }
+
+  /// Change password
+  static Future<String> changePassword(
+      {String email, String password, String authToken}) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.put(
+        '$host_auth/reset_password',
+        data: {
+          'password': password,
+          'token': authToken,
+        },
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      print(response.toString() + email.toString());
+
+      if (response.statusCode == 200) {
+        return 'Kata sandi anda berhasil diubah.';
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          errorMessage = somethingWentWrongMsg;
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
 }

@@ -10,9 +10,7 @@ import 'package:k2ms_v2/ui/widgets/loading_dialog.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 
 class ConfirmationMailPage extends StatefulWidget {
-  String status;
-
-  ConfirmationMailPage({Key key, this.status}) : super(key: key);
+  ConfirmationMailPage({Key key}) : super(key: key);
 
   @override
   _ConfirmationMailPageState createState() => _ConfirmationMailPageState();
@@ -47,12 +45,6 @@ class _ConfirmationMailPageState extends State<ConfirmationMailPage> {
     Beamer.of(context).beamToNamed('${RouteName.generalSignUpSuccess}');
   }
 
-  /// Open reset page
-  Future<void> _openReset(BuildContext context) async {
-    Beamer.of(context).beamToNamed(
-        '/${RouteName.authSECPassword}/${RouteName.authResetPassword}');
-  }
-
   /// Confirmation register code
   Future<void> _confirmRegisterCode() async {
     LoadingDialog.showLoadingDialog(context, 'Konfirmasi...');
@@ -85,108 +77,114 @@ class _ConfirmationMailPageState extends State<ConfirmationMailPage> {
             vertical: 26,
             horizontal: 24,
           ),
-          child: Form(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image(
-                    image: AssetImage('assets/mail_sent.png'),
-                    height: 150,
-                    width: 150,
-                  ),
-                  SizedBox(
-                    height: 48,
-                  ),
-                  Text(
-                    'Email Konfirmasi Dikirim',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 18,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 7,
-                  ),
-                  Text(
-                    'Masukkan kode yang telah kami kirim ke email anda.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Color(0xFF8D92A3),
-                        ),
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  TextFormField(
-                    controller: _codeController,
-                    validator: (val) {
-                      if (val.trim().isEmpty) {
-                        return 'Alamat email tidak boleh kosong';
-                      }
-                      return null;
-                    },
-                    style: GoogleFonts.poppins(fontSize: 14),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 18,
-                        horizontal: 12,
+          child: Center(
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: Form(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: AssetImage('assets/mail_sent.png'),
+                        height: 150,
+                        width: 150,
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: AppColor.primaryColor,
-                          width: 1,
-                        ),
+                      SizedBox(
+                        height: 48,
                       ),
-                      hintStyle: GoogleFonts.poppins(
-                        color: AppColor.softGrayColor,
-                        fontSize: 14,
-                      ),
-                      hintText: "Kode",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () => widget.status == 'register'
-                          ? _confirmRegisterCode()
-                          : _openReset(context),
-                      child: Text(
-                        'Konfirmasi',
+                      Text(
+                        'Email Konfirmasi Dikirim',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: AppColor.textPrimaryColor,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 18,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        'Masukkan kode yang telah kami kirim ke email anda.',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Color(0xFF8D92A3),
                             ),
                       ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColor.primaryColor),
-                        padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 50),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      TextFormField(
+                        controller: _codeController,
+                        validator: (val) {
+                          if (val.trim().isEmpty) {
+                            return 'Alamat email tidak boleh kosong';
+                          }
+                          return null;
+                        },
+                        style: GoogleFonts.poppins(fontSize: 14),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 18,
+                            horizontal: 12,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: AppColor.primaryColor,
+                              width: 1,
+                            ),
+                          ),
+                          hintStyle: GoogleFonts.poppins(
+                            color: AppColor.softGrayColor,
+                            fontSize: 14,
+                          ),
+                          hintText: "Kode",
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  GestureDetector(
-                    onTap: () => _openMail(context),
-                    child: Text(
-                      'Buka Email',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: AppColor.textPrimaryColor,
-                            fontWeight: FontWeight.w600,
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: TextButton(
+                          onPressed: () => _confirmRegisterCode(),
+                          child: Text(
+                            'Konfirmasi',
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: AppColor.textPrimaryColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                           ),
-                    ),
-                  )
-                ],
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColor.primaryColor),
+                            padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 50),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      GestureDetector(
+                        onTap: () => _openMail(context),
+                        child: Text(
+                          'Buka Email',
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                color: AppColor.textPrimaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

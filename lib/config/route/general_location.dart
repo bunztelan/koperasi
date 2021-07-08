@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:k2ms_v2/config/route/route_name.dart';
+import 'package:k2ms_v2/ui/pages/auth/reset_forgot_password_page.dart';
 import 'package:k2ms_v2/ui/pages/auth/reset_password_page.dart';
 import 'package:k2ms_v2/ui/pages/auth/send_email_confirm_password.dart';
 import 'package:k2ms_v2/ui/pages/pages.dart';
@@ -29,18 +30,17 @@ class GeneralLocation extends BeamLocation {
             child: SECPasswordPage(),
             key: ValueKey(RouteName.authSECPassword),
           ),
-        if (state.pathParameters.containsKey('status'))
+        if (state.uri.pathSegments.contains(RouteName.generalConfirmationMail))
           BeamPage(
-            child: ConfirmationMailPage(
-              status: state.pathParameters['status'],
-            ),
-            key: ValueKey(
-                '${RouteName.generalConfirmationMail}-${state.pathParameters['status']}'),
+            child: ConfirmationMailPage(),
+            key: ValueKey(RouteName.generalConfirmationMail),
           ),
-        if (state.uri.pathSegments.contains(RouteName.authResetPassword))
+        if (state.pathParameters.containsKey('email'))
           BeamPage(
-            child: ResetPasswordPage(),
-            key: ValueKey(RouteName.authResetPassword),
+            child: RFPasswordPage(
+              email: state.pathParameters['email'],
+            ),
+            key: ValueKey('reset_password-${state.pathParameters['email']}'),
           ),
         if (state.uri.pathSegments.contains(RouteName.generalSignUpSuccess))
           BeamPage(
@@ -54,10 +54,9 @@ class GeneralLocation extends BeamLocation {
         '/${RouteName.authSignUp}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
         '/${RouteName.authSignUp}/${RouteName.userManageAddress}',
-        '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}/:status',
+        '/${RouteName.authSignUp}/${RouteName.userManageAddress}/${RouteName.generalConfirmationMail}',
         '/${RouteName.authSECPassword}',
-        '/${RouteName.authSECPassword}/${RouteName.generalConfirmationMail}/:status',
-        '/${RouteName.authSECPassword}/${RouteName.authResetPassword}',
+        '/${RouteName.authSECPassword}/${RouteName.authResetPassword}/:email',
         '/${RouteName.generalSignUpSuccess}',
       ];
 }

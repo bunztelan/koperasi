@@ -25,10 +25,12 @@ class SECPasswordPageState extends State<SECPasswordPage> {
   final _formKey = GlobalKey<FormState>();
 
   void _sendCode() {
-    LoadingDialog.showLoadingDialog(context, 'Kirim email...');
-    String email = _emailController.text.toString().trim();
     if (_formKey.currentState.validate()) {
-      BlocProvider.of<ForgotPasswordCubit>(context).sendCodeToEmail(email);
+      LoadingDialog.showLoadingDialog(context, 'Kirim email...');
+      String email = _emailController.text.toString().trim();
+      if (_formKey.currentState.validate()) {
+        BlocProvider.of<ForgotPasswordCubit>(context).sendCodeToEmail(email);
+      }
     }
   }
 
@@ -44,7 +46,8 @@ class SECPasswordPageState extends State<SECPasswordPage> {
             } else if (state is ForgotPasswordLoadedState) {
               Navigator.pop(context);
               Beamer.of(context).beamToNamed(
-                  '/${RouteName.authSECPassword}/${RouteName.generalConfirmationMail}/forgot_password');
+                '/${RouteName.authSECPassword}/${RouteName.authResetPassword}/${_emailController.text}',
+              );
             }
           },
           child: Container(

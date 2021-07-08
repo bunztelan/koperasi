@@ -20,4 +20,18 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       emit(ForgotPasswordErrorState(message: e));
     }
   }
+
+  Future<void> resetForgotPassword(
+      {String password, String passwordToken}) async {
+    try {
+      emit(ForgotPasswordLoadingState());
+      var response = await repository.resetForgotPassword(
+        password: password,
+        passwordToken: passwordToken,
+      );
+      emit(ForgotPasswordUpdatedState());
+    } catch (e) {
+      emit(ForgotPasswordErrorState(message: e));
+    }
+  }
 }

@@ -389,6 +389,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 24),
                           GestureDetector(
+                            onTap: () {
+                              Beamer.of(context).beamToNamed(
+                                  '/${RouteName.userDashboard}/${RouteName.authResetPassword}');
+                            },
+                            child: MenuCard(
+                              'Ubah Kata Sandi',
+                            ),
+                          ),
+                          SizedBox(height: 24),
+                          GestureDetector(
                             onTap: () => _askedToLogoutPicker(context),
                             child: MenuCard('Keluar'),
                           ),

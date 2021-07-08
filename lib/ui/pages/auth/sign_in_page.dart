@@ -140,7 +140,7 @@ class _SignInPageState extends State<SignInPage> {
                     onTap: () => Beamer.of(context)
                         .beamToNamed('/${RouteName.authSECPassword}'),
                     child: Text(
-                      "Lupa password ?",
+                      "Lupa kata sandi ?",
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

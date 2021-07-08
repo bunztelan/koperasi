@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:k2ms_v2/blocs/change_password/cubit/change_password_cubit.dart';
 import 'package:k2ms_v2/blocs/confirmation_email_register/confirmation_email_repository_imp.dart';
 import 'package:k2ms_v2/blocs/confirmation_email_register/cubit/confirmation_email_register_cubit.dart';
 
@@ -8,6 +9,7 @@ import 'blocs/banner/banner_repository_imp.dart';
 import 'blocs/banner/cubit/banner_cubit.dart';
 import 'blocs/category/category_repository_imp.dart';
 import 'blocs/category/cubit/category_cubit.dart';
+import 'blocs/change_password/change_password_repository_imp.dart';
 import 'blocs/checkout/checkout_repository_imp.dart';
 import 'blocs/checkout/cubit/checkout_cubit.dart';
 import 'blocs/forgot_password/cubit/forgot_password_cubit.dart';
@@ -82,6 +84,9 @@ class MyApp extends StatelessWidget {
                   ForgotPasswordCubit(ForgotPasswordRepositoryImp())),
           BlocProvider<CERegisterCubit>(
               create: (context) => CERegisterCubit(CERegisterRepositoryImp())),
+          BlocProvider<ChangePasswordCubit>(
+              create: (context) =>
+                  ChangePasswordCubit(ChangePasswordRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',

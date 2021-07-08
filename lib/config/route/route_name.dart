@@ -10,7 +10,8 @@ class RouteName {
   static const String authSignIn = 'signin';
   static const String authSignUp = 'signup';
   static const String authSECPassword = 'send_email_confirm_password';
-  static const String authResetPassword = 'resetPassword';
+  static const String authResetPassword = 'reset_password';
+  static const String authChangePassword = 'change_password';
 
   static const String userManageAddress = 'manage_address';
   static const String userDashboard = 'dashboard';
