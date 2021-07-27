@@ -48,7 +48,7 @@ class _WebViewPageState extends State<WebViewPage> {
               Padding(
                 padding: EdgeInsets.only(top: 24),
                 child: WebView(
-                  initialUrl: 'https://pub.dev/packages/webview_flutter',
+                  initialUrl: Beamer.of(context).state.data['url'].toString(),
                 ),
               ),
               Container(
