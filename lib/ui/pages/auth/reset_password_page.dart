@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:k2ms_v2/blocs/change_password/cubit/change_password_cubit.dart';
+import 'package:k2ms_v2/blocs/logged_change_password/cubit/logged_change_password_cubit.dart';
 import 'package:k2ms_v2/blocs/token/cubit/token_cubit.dart';
 import 'package:k2ms_v2/blocs/user/cubit/user_cubit.dart';
 import 'package:k2ms_v2/config/color_config.dart';
@@ -39,25 +40,26 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   Future<void> _changePassword() async {
-    if (_formKey.currentState.validate()) {}
-
+    FocusScope.of(context).unfocus();
     LoadingDialog.showLoadingDialog(context, 'Mengganti...');
 
-    BlocProvider.of<ChangePasswordCubit>(context).changePassword(
-      email: context.read<UserCubit>().state.user.email,
-      password: _passwordController.text,
-      authToken: context.read<TokenCubit>().state.token,
-    );
+    if (_formKey.currentState.validate()) {
+      BlocProvider.of<LCPasswordCubit>(context).changePassword(
+        authToken: context.read<TokenCubit>().state.token,
+        newPassword: _passwordController.text,
+        oldPassword: _oldPasswordController.text,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ChangePasswordCubit, ChangePasswordState>(
+    return BlocListener<LCPasswordCubit, LCPasswordState>(
       listener: (context, state) {
-        if (state is ChangePasswordErrorState) {
+        if (state is LCPasswordErrorState) {
           Navigator.pop(context);
           CustomSnackbar.showDangerSnackbar(context, state.message);
-        } else if (state is ChangePasswordLoadedState) {
+        } else if (state is LCPasswordLoadedState) {
           Navigator.pop(context);
           CustomSnackbar.showSuccessSnackbar(
               context, 'Kata sandi anda berhasil diubah.');

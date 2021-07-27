@@ -246,8 +246,7 @@ class _HomePageState extends State<HomePage> {
                 BlocListener<CategoryCubit, CategoryState>(
                   listener: (context, state) {
                     if (state is CategoryLoadedState) {
-                      print(state);
-                      if(state.categories.length > 0 ) {
+                      if (state.categories.length > 0) {
                         {
                           BlocProvider.of<ProductCubit>(context).getProduct(
                               context.read<TokenCubit>().state.token,

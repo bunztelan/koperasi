@@ -52,19 +52,16 @@ class _MapPickerState extends State<MapPicker> {
 
   /// Set current position
   Future<Position> _determinePosition() async {
-    print('request to determine position');
     bool serviceEnabled;
     LocationPermission permission;
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    print('is service enabled ${serviceEnabled}');
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
     }
 
     permission = await Geolocator.checkPermission();
-    print('is service enabled ${permission}');
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {

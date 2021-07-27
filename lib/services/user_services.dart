@@ -424,7 +424,7 @@ class UserServices {
     }
   }
 
-  /// Change password
+  /// Change password before logged (Reset Password)
   static Future<String> changePassword(
       {String email, String password, String authToken}) async {
     var dio = Dio();
@@ -444,8 +444,6 @@ class UserServices {
         ),
       );
 
-      print(response.toString() + email.toString());
-
       if (response.statusCode == 200) {
         return 'Kata sandi anda berhasil diubah.';
       } else {
@@ -453,6 +451,54 @@ class UserServices {
 
         if (response.data['message'] != null) {
           errorMessage = somethingWentWrongMsg;
+
+          throw (errorMessage);
+        } else {
+          throw (somethingWentWrongMsg);
+        }
+      }
+    } on DioError catch (_) {
+      throw (somethingWentWrongMsg);
+    }
+  }
+
+  /// Change password on logged page
+  static Future<String> loggedChangePassword({
+    String authToken,
+    String oldPassword,
+    String newPassword,
+  }) async {
+    var dio = Dio();
+
+    try {
+      var response = await dio.put(
+        '$host_user/change-password',
+        data: {
+          'oldPassword': oldPassword,
+          'newPassword': newPassword,
+        },
+        options: Options(
+          headers: {"Authorization": 'Bearer $authToken'},
+          validateStatus: (status) {
+            return status <= 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return 'Kata sandi anda berhasil diubah.';
+      } else {
+        String errorMessage = somethingWentWrongMsg;
+
+        if (response.data['message'] != null) {
+          switch (response.data['message']) {
+            case 'INVALID_PASSWORD':
+              errorMessage = 'Kata sandi lama tidak sesuai.';
+              break;
+            default:
+              errorMessage = somethingWentWrongMsg;
+              break;
+          }
 
           throw (errorMessage);
         } else {

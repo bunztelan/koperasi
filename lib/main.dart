@@ -1,6 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:k2ms_v2/blocs/logged_change_password/cubit/logged_change_password_cubit.dart';
+import 'package:k2ms_v2/blocs/logged_change_password/logged_change_password_repository_imp.dart';
 import 'blocs/change_password/cubit/change_password_cubit.dart';
 import 'blocs/confirmation_email_register/confirmation_email_repository_imp.dart';
 import 'blocs/confirmation_email_register/cubit/confirmation_email_register_cubit.dart';
@@ -92,6 +94,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<ResendCodeRegisterCubit>(
               create: (context) =>
                   ResendCodeRegisterCubit(ResendCodeRegisterRepositoryImp())),
+          BlocProvider<LCPasswordCubit>(
+              create: (context) => LCPasswordCubit(LCPasswordRepositoryImp())),
         ],
         child: MaterialApp.router(
           title: 'Flutter Demo',
