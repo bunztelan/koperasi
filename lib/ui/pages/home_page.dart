@@ -271,6 +271,7 @@ class _HomePageState extends State<HomePage> {
                   BlocBuilder<CategoryCubit, CategoryState>(
                     builder: (context, state) {
                       if (state is CategoryLoadedState) {
+                        if (_categoryIsEmpty) return Container();
                         return CustomTabbar(
                           spaceEvenly: false,
                           titles: state.categories.map((e) => e.name).toList(),
@@ -315,8 +316,7 @@ class _HomePageState extends State<HomePage> {
                           return Center(
                             child: Container(
                               width: 250,
-                              height:
-                                  MediaQuery.of(context).size.height * 0.4 - 70,
+                              height: MediaQuery.of(context).size.height * 0.4,
                               child: Center(
                                 child: Text(
                                   'Tidak ada produk sama sekali untuk sementara.',
