@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex;
+  bool _categoryIsEmpty = false;
 
   @override
   void initState() {
@@ -247,17 +248,39 @@ class _HomePageState extends State<HomePage> {
                   listener: (context, state) {
                     if (state is CategoryLoadedState) {
                       if (state.categories.length > 0) {
-                        {
-                          BlocProvider.of<ProductCubit>(context).getProduct(
-                              context.read<TokenCubit>().state.token,
-                              state.categories[0].id.toString());
-                        }
+                        setState(() {
+                          _categoryIsEmpty = false;
+                        });
+                        BlocProvider.of<ProductCubit>(context).getProduct(
+                            context.read<TokenCubit>().state.token,
+                            state.categories[0].id.toString());
+                      } else {
+                        setState(() {
+                          _categoryIsEmpty = true;
+                        });
                       }
                     }
                   },
                   child: BlocBuilder<ProductCubit, ProductState>(
                     builder: (context, state) {
-                      if (state is ProductLoadingState ||
+                      if (_categoryIsEmpty) {
+                        return Center(
+                          child: Container(
+                            width: 250,
+                            height:
+                                MediaQuery.of(context).size.height * 0.4 - 70,
+                            child: Center(
+                              child: Text(
+                                  'Tidak ada produk sama sekali untuk sementara.',
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .copyWith(color: AppColor.black30)),
+                            ),
+                          ),
+                        );
+                      } else if (state is ProductLoadingState ||
                           state is ProductInitialState) {
                         return ShimmerItemList();
                       } else if (state is ProductLoadedState) {
@@ -270,7 +293,7 @@ class _HomePageState extends State<HomePage> {
                                   MediaQuery.of(context).size.height * 0.4 - 70,
                               child: Center(
                                 child: Text(
-                                    'Tidak ada produk untuk kategori ini sementara.',
+                                    'Tidak ada produk yang bisa ditampilkan sementara.',
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
