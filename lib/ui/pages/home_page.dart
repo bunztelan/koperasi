@@ -19,10 +19,18 @@ class _HomePageState extends State<HomePage> {
 
     if (context.read<CategoryCubit>().state.categories != null &&
         context.read<CategoryCubit>().state.categories.length > 0) {
+      setState(() {
+        _categoryIsEmpty = false;
+      });
+
       context.read<ProductCubit>().getProduct(
             context.read<TokenCubit>().state.token,
             context.read<CategoryCubit>().state.categories[0].id.toString(),
           );
+    } else {
+      setState(() {
+        _categoryIsEmpty = true;
+      });
     }
 
     super.initState();
@@ -271,12 +279,13 @@ class _HomePageState extends State<HomePage> {
                                 MediaQuery.of(context).size.height * 0.4 - 70,
                             child: Center(
                               child: Text(
-                                  'Tidak ada produk sama sekali untuk sementara.',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      .copyWith(color: AppColor.black30)),
+                                'Tidak ada produk sama sekali untuk sementara.',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .copyWith(color: AppColor.black30),
+                              ),
                             ),
                           ),
                         );
