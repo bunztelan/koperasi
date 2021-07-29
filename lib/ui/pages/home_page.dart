@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                               height: MediaQuery.of(context).size.height * 0.4,
                               child: Center(
                                 child: Text(
-                                  'Tidak ada produk sama sekali untuk sementara.',
+                                  'Tidak ada produk yang bisa ditampilkan untuk sementara.',
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                                         70,
                                 child: Center(
                                   child: Text(
-                                      'Tidak ada produk yang bisa ditampilkan sementara.',
+                                      'Tidak ada produk untuk kategori ini sementara.',
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
