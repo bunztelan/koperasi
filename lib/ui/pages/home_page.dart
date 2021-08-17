@@ -193,6 +193,9 @@ class _HomePageState extends State<HomePage> {
                 if (state is BannerLoadingState) {
                   return ShimmerBanner();
                 } else if (state is BannerLoadedState) {
+                  if (state.banners.length < 1 || state.banners == null) {
+                    return Container();
+                  }
                   return CarouselSlider(
                     options: CarouselOptions(height: 200.0),
                     items: state.banners.map((e) {

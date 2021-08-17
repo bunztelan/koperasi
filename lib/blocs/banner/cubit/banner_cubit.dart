@@ -16,8 +16,14 @@ class BannerCubit extends Cubit<BannerState> {
 
       var response = await repository.getBanner(authToken);
 
+      if (response.length < 1) {
+        List<BannerModel> convertResponse = [];
+        response = convertResponse;
+      }
+
       emit(BannerLoadedState(banners: response));
     } catch (e) {
+      print(e.toString());
       emit(BannerErrorState(message: e));
     }
   }
