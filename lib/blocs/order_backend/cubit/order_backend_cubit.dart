@@ -19,7 +19,7 @@ class OrderBackendCubit extends Cubit<OrderBackendState> {
 
       var response = await repository.getOrderBackend(authToken, statusOrder);
 
-      if (response.length > 0) {
+      if (response != null && response.length > 0) {
         orders = response;
       }
 
