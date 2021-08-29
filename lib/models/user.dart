@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class User {
   int id;
   int roleId;
@@ -17,26 +19,37 @@ class User {
   String updatedAt;
   String deletedAt;
   String role;
+  String address;
+  double latitude;
+  double longitude;
+  int addressId;
+  String addressDesc;
 
-  User(
-      {this.id,
-        this.roleId,
-        this.name,
-        this.email,
-        this.status,
-        this.nip,
-        this.plantId,
-        this.teamId,
-        this.avatar,
-        this.maritalStatus,
-        this.forgotToken,
-        this.emailConfirmToken,
-        this.phoneNumber,
-        this.emailVerifiedAt,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.role});
+  User({
+    this.id,
+    this.roleId,
+    this.name,
+    this.email,
+    this.status,
+    this.nip,
+    this.plantId,
+    this.teamId,
+    this.avatar,
+    this.maritalStatus,
+    this.forgotToken,
+    this.emailConfirmToken,
+    this.phoneNumber,
+    this.emailVerifiedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.role,
+    this.address,
+    this.latitude,
+    this.longitude,
+    this.addressId,
+    this.addressDesc,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -57,6 +70,11 @@ class User {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     role = json['role'];
+    address = jsonDecode(jsonEncode(json['address']))['street'];
+    latitude = jsonDecode(jsonEncode(json['address']))['latitude'];
+    longitude = jsonDecode(jsonEncode(json['address']))['longitude'];
+    addressId = jsonDecode(jsonEncode(json['address']))['id'];
+    addressDesc = jsonDecode(jsonEncode(json['address']))['description'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,5 +98,15 @@ class User {
     data['deleted_at'] = this.deletedAt;
     data['role'] = this.role;
     return data;
+  }
+
+  /// Set photo profile
+  void setAvatar(String avatar) {
+    this.avatar = avatar;
+  }
+
+  /// Set user id
+  void setUserId(int id) {
+    this.id = id;
   }
 }

@@ -30,7 +30,7 @@ class ProductListItem extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width:24),
+            SizedBox(width: 24),
             Expanded(
               child: Text(
                 product.name,
