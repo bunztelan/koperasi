@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "253615913284",
-    "project_id": "koperasi-b8fc5",
-    "storage_bucket": "koperasi-b8fc5.appspot.com"
+    "project_number": "13476258885",
+    "project_id": "k2ms-57f71",
+    "storage_bucket": "k2ms-57f71.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:253615913284:android:1cad40a55d85b2ccf73f11",
+        "mobilesdk_app_id": "1:13476258885:android:e326442d7180e0c487ef2c",
         "android_client_info": {
           "package_name": "com.k2ms_v2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "253615913284-635o2t9tcdvlg0mnuch6g9ergtli24l6.apps.googleusercontent.com",
+          "client_id": "13476258885-ad4oqsnuv4ninrgjmmir1lh994agkjag.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAoAfp5hKAKFHBMlfIM0eBOnTeZQbgIMXw"
+          "current_key": "AIzaSyB8KArsOyFrYCP_aoa1RB-m2xw-SlY6w1k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "253615913284-635o2t9tcdvlg0mnuch6g9ergtli24l6.apps.googleusercontent.com",
+              "client_id": "13476258885-ad4oqsnuv4ninrgjmmir1lh994agkjag.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
