@@ -28,12 +28,12 @@ class OrderServices {
           },
         ),
       );
-
+      log('server response : $response');
       if (response.statusCode == 200) {
         return ApiReturnValue(value: 'Sukses', message: 'Sukses');
       } else {
         String errorMessage = somethingWentWrongMsg;
-
+        log("error : $errorMessage");
         if (response.data['message'] != null) {
           switch (response.data['message'].toString()) {
             case 'INSUFFICIENT_QUOTA':

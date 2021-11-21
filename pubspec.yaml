@@ -75,7 +75,7 @@ dependencies:
   # Firebase core
   firebase_core: ^1.2.0
   # Frebase messaging
-  firebase_messaging: ^10.0.0
+  firebase_messaging: 10.0.0
   # Geolocator
   geolocator: ^7.3.1
   # QR Code

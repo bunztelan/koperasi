@@ -41,6 +41,7 @@ class CustomTabbar extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  log('onTap column');
                                   if (onTap != null) {
                                     onTap(titles.indexOf(e));
                                   }

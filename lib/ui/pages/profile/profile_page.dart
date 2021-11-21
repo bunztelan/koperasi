@@ -347,6 +347,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: AppColor.black30,
                                     ),
                           ),
+                          SizedBox(height: 5),
+                          Text(
+                            "${state.user.plantId}",
+                            style:
+                            Theme.of(context).textTheme.bodyText2.copyWith(
+                              color: AppColor.black30,
+                            ),
+                          ),
                         ],
                       ),
                     ),

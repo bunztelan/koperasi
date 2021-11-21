@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
               create: (context) => LCPasswordCubit(LCPasswordRepositoryImp())),
         ],
         child: MaterialApp.router(
-          title: 'Flutter Demo',
+          title: 'K2MS',
           theme: defaultStyleConfig,
           routeInformationParser: BeamerParser(),
           routerDelegate: _routerDelegate,

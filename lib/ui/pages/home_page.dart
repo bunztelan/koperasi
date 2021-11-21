@@ -274,7 +274,9 @@ class _HomePageState extends State<HomePage> {
                   BlocBuilder<CategoryCubit, CategoryState>(
                     builder: (context, state) {
                       if (state is CategoryLoadedState) {
-                        if (_categoryIsEmpty) return Container();
+                        if (_categoryIsEmpty) return Container(
+                          color:Colors.red,
+                        );
                         return CustomTabbar(
                           spaceEvenly: false,
                           titles: state.categories.map((e) => e.name).toList(),
@@ -390,7 +392,11 @@ class _HomePageState extends State<HomePage> {
                             ).toList(),
                           );
                         }
-                        return Container();
+                        return Container(
+                          height:
+                          MediaQuery.of(context).size.height * 0.4 -
+                              70,
+                        );
                       },
                     ),
                   ),

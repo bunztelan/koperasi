@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:k2ms_v2/blocs/checkout/checkout_repository.dart';
@@ -16,6 +18,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     String method,
     String note,
   }) async {
+    log('checking out order...');
     try {
       emit(CheckoutLoadingState());
 
