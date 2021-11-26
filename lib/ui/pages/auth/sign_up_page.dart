@@ -343,14 +343,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           SizedBox(height: 16),
-                          Text("NIP",
+                          Text("NPK",
                               style: Theme.of(context).textTheme.bodyText1),
                           SizedBox(height: 6),
                           TextFormField(
                             controller: _nipController,
                             validator: (val) {
                               if (val.trim().isEmpty) {
-                                return 'NIP tidak boleh kosong';
+                                return 'NPK tidak boleh kosong';
                               }
                               return null;
                             },

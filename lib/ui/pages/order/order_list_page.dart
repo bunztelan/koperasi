@@ -493,10 +493,12 @@ class CompletedTab extends StatelessWidget {
         } else if (state is OrderBackendLoadedState) {
           List<OrderedItem> proccessList = state.orders;
 
-          proccessList.removeWhere((e) =>
-              e.status != 'COMPLETED' ||
-              e.status != 'CANCELLED' ||
-              e.status != 'REJECTED');
+          proccessList.removeWhere(
+            (e) =>
+                e.status != 'COMPLETED' &&
+                e.status != 'CANCELLED' &&
+                e.status != 'REJECTED',
+          );
 
           if (proccessList.length < 1 || proccessList == null) {
             return Padding(

@@ -26,15 +26,17 @@ class _MapPickerState extends State<MapPicker> {
   Future<bool> _initData() async {
     _current = await _determinePosition();
 
-    setState(() {
-      _kGooglePlex = CameraPosition(
-        target: LatLng(
-          _current.latitude.toDouble(),
-          _current.longitude.toDouble(),
-        ),
-        zoom: 14.4746,
-      );
-    });
+    if (mounted) {
+      setState(() {
+        _kGooglePlex = CameraPosition(
+          target: LatLng(
+            _current.latitude.toDouble(),
+            _current.longitude.toDouble(),
+          ),
+          zoom: 14.4746,
+        );
+      });
+    }
 
     widget.onLatLongChange(
       _current.latitude.toString(),
