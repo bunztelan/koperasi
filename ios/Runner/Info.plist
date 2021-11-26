@@ -41,5 +41,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We are using this data to get your address location for delivery.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>We are using this data to get your address location for delivery.</string>
+    <key>NSLocationUsageDescription</key>
+    <string>We are using this data to get your address location for delivery.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We are using this data to get your address location for delivery.</string>
 </dict>
 </plist>
