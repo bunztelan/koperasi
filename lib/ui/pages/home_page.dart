@@ -146,7 +146,12 @@ class _HomePageState extends State<HomePage> {
                                                   .state
                                                   .user
                                                   .avatar ==
-                                              'null'
+                                              'null' ||
+                                          context
+                                                  .read<UserCubit>()
+                                                  .state
+                                                  .user ==
+                                              null
                                       ? AssetImage(
                                           'assets/default_avatar.png',
                                         )
@@ -274,9 +279,10 @@ class _HomePageState extends State<HomePage> {
                   BlocBuilder<CategoryCubit, CategoryState>(
                     builder: (context, state) {
                       if (state is CategoryLoadedState) {
-                        if (_categoryIsEmpty) return Container(
-                          color:Colors.red,
-                        );
+                        if (_categoryIsEmpty)
+                          return Container(
+                            color: Colors.red,
+                          );
                         return CustomTabbar(
                           spaceEvenly: false,
                           titles: state.categories.map((e) => e.name).toList(),
@@ -393,9 +399,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         }
                         return Container(
-                          height:
-                          MediaQuery.of(context).size.height * 0.4 -
-                              70,
+                          height: MediaQuery.of(context).size.height * 0.4 - 70,
                         );
                       },
                     ),

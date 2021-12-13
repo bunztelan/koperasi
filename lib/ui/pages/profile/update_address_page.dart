@@ -19,13 +19,15 @@ class UpdateAddressPageState extends State<UpdateAddressPage> {
     _telpController.text =
         BlocProvider.of<UserCubit>(context).state.user.phoneNumber;
     _addressController.text =
-        BlocProvider.of<UserCubit>(context).state.user.address;
+        BlocProvider.of<UserCubit>(context).state.user.address!='null'?
+        BlocProvider.of<UserCubit>(context).state.user.address:'';
     latitude =
         BlocProvider.of<UserCubit>(context).state.user.latitude.toString();
     longitude =
         BlocProvider.of<UserCubit>(context).state.user.longitude.toString();
 
     super.initState();
+    logger.log(' testing update address page : ' + _addressController.text);
   }
 
   @override
@@ -145,7 +147,7 @@ class UpdateAddressPageState extends State<UpdateAddressPage> {
                             if (val.trim().isEmpty) {
                               return 'Alamat tidak boleh kosong';
                             }
-                            return null;
+                            return (val != null) ? 'Do not use the @ char.' : null;
                           },
                           style: GoogleFonts.poppins(fontSize: 14),
                           decoration: InputDecoration(

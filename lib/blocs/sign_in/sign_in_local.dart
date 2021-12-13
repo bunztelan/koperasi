@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:k2ms_v2/models/order.dart';
 import 'package:k2ms_v2/models/user.dart';
@@ -8,7 +9,7 @@ class LocalData {
   /// Set user data to local storage
   static void setUserLocalData(User user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    log('set user local data ${user.latitude}');
     prefs.setString('id', user.id.toString());
     prefs.setString('nip', user.nip.toString());
     prefs.setString('name', user.name.toString());
@@ -23,9 +24,9 @@ class LocalData {
     prefs.setString('status', user.status.toString());
     prefs.setString('teamId', user.teamId.toString());
     prefs.setString('address', user.address.toString());
-    prefs.setString('latitude', user.latitude.toString());
-    prefs.setString('longitude', user.longitude.toString());
-    prefs.setString('addressId', user.addressId.toString());
+    prefs.setString('latitude', user.latitude != null? user.latitude.toString():'0.0');
+    prefs.setString('longitude', user.longitude != null? user.longitude.toString():'0.0');
+    prefs.setString('addressId', user.addressId !=null? user.addressId.toString():'-1');
     prefs.setString('addressDesc', user.addressDesc.toString());
   }
 
@@ -56,6 +57,7 @@ class LocalData {
       );
       return user;
     } catch (e) {
+      log('error get user local data : ${e}');
       return null;
     }
   }

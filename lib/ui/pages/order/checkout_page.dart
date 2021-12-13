@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,13 +50,48 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   void _checkout() {
-    LoadingDialog.showLoadingDialog(context, 'Memesan...');
-    BlocProvider.of<CheckoutCubit>(context).checkout(
-      authToken: context.read<TokenCubit>().state.token,
-      method: _method == MethodStatus.DELIVERY ? 'delivery' : 'pickup',
-      note: _noteController.text,
-      orders: BlocProvider.of<OrderCubit>(context).orders,
-    );
+    if(_method == MethodStatus.DELIVERY && context.read<UserCubit>().state.user.address == 'null'){
+      log('not eligible');
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Alamat Tidak Ditemukan',style: TextStyle(fontSize: 14),),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Data alamat tidak ditemukan',style: TextStyle(fontWeight:FontWeight.normal,fontSize: 12),),
+                  Text('Tambahkan data alamat melalui menu profile > Ubah Alamat ',style: TextStyle(fontWeight:FontWeight.normal,fontSize: 12),),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Tutup'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      // AlertDialog(context, 'Alamat pengiriman belum ditambahkan, harap tambahkan alamat anda pada menu profile');
+    }else {
+      LoadingDialog.showLoadingDialog(context, 'Memesan...');
+      BlocProvider.of<CheckoutCubit>(context).checkout(
+        authToken: context
+            .read<TokenCubit>()
+            .state
+            .token,
+        method: _method == MethodStatus.DELIVERY ? 'delivery' : 'pickup',
+        note: _noteController.text,
+        orders: BlocProvider
+            .of<OrderCubit>(context)
+            .orders,
+      );
+    }
   }
 
   @override
@@ -332,7 +369,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 160,
-                            child: Text(
+                            child: (context.read<UserCubit>().state.user.address != 'null')?Text(
                               context.read<UserCubit>().state.user.address +
                                   context
                                       .read<UserCubit>()
@@ -346,6 +383,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   .copyWith(
                                     color: AppColor.textPrimaryColor,
                                   ),
+                            ):Text(
+                              'Alamat belum ditambahkan',
+                              textAlign: TextAlign.right,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                color: AppColor.textPrimaryColor,
+                              ),
                             ),
                           ),
                         ],
