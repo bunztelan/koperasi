@@ -53,21 +53,54 @@ dependencies:
   cached_network_image: ^3.0.0
   #image picker
   image_picker: ^0.7.5
+  #image cropper
+  image_cropper: ^1.4.0
   #Font by google
   google_fonts: ^2.0.0
   # all good things of kotlin
   supercharged: ^2.0.0
   # Loading indicators
   flutter_spinkit: ^4.1.2
+  #intl
+  intl: ^0.17.0
   # Google Maps
   google_maps_flutter: ^2.0.3
+  # Navigator 2.0 lib
+  beamer: ^0.13.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  # Dotted border
+  dotted_border: ^2.0.0
+  # Firebase core
+  firebase_core: ^1.2.0
+  # Frebase messaging
+  firebase_messaging: 10.0.0
+  # Geolocator
+  geolocator: ^7.3.1
+  # QR Code
+  qr_flutter: ^4.0.0
+  # Open mail
+  open_mail_app: ^0.1.1
+  # Http parser
+  http_parser: ^4.0.0
+  # Feather icons
+  flutter_feather_icons: ^2.0.0+1
+  # Flutter launcher icon generator
+  flutter_launcher_icons: ^0.9.0
+  # Webview
+  webview_flutter: ^2.0.9
+  # Shimmer effect
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/k2ms_logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

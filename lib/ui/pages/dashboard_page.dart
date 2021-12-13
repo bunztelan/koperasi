@@ -14,50 +14,71 @@ class _DashboardPageState extends State<DashboardPage> {
   PageController controller = PageController(initialPage: 0);
 
   @override
+  void initState() {
+    BlocProvider.of<TokenCubit>(context).getTokenLocalData();
+
+    BlocProvider.of<UserCubit>(context).getUserLocalData();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: CustomBottomNav(
+        selectedIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+          controller.jumpToPage(selectedIndex);
+        },
+      ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            Container(color: Colors.white),
-            SafeArea(
+        child: BlocListener<TokenCubit, TokenState>(
+          listener: (context, state) {
+            if (state is TokenLoadedState) {
+              BlocProvider.of<CategoryCubit>(context).getCategory(state.token);
+              BlocProvider.of<BannerCubit>(context).getBanner(state.token);
+            }
+          },
+          child: Stack(
+            children: [
+              Container(color: Colors.white),
+              SafeArea(
                 child: Container(
-              color: 'FAFAFC'.toColor(),
-            )),
-            SafeArea(
-              child: PageView(
-                controller: controller,
-                onPageChanged: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                children: [
-                  Center(
-                    child: HomePage(),
-                  ),
-                  Center(
-                    child: Text("order area"),
-                  ),
-                  Center(
-                    child: Text("profile area"),
-                  ),
-                ],
+                  color: 'FAFAFC'.toColor(),
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: CustomBottomNav(
-                selectedIndex: selectedIndex,
-                onTap: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                  controller.jumpToPage(selectedIndex);
-                },
+              SafeArea(
+                child: PageView(
+                  controller: controller,
+                  onPageChanged: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  children: [
+                    Center(
+                      child: HomePage(),
+                    ),
+                    Center(
+                      child: Builder(
+                        builder: (context) {
+                          return OrderListPage();
+                        },
+                      ),
+                    ),
+                    Center(child: Builder(
+                      builder: (context) {
+                        return ProfilePage();
+                      },
+                    )),
+                  ],
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

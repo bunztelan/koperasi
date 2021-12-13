@@ -6,6 +6,7 @@ class GeneralPage extends StatelessWidget {
   final Function onBackPressed;
   final Widget child;
   final Color backColor;
+  final double headerHeight;
 
   GeneralPage({
     this.title = "Title",
@@ -13,6 +14,7 @@ class GeneralPage extends StatelessWidget {
     this.onBackPressed,
     this.child,
     this.backColor,
+    this.headerHeight,
   });
 
   @override
@@ -31,7 +33,7 @@ class GeneralPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   margin: EdgeInsets.only(bottom: 24),
                   width: double.infinity,
-                  height: 100,
+                  height: headerHeight??100,
                   color: Colors.white,
                   child: Row(
                     children: [
