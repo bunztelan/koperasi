@@ -45,6 +45,9 @@ class OrderServices {
 
               errorMessage = 'Quota anda habis untuk (${blackList.join(',')})';
               break;
+            case 'UNABLE_ORDER_PACKAGE_PRODUCT':
+              errorMessage = 'Kuota untuk pembelian Paket bulan ini telah habis';
+              break;
             default:
               errorMessage = errorMessage;
               break;
