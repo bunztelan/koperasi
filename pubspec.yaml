@@ -77,7 +77,7 @@ dependencies:
   # Frebase messaging
   firebase_messaging: 10.0.0
   # Geolocator
-  geolocator: ^7.3.1
+  geolocator: ^8.0.0
   # QR Code
   qr_flutter: ^4.0.0
   # Open mail
