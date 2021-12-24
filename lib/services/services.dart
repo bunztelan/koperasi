@@ -27,6 +27,6 @@ const host_plant = 'https://api.kopkardenso.id/plant';
 const host_product = 'https://api.kopkardenso.id/product';
 const host_order = 'https://api.kopkardenso.id/orders';
 const host_user = 'https://api.kopkardenso.id/user';
-const host_address = 'https://dapi.kopkardenso.id/address';
+const host_address = 'https://api.kopkardenso.id/address';
 const host_file = 'https://api.kopkardenso.id/file';
 const host_banner = 'https://api.kopkardenso.id/banner';

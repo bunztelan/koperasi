@@ -40,6 +40,7 @@ class UpdateAddressPageState extends State<UpdateAddressPage> {
     LoadingDialog.showLoadingDialog(context, 'Menunggu...');
 
     if (!_formKey.currentState.validate()) {
+      Navigator.pop(context);
       return;
     }
 
@@ -147,13 +148,15 @@ class UpdateAddressPageState extends State<UpdateAddressPage> {
                             if (val.trim().isEmpty) {
                               return 'Alamat tidak boleh kosong';
                             }
-                            return (val != null) ? 'Do not use the @ char.' : null;
+                            logger.log("error: "+val);
+                            return null;
                           },
                           style: GoogleFonts.poppins(fontSize: 14),
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                               vertical: 18,
                               horizontal: 12,
+
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),

@@ -318,21 +318,18 @@ class UserServices {
           },
         ),
       );
-
       if (response.statusCode == 200) {
         return ApiReturnValue(message: 'Alamat anda berhasil diperbaruhi.');
       } else {
         String errorMessage = somethingWentWrongMsg;
-
         if (response.data['message'] != null) {
           errorMessage = somethingWentWrongMsg;
-
           throw (errorMessage);
         } else {
           throw (somethingWentWrongMsg);
         }
       }
-    } on DioError catch (_) {
+    } on DioError catch (error) {
       throw (somethingWentWrongMsg);
     }
   }
